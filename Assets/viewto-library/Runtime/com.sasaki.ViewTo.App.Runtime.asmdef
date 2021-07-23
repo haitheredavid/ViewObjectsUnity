@@ -1,0 +1,20 @@
+{
+    "name": "com.sasaki.ViewTo.App.Runtime",
+    "rootNamespace": "ViewTo.Connector.Unity",
+    "references": [
+        "GUID:464279739bbe1bf49b1ce1c8e4f46017"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
