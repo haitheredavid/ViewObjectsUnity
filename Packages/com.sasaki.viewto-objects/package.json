@@ -1,13 +1,13 @@
 {
   "name": "com.sasaki.viewto.objects",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "displayName": "viewto objects",
   "description": "ViewObjects for Unity",
   "unity": "2020.3",
   "dependencies": {
     "jp.keijiro.pcx": "1.0.1"
- },
- "keywords": [
+  },
+  "keywords": [
     "Analysis",
     "Design",
     "GPU"
