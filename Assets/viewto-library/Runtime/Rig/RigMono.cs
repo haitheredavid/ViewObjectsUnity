@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.Objects;
@@ -7,17 +6,7 @@ using ViewTo.Structure;
 namespace ViewTo.Connector.Unity
 {
 
-  [Serializable]
-  public class CloudShell
-  {
-    public int count;
-    public string id;
-
-    [HideInInspector] public string[] meta;
-    [HideInInspector] public Vector3[] points;
-  }
-
-  public class Rig : ViewObjBehaviour<RigObj>
+  public class RigMono : ViewObjBehaviour<RigObj>
   {
 
     [Header("|| Params ||")]
@@ -40,11 +29,5 @@ namespace ViewTo.Connector.Unity
                      {id = cloud.Key, count = cloud.Value.Length, points = cloud.Value.ToUnity()});
 
     }
-
-    private void BuildRig()
-    {
-      Debug.Log("Build Rig Call - Not Set");
-    }
-
   }
 }

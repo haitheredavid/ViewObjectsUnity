@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using HaiThere.Utilities;
 using UnityEngine;
 using ViewTo.Objects;
+using ViewTo.Structure;
 
 namespace ViewTo.Connector.Unity
 {
@@ -9,14 +11,18 @@ namespace ViewTo.Connector.Unity
   public class ViewerBundleMono : ViewObjBehaviour<ViewerBundle>
   {
 
-    [SerializeField] private List<ViewerComponent> _viewers;
+    [SerializeField] private bool global;
     [SerializeField] private Texture2D colorStrip;
     [SerializeField] private List<string> clouds;
-    [SerializeField] private bool global;
     [SerializeField] private List<Color32> colors;
 
-    public List<MetaShell> LinkedShell { get; private set; }
-    public int ViewerCount { get; private set; }
+    public bool hasLinks => linkedShell != null && linkedShell.Count != 0;
+    public List<MetaShell> linkedShell { get; private set; }
+
+    public int viewerCount { get; private set; }
+    public List<ViewerMono> viewers { get; set; }
+
+    public List<ViewerLayout> layouts => viewObj?.layouts;
 
     public bool IsGlobal
     {
@@ -27,23 +33,11 @@ namespace ViewTo.Connector.Unity
     protected override void ImportValidObj()
     {
       gameObject.name = viewObj.TypeName();
-      ViewerCount = viewObj.layouts.Count;
+      viewerCount = 0;
+      foreach (var l in layouts) viewerCount += l.viewers.Count;
+
       if (viewObj is ViewerBundleLinked linked && linked.linkedClouds.Valid())
-        LinkedShell = linked.linkedClouds;
-
-      _viewers = new List<ViewerComponent>();
-      foreach (var layout in viewObj.layouts)
-      {
-        var prefab = new GameObject().AddComponent<ViewerComponent>();
-        foreach (var viewer in layout.viewers)
-        {
-          var vc = Instantiate(prefab, transform);
-          vc.name = name + viewer.Direction.TypeName();
-          vc.Setup(viewer, colorStrip);
-
-        }
-
-      }
+        linkedShell = linked.linkedClouds;
 
 
     }

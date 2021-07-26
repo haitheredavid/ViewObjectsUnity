@@ -1,8 +1,8 @@
 {
-    "name": "com.sasaki.ViewTo.App.Runtime",
+    "name": "com.sasaki.viewto.app",
     "rootNamespace": "ViewTo.Connector.Unity",
     "references": [
-        "GUID:464279739bbe1bf49b1ce1c8e4f46017"
+        "GUID:dae77595a93198e48bd0e45f01fdf715"
     ],
     "includePlatforms": [
         "Editor",

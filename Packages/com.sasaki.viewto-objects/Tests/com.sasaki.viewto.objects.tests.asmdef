@@ -1,11 +1,10 @@
 {
-    "name": "Runtime",
+    "name": "com.sasaki.viewto.objects.tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "com.sasaki.ViewTo.Behaviours",
-        "com.sasaki.ViewTo.App.Runtime"
+        "com.sasaki.viewto.objects.mono"
     ],
     "includePlatforms": [
         "Editor",
@@ -18,7 +17,7 @@
     "precompiledReferences": [
         "nunit.framework.dll",
         "ViewObjects.dll",
-        "ViewToLibrary.dll"
+        "ViewStructure.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

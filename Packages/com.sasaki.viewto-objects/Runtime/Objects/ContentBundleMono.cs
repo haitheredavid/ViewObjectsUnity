@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using HaiThere.Utilities;
@@ -16,14 +15,11 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private List<BlockerContentMono> Blockers;
     [SerializeField] private List<DesignContentMono> Designs;
 
-    public bool IsReady { get; private set; }
-    public event Action<bool> SetupEvent;
-
-    public IEnumerable<IViewContentMono> Contents
+    public IEnumerable<ViewContentMono> Contents
     {
       get
       {
-        var items = new List<IViewContentMono>();
+        var items = new List<ViewContentMono>();
         if (Targets != null) items.AddRange(Targets);
         if (Blockers != null) items.AddRange(Blockers);
         if (Designs != null) items.AddRange(Designs);
@@ -31,9 +27,8 @@ namespace ViewTo.Connector.Unity
       }
     }
 
-    public void SetContent<TContentMono, TContent>(TContentMono content) 
-      where TContent : ViewContent
-      where TContentMono : ViewContentMono<TContent>
+    public void SetContent<TContentMono>(TContentMono content) 
+      where TContentMono : ViewContentMono
     {
       switch (content)
       {
@@ -55,30 +50,23 @@ namespace ViewTo.Connector.Unity
       }
 
     }
-
-    public void PrepAllContent(Material material = null)
+    protected override void ImportValidObj()
     {
-      if (material == null)
-      {
-        Debug.Log("Material is missing for view content prep, using default unlit");
-        material = new Material(Shader.Find("Unlit/Color"));
-      }
+      PurgeAllContent();
+      if (viewObj.targets != null) Targets = AddToScene<TargetContentMono>(viewObj.targets);
+      if (viewObj.blockers != null) Blockers = AddToScene<BlockerContentMono>(viewObj.blockers);
+      if (viewObj.designs != null) Designs = AddToScene<DesignContentMono>(viewObj.designs);
 
-      Debug.Log($"Prepping Case: {Contents.Count()} ");
-      foreach (var c in Contents)
-      {
-        c.PrepContentMeshes(material);
-      }
-
-      SetupEvent?.Invoke(true);
     }
 
-    public void PurgeAllContent()
+ 
+
+    private void PurgeAllContent()
     {
       var c = Contents.ToArray();
       if (c.Valid())
         for (int i = c.Length - 1; i > 0; i--)
-          c[i].DestroySelf();
+          Destroy(c[i]);
 
       Targets = new List<TargetContentMono>();
       Blockers = new List<BlockerContentMono>();
@@ -86,31 +74,11 @@ namespace ViewTo.Connector.Unity
 
     }
 
-    protected override void ImportValidObj()
-    {
-      PurgeAllContent();
-      if (viewObj.Targets != null) Targets = AddToScene<TargetContentMono>(viewObj.Targets);
-      if (viewObj.Blockers != null) Blockers = AddToScene<BlockerContentMono>(viewObj.Blockers);
-      if (viewObj.Designs != null) Designs = AddToScene<DesignContentMono>(viewObj.Designs);
-    }
-
     private List<TShell> AddToScene<TShell>(IEnumerable<ViewContent> objs) where TShell : ViewObjBehaviour
-      => objs.Select(o => ComponentMil.Build<TShell>(o)).Where(item => item != null).ToList();
+      => objs.Select(o => o.ToUnity<TShell>()).Where(item => item != null).ToList();
 
-    private void Awake()
-    {
-      SetComponentElements();
-    }
 
-    private void SetComponentElements()
-    {
-      SetupEvent += b =>
-      {
-        {
-          IsReady = b;
-        }
-      };
-    }
 
+  
   }
 }

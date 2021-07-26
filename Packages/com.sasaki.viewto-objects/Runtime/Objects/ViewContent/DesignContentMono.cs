@@ -8,21 +8,13 @@ namespace ViewTo.Connector.Unity
 
     [SerializeField] private string viewName;
 
-    protected override void ImportValidObj()
+    protected override void ImportValidObj(DesignContent content)
     {
-      base.ImportValidObj();
-      viewName = viewObj.viewName;
-
+      base.ImportValidObj(content);
+      viewName = content.viewName;
     }
 
-    public bool DisplayMeshes
-    {
-      set
-      {
-        Debug.Log($"Setting {viewName} visibility to {value}");
-        gameObject.SetMeshVisibilityRecursive(value);
-      }
-    }
+  
 
   }
 }
