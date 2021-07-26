@@ -18,8 +18,7 @@ namespace ViewTo.Connector.Unity
       viewName = content.viewName;
       bundles = content.bundles;
       isolate = content.isolate;
-      
-    }
 
+    }
   }
 }

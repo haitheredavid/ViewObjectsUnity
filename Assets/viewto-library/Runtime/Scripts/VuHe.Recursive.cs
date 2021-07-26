@@ -2,7 +2,7 @@
 
 namespace ViewTo.Connector.Unity
 {
-  public static partial class VuHe
+  public static class VuHe
   {
     public static void SetMeshVisibilityRecursive(this GameObject obj, bool status)
     {
@@ -10,20 +10,14 @@ namespace ViewTo.Connector.Unity
       if (mr != null)
         mr.enabled = status;
 
-      foreach (Transform child in obj.transform)
-      {
-        child.gameObject.SetMeshVisibilityRecursive( status);
-      }
+      foreach (Transform child in obj.transform) child.gameObject.SetMeshVisibilityRecursive(status);
     }
-    
+
     public static void SetLayerRecursively(this GameObject obj, int layer)
     {
       obj.layer = layer;
 
-      foreach (Transform child in obj.transform)
-      {
-        child.gameObject.SetLayerRecursively(layer);
-      }
+      foreach (Transform child in obj.transform) child.gameObject.SetLayerRecursively(layer);
     }
   }
 }

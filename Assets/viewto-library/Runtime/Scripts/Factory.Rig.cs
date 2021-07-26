@@ -1,9 +1,6 @@
-using UnityEngine;
-
 namespace ViewTo.Connector.Unity
 {
-  
-  
+
   public static partial class ViewFactory
   {
     // public static RigMono BuildRig( this ViewStudyMono studyMono )
@@ -13,6 +10,5 @@ namespace ViewTo.Connector.Unity
     //
     //     return null;
     //   }
-    
   }
 }

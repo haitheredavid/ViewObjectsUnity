@@ -8,8 +8,6 @@ namespace ViewTo.Connector.Unity
   public abstract class ViewObjBehaviour : MonoBehaviour
   {
     public abstract void TryImport(ViewObj obj);
-
-
   }
 
   public abstract class ViewObjBehaviour<TObj> : ViewObjBehaviour where TObj : ViewObj
@@ -17,7 +15,6 @@ namespace ViewTo.Connector.Unity
 
     public TObj viewObj { get; protected set; }
     public bool hasViewObj => viewObj != null;
-    
 
     protected abstract void ImportValidObj();
 

@@ -13,8 +13,5 @@ namespace ViewTo.Connector.Unity
       base.ImportValidObj(content);
       viewName = content.viewName;
     }
-
-  
-
   }
 }

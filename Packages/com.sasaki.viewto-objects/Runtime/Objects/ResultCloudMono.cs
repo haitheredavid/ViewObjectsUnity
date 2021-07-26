@@ -8,6 +8,5 @@ namespace ViewTo.Connector.Unity
   {
 
     public List<PixelData> data { get; set; }
-
   }
 }

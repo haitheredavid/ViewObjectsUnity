@@ -3,7 +3,6 @@ using System.Linq;
 using HaiThere.Utilities;
 using UnityEngine;
 using ViewTo.Objects;
-using ViewTo.Structure;
 
 namespace ViewTo.Connector.Unity
 {
@@ -27,7 +26,7 @@ namespace ViewTo.Connector.Unity
       }
     }
 
-    public void SetContent<TContentMono>(TContentMono content) 
+    public void SetContent<TContentMono>(TContentMono content)
       where TContentMono : ViewContentMono
     {
       switch (content)
@@ -59,13 +58,11 @@ namespace ViewTo.Connector.Unity
 
     }
 
- 
-
     private void PurgeAllContent()
     {
       var c = Contents.ToArray();
       if (c.Valid())
-        for (int i = c.Length - 1; i > 0; i--)
+        for (var i = c.Length - 1; i > 0; i--)
           Destroy(c[i]);
 
       Targets = new List<TargetContentMono>();
@@ -76,9 +73,5 @@ namespace ViewTo.Connector.Unity
 
     private List<TShell> AddToScene<TShell>(IEnumerable<ViewContent> objs) where TShell : ViewObjBehaviour
       => objs.Select(o => o.ToUnity<TShell>()).Where(item => item != null).ToList();
-
-
-
-  
   }
 }

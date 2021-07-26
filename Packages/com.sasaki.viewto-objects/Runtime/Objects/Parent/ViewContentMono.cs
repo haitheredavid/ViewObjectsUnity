@@ -12,10 +12,7 @@ namespace ViewTo.Connector.Unity
     [ReadOnly] [SerializeField] protected int viewColorID;
     [ReadOnly] [SerializeField] protected int maskMask;
 
-    public int ContentMask
-    {
-      get => maskMask;
-    }
+    public int ContentMask => maskMask;
 
     public ViewColor ViewColor
     {
@@ -44,17 +41,13 @@ namespace ViewTo.Connector.Unity
       ViewColor = viewObj.viewColor;
     }
 
-    private static int MaskByType(ViewContent t)
+    private static int MaskByType(ViewContent t) => t switch
     {
-      return t switch
-      {
-        DesignContent _ => 6,
-        TargetContent _ => 7,
-        BlockerContent _ => 8,
-        _ => 0
-      };
-    }
-
+      DesignContent _ => 6,
+      TargetContent _ => 7,
+      BlockerContent _ => 8,
+      _ => 0
+    };
   }
 
 }

@@ -15,7 +15,7 @@ public class ViewObjToMono_Test
   public void To_ViewCloud(bool isValid)
   {
     var pts = new CloudPoint[100];
-    for (int i = 0; i < pts.Length; i++)
+    for (var i = 0; i < pts.Length; i++)
       pts[i] = new CloudPoint(RV, RV, RV) {meta = "Floor1"};
 
     var o = new ViewCloud
@@ -38,7 +38,7 @@ public class ViewObjToMono_Test
     var mono = o.ToUnity();
     Assert.True(mono.hasViewObj == isValid);
   }
-  
+
   [TestCase(true)]
   [TestCase(false)]
   public void To_ViewerBundle(bool isValid)
@@ -67,7 +67,7 @@ public class ViewObjToMono_Test
   public void To_ViewerLinkedBundle(bool isValid)
   {
 
-    var o = isValid ? new ViewerBundleLinked()
+    var o = isValid ? new ViewerBundleLinked
     {
       linkedClouds = new List<MetaShell>
         {Shell(Cloud(100))},
@@ -92,13 +92,13 @@ public class ViewObjToMono_Test
   [TestCase(false)]
   public void To_ContentBundle(bool isValid)
   {
-    var o = isValid ? new ContentBundle()
+    var o = isValid ? new ContentBundle
     {
-      targets = new List<TargetContent>()
+      targets = new List<TargetContent>
       {
         TC(false), TC(true)
       },
-      blockers = new List<BlockerContent>()
+      blockers = new List<BlockerContent>
       {
         new BlockerContent(), new BlockerContent()
       },
@@ -111,8 +111,6 @@ public class ViewObjToMono_Test
     if (isValid)
       Assert.True(mono.Contents.Count() == o.targets.Count + o.blockers.Count + o.designs.Count);
   }
-
-  #region view content
   [TestCase(true)]
   [TestCase(false)]
   public void To_TargetContent(bool isValid)
@@ -167,59 +165,43 @@ public class ViewObjToMono_Test
     Assert.True(mono.hasViewObj == isValid);
 
   }
-  #endregion
-
-  #region helpers
   private double RV => Random.Range(0, 100);
 
-  private TargetContent TC(bool isolate)
+  private TargetContent TC(bool isolate) => new TargetContent
   {
-    return new TargetContent
-    {
-      viewName = "TestName",
-      isolate = isolate,
-      bundles = isolate ? ViewerBundle(Cloud(100)) : ViewerBundle(),
-    };
-  }
+    viewName = "TestName",
+    isolate = isolate,
+    bundles = isolate ? ViewerBundle(Cloud(100)) : ViewerBundle()
+  };
 
-  private DesignContent DC()
-  {
-    return new DesignContent {viewName = "TestName"};
-  }
+  private DesignContent DC() => new DesignContent {viewName = "TestName"};
 
   private ViewCloud Cloud(int count)
   {
     var pts = new CloudPoint[count];
-    for (int i = 0; i < pts.Length; i++)
+    for (var i = 0; i < pts.Length; i++)
       pts[i] = new CloudPoint(RV, RV, RV) {meta = "Floor1"};
 
     return new ViewCloud
       {points = pts};
   }
 
-  private MetaShell Shell(ViewCloud c)
-  {
-    return new MetaShell(c, c.viewID, c.points.Length);
-  }
+  private MetaShell Shell(ViewCloud c) => new MetaShell(c, c.viewID, c.points.Length);
 
-  private List<ViewerBundle> ViewerBundle(ViewCloud c)
+  private List<ViewerBundle> ViewerBundle(ViewCloud c) => new List<ViewerBundle>
   {
-    return new List<ViewerBundle>
+    new ViewerBundleLinked
     {
-      new ViewerBundleLinked
+      linkedClouds = new List<MetaShell>
       {
-        linkedClouds = new List<MetaShell>
-        {
-          Shell(c)
-        },
-        layouts = new List<ViewerLayout>
-        {
-          new ViewerLayoutFocus()
-        }
+        Shell(c)
+      },
+      layouts = new List<ViewerLayout>
+      {
+        new ViewerLayoutFocus()
       }
-    };
-
-  }
+    }
+  };
 
   private ViewStudy Study
   {
@@ -276,11 +258,11 @@ public class ViewObjToMono_Test
         {
           target1, target2
         },
-        blockers = new List<BlockerContent>()
+        blockers = new List<BlockerContent>
         {
           new BlockerContent(), new BlockerContent()
         },
-        designs = new List<DesignContent>()
+        designs = new List<DesignContent>
         {
           new DesignContent
           {
@@ -310,19 +292,14 @@ public class ViewObjToMono_Test
     }
   }
 
-  private List<ViewerBundle> ViewerBundle()
+  private List<ViewerBundle> ViewerBundle() => new List<ViewerBundle>
   {
-    return new List<ViewerBundle>
+    new ViewerBundle
     {
-      new ViewerBundle
+      layouts = new List<ViewerLayout>
       {
-        layouts = new List<ViewerLayout>
-        {
-          new ViewerLayout(), new ViewerLayoutCube()
-        }
+        new ViewerLayout(), new ViewerLayoutCube()
       }
-    };
-  }
-  #endregion
-
+    }
+  };
 }

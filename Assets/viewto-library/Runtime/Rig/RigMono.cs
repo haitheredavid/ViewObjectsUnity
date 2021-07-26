@@ -15,7 +15,7 @@ namespace ViewTo.Connector.Unity
 
     [Header("|| Runtime||")]
     [SerializeField] [Range(0, 300)] private int frameRate = 180;
-    [SerializeField] private bool isRunning = false;
+    [SerializeField] private bool isRunning;
 
     public List<RigParameters> GlobalBundles => viewObj.GlobalBundles;
     public List<RigParametersIsolated> IsolatedBundles => viewObj.IsolatedBundles;

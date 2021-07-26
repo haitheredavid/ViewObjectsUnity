@@ -6,19 +6,20 @@ namespace ViewTo.Connector.Unity
 
   public static partial class ViewFactory
   {
-    public static Texture2D DrawPixelLine( this List<Color32> c, bool readAlpha = false )
+    public static Texture2D DrawPixelLine(this List<Color32> c, bool readAlpha = false)
     {
-      Texture2D tempTexture = new Texture2D( c.Count, 1 );
+      var tempTexture = new Texture2D(c.Count, 1);
 
-      for ( int x = 0; x < tempTexture.width; x++ ) {
-        Color32 temp = !readAlpha ? new Color32( c[ x ].r, c[ x ].g, c[ x ].b, 255 ) : new Color32( c[ x ].r, c[ x ].g, c[ x ].b, c[ x ].a );
+      for (var x = 0; x < tempTexture.width; x++)
+      {
+        var temp = !readAlpha ? new Color32(c[x].r, c[x].g, c[x].b, 255) : new Color32(c[x].r, c[x].g, c[x].b, c[x].a);
 
-        tempTexture.SetPixel( x, 0, temp );
+        tempTexture.SetPixel(x, 0, temp);
       }
-      tempTexture.Apply( );
+      tempTexture.Apply();
       return tempTexture;
     }
-    
+
     public static void SetupLayout(this ViewerBundleMono mono)
     {
       mono.viewers = new List<ViewerMono>();
@@ -33,13 +34,13 @@ namespace ViewTo.Connector.Unity
         }
       }
     }
-    
-    public static void CreateCam(this ViewerMono mono )
+
+    public static void CreateCam(this ViewerMono mono)
     {
-      var cam = mono.gameObject.GetOrSet<ViewCamera>( );
+      var cam = mono.gameObject.GetOrSet<ViewCamera>();
       cam.CamDistance = 100000;
-      cam.transform.SetPositionAndRotation( mono.transform.position, mono.transform.rotation );
-      cam.transform.SetParent( mono.transform );
+      cam.transform.SetPositionAndRotation(mono.transform.position, mono.transform.rotation);
+      cam.transform.SetParent(mono.transform);
     }
   }
 }
