@@ -13,39 +13,15 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private Texture2D viewTexture;
     [SerializeField] private int colorCount;
     [SerializeField] private uint[] histogramData;
-
-    private ComputeBuffer _histogramBuffer;
     private bool _counterReady;
 
+    private ComputeBuffer _histogramBuffer;
+
+    private void OnEnable() => _histogramBuffer?.Dispose();
+
+    private void OnDisable() => _histogramBuffer?.Dispose();
+
     public event Action<uint[]> Complete;
-
-    #region Shader Parameters
-    private const string PixelFinderInit = "PixelFinderInitialize";
-    private const string PixelFinder = "PixelFinderMain";
-
-    private const string InputTexture = "InputTexture";
-    private const string InputTextureSize = "InputTextureSize";
-
-    private const string ColorArraySize = "ColorArraySize";
-    private const string ColorArrayTexture = "ColorArrayTexture";
-
-    private const string PixelCountBuffer = "PixelCountBuffer";
-
-    private int _kernMain;
-    private int _kernInitialize;
-    public bool IsRunning { get; set; } = false;
-    #endregion
-
-    private void OnEnable()
-    {
-      _histogramBuffer?.Dispose();
-
-    }
-
-    private void OnDisable()
-    {
-      _histogramBuffer?.Dispose();
-    }
 
     public void Initialize(Texture2D colors)
     {
@@ -56,7 +32,7 @@ namespace ViewTo.Connector.Unity
         Debug.Log("Destroying view texture");
         Utilities.SafeDestroy(viewTexture);
       }
-      
+
       if (colors != null && colors.width > 0)
       {
 
@@ -104,13 +80,9 @@ namespace ViewTo.Connector.Unity
         pixelShader.SetInt(InputTextureSize, 512);
 
         if (_kernInitialize < 0 || _kernMain < 0 || null == _histogramBuffer || null == histogramData)
-        {
           _counterReady = false;
-        }
         else
-        {
           _counterReady = true;
-        }
       }
     }
 
@@ -140,6 +112,23 @@ namespace ViewTo.Connector.Unity
         }
       }
     }
+
+    #region Shader Parameters
+    private const string PixelFinderInit = "PixelFinderInitialize";
+    private const string PixelFinder = "PixelFinderMain";
+
+    private const string InputTexture = "InputTexture";
+    private const string InputTextureSize = "InputTextureSize";
+
+    private const string ColorArraySize = "ColorArraySize";
+    private const string ColorArrayTexture = "ColorArrayTexture";
+
+    private const string PixelCountBuffer = "PixelCountBuffer";
+
+    private int _kernMain;
+    private int _kernInitialize;
+    public bool IsRunning { get; set; } = false;
+    #endregion
 
   }
 }
