@@ -1,0 +1,21 @@
+{
+    "name": "com.sasaki.viewto.tool",
+    "rootNamespace": "ViewTo.Connector.Unity",
+    "references": [
+        "GUID:dae77595a93198e48bd0e45f01fdf715",
+        "GUID:bcf4a2823e0ef4846bc2717a20418a40"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

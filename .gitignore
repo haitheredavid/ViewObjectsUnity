@@ -515,3 +515,4 @@ InitTestScene*.unity
 # Additional files built by Visual Studio
 *.tlog
 
+*.meta
