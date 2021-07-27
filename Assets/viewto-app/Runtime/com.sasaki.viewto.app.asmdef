@@ -2,7 +2,7 @@
     "name": "com.sasaki.viewto.app",
     "rootNamespace": "ViewTo.Connector.Unity",
     "references": [
-        "GUID:dae77595a93198e48bd0e45f01fdf715"
+        "GUID:0cecee90900179045bc2543dd371ed7c"
     ],
     "includePlatforms": [
         "Editor",

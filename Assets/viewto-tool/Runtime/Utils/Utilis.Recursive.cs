@@ -2,7 +2,7 @@
 
 namespace ViewTo.Connector.Unity
 {
-  public static class VuHe
+  public static class Utilis
   {
     public static void SetMeshVisibilityRecursive(this GameObject obj, bool status)
     {
