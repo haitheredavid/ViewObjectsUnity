@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.sasaki.toolkit": {
+      "version": "https://github.com/haitheredavid/Toolkit.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "11321761af40322fdfdd9d7e0cf38809bd0e9fea"
+    },
     "com.sasaki.viewto.objects": {
       "version": "file:com.sasaki.viewto-objects",
       "depth": 0,
