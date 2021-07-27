@@ -16,8 +16,6 @@ namespace ViewTo.Connector.Unity
     public TObj viewObj { get; protected set; }
     public bool hasViewObj => viewObj != null;
 
-    protected abstract void ImportValidObj();
-
     public override void TryImport(ViewObj obj)
     {
       switch (obj)
@@ -33,6 +31,8 @@ namespace ViewTo.Connector.Unity
           break;
       }
     }
+
+    protected virtual void ImportValidObj() => Debug.Log($"Valid ViewObj {viewObj.TypeName()!} for {this.TypeName()}");
   }
 
 }

@@ -16,7 +16,7 @@ namespace ViewTo.Connector.Unity
 
     public ViewColor ViewColor
     {
-      get => viewColor.ToNative(viewColorID);
+      get => viewColor.ToView(viewColorID);
       protected set
       {
         viewColor = value.ToUnity();

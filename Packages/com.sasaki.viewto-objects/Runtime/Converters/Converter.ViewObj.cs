@@ -9,6 +9,8 @@ namespace ViewTo.Connector.Unity
 
     public static string TypeName(this object obj) => obj.GetType().ToString().Split('.').Last();
 
+    public static RigMono ToUnity(this RigObj obj, bool importIfValid = true) => obj.ToUnity<RigMono>(importIfValid);
+
     public static ViewerBundleMono ToUnity(this ViewerBundle obj, bool importIfValid = true) => ToUnity<ViewerBundleMono>(obj, importIfValid);
 
     public static ViewStudyMono ToUnity(this ViewStudy obj, bool importIfValid = true) => ToUnity<ViewStudyMono>(obj, importIfValid);

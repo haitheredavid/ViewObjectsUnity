@@ -16,7 +16,7 @@ namespace ViewTo.Connector.Unity
         points[i] = value[i].ToUnity();
         meta[i] = value[i].meta;
       }
-      
+
       return points;
     }
     public static Vector3[] ToUnity(this CloudPoint[] value)

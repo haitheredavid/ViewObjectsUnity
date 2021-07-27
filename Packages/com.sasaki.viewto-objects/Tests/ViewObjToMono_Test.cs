@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using UnityEngine;
 using ViewTo.Connector.Unity;
 using ViewTo.Objects;
 using ViewTo.Structure;
-
 
 namespace ViewToUnity.Tests.Units
 {
@@ -74,7 +72,8 @@ namespace ViewToUnity.Tests.Units
       {
         linkedClouds = new List<MetaShell>
         {
-          TestMil.Shell(TestMil.Cloud(100))},
+          TestMil.Shell(TestMil.Cloud(100))
+        },
         layouts = new List<ViewerLayout>
         {
           new ViewerLayout(), new ViewerLayoutCube()
@@ -89,6 +88,37 @@ namespace ViewToUnity.Tests.Units
         Assert.True(mono.hasLinks);
         Assert.True(mono.viewerCount == o.layouts.Sum(l => l.viewers.Count));
       }
+
+    }
+
+    [TestCase(true)]
+    [TestCase(false)]
+    public void To_RigObj(bool isValid)
+    {
+      var shared = TestMil.Cloud(1000);
+      var iso = TestMil.Cloud(200);
+      var o = isValid ? new RigObj
+      {
+        globalParams = new List<RigParameters>
+        {
+          TestMil.RigParams
+        },
+        isolatedParams = new List<RigParametersIsolated>
+        {
+          TestMil.RigParamsIso(iso)
+        },
+        globalColors = new List<ViewColor>
+        {
+          new ViewColor(100, 100, 100, 100, 0), new ViewColor(0, 0, 0, 0, 0)
+        },
+        clouds = new Dictionary<string, CloudPoint[]>
+        {
+          {shared.viewID, shared.points}, {iso.viewID, iso.points}
+        }
+      } : new RigObj();
+
+      var mono = o.ToUnity();
+      Assert.True(mono.hasViewObj == isValid);
 
     }
 
@@ -110,7 +140,8 @@ namespace ViewToUnity.Tests.Units
         designs = new List<DesignContent>
         {
           TestMil.DC(),
-          TestMil.DC()}
+          TestMil.DC()
+        }
       } : new ContentBundle();
 
       var mono = o.ToUnity();
@@ -118,6 +149,7 @@ namespace ViewToUnity.Tests.Units
       if (isValid)
         Assert.True(mono.Contents.Count() == o.targets.Count + o.blockers.Count + o.designs.Count);
     }
+
     [TestCase(true)]
     [TestCase(false)]
     public void To_TargetContent(bool isValid)
@@ -172,7 +204,6 @@ namespace ViewToUnity.Tests.Units
       Assert.True(mono.hasViewObj == isValid);
 
     }
-
   }
 
 }
