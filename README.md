@@ -1,2 +1,2 @@
 # viewto-unity
- Unity project for GPU based view analysis
+ViewObject converter and mono structure for ViewTo tool
