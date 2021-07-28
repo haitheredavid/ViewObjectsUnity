@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/haitheredavid/viewto-unity/compare/v1.0.1...v1.1.0) (2021-07-28)
+
+
+### Features
+
+* View Object Support with Mono ([3f04abc](https://github.com/haitheredavid/viewto-unity/commit/3f04abcd75a053549e36dd83dbb9d62664cc36e4))
+
 ## [1.0.1](https://github.com/haitheredavid/viewto-unity/compare/v1.0.0...v1.0.1) (2021-07-28)
 
 
