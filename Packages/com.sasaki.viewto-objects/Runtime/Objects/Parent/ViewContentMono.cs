@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using ViewTo.Objects;
 using ViewTo.Structure;
@@ -16,9 +17,11 @@ namespace ViewTo.Connector.Unity
 
     public ViewColor ViewColor
     {
-      get => viewColor.ToView(viewColorID);
-      protected set
+      get => viewObj.viewColor;
+      set
       {
+        Debug.Log($"Color now updated for {viewObj.TypeName()} from {this.TypeName()}");
+        viewObj.viewColor = value;
         viewColor = value.ToUnity();
         viewColorID = value.Id;
       }

@@ -7,6 +7,7 @@ using ViewTo.Structure;
 
 namespace ViewToUnity.Tests.Units
 {
+
   [TestFixture]
   public class ViewObjToMono_Test
   {
