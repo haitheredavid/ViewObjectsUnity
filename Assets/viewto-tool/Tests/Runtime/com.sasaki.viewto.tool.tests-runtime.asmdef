@@ -1,0 +1,32 @@
+{
+    "name": "com.sasaki.viewto.tool.tests-runtime",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "com.sasaki.viewto.tool",
+        "com.sasaki.viewto.objects.tests",
+        "com.sasaki.viewto.objects.mono"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone32",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "ViewToLibrary.dll",
+        "ViewObjects.dll",
+        "ViewStructure.dll",
+        "HaiThereUtilities.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
