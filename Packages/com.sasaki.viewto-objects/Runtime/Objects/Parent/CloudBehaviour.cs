@@ -8,25 +8,37 @@ namespace ViewTo.Connector.Unity
 {
 
   [ExecuteAlways]
-  public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud
+  public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud, new()
   {
-
-    [SerializeField] protected int pointCount;
+    [ReadOnly] [SerializeField] protected int pointCount;
     [SerializeField] private PointCloudRenderer cloudRenderer;
 
-    public CloudPoint[] Points { get; private set; }
+    public string viewID
+    {
+      get => viewObj.viewID;
+      set => viewObj.viewID = value;
+    }
+
+    public CloudPoint[] Points
+    {
+      get => viewObj.points;
+      set
+      {
+        viewObj.points = value;
+        pointCount = value.Length;
+        UpdateRenderer();
+      }
+    }
+
+    private void UpdateRenderer()
+    {
+      RenderPoints((from p in Points select p.ToUnity()).ToList(),
+                   (from p in Points select Color.white).Select(dummy => (Color32)dummy).ToList());
+    }
 
     protected override void ImportValidObj()
     {
-      Points = viewObj.points;
-      pointCount = Points.Length;
-      RenderPoints((from p in Points select p.ToUnity()).ToList());
-    }
-
-    protected void RenderPoints(List<Vector3> points)
-    {
-      var colors = (from p in points select Color.white).Select(dummy => (Color32)dummy).ToList();
-      RenderPoints(points, colors);
+      UpdateRenderer();
     }
 
     protected void RenderPoints(List<Vector3> points, List<Color32> colors)

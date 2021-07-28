@@ -1,16 +1,28 @@
 using UnityEngine;
 using ViewTo.Objects;
+using ViewTo.Structure;
 
 namespace ViewTo.Connector.Unity
 {
-  public class DesignContentMono : ViewContentMono<DesignContent>
+  public class DesignContentMono : ViewContentMono<DesignContent>, IViewName
   {
+    [SerializeField] private string viewObjectName;
 
-    [SerializeField] private string viewName;
-
-    protected override void ImportValidObj(DesignContent content)
+    public string viewName
     {
-      base.ImportValidObj(content);
+      get => viewObjectName;
+      set => viewObjectName = value;
+    }
+
+    public override ViewContent CopyObj()
+    {
+      return new DesignContent
+      {
+        viewName = viewName, viewColor = ViewColor
+      };
+    }
+    protected override void SetValidContent(DesignContent content)
+    {
       viewName = content.viewName;
     }
   }

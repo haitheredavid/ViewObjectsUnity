@@ -516,3 +516,4 @@ InitTestScene*.unity
 *.tlog
 
 *.meta
+UserSettings/EditorUserSettings.asset

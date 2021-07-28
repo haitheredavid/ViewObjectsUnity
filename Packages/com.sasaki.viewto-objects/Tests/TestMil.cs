@@ -8,12 +8,19 @@ namespace ViewToUnity.Tests
   public static class TestMil
   {
 
-    public static RigParameters RigParams => new RigParameters
+    public static RigParameters RigParams
     {
-      bundles = ViewerBundle()
-    };
+      get =>
+        new RigParameters
+        {
+          bundles = ViewerBundle()
+        };
+    }
 
-    public static double RV => Random.Range(0, 100);
+    public static double RV
+    {
+      get => Random.Range(0, 100);
+    }
     public static ViewStudy Study
     {
       get

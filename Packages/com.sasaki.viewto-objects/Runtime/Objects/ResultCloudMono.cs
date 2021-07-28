@@ -8,5 +8,8 @@ namespace ViewTo.Connector.Unity
   {
 
     public List<PixelData> data { get; set; }
+    
+    
+    public override ResultCloud CopyObj() => throw new System.NotImplementedException();
   }
 }

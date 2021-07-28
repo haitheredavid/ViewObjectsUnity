@@ -1,24 +1,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.Objects;
+using ViewTo.Structure;
 
 namespace ViewTo.Connector.Unity
 {
 
-  public class TargetContentMono : ViewContentMono<TargetContent>
+  public class TargetContentMono : ViewContentMono<TargetContent>, IViewName
   {
-    [SerializeField] private string viewName;
-    [SerializeField] private bool isolate;
+    [SerializeField] private bool isolateContent;
+    [SerializeField] private string viewObjectName;
 
     public List<ViewerBundle> bundles { get; set; }
 
-    protected override void ImportValidObj(TargetContent content)
+    public bool isolate
     {
-      base.ImportValidObj(content);
-      viewName = content.viewName;
+      get => isolateContent;
+      set => isolateContent = value;
+    }
+
+    public string viewName
+    {
+      get => viewObjectName;
+      set => viewObjectName = value;
+    }
+
+    public override ViewContent CopyObj()
+    {
+      return new TargetContent {viewColor = ViewColor, bundles = bundles, viewName = viewName, isolate = isolate};
+    }
+    
+    protected override void SetValidContent(TargetContent content)
+    {
+      viewObjectName = content.viewName;
       bundles = content.bundles;
       isolate = content.isolate;
-
     }
   }
 }

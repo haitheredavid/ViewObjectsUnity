@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using HaiThere.Utilities;
 using UnityEngine;
 using ViewTo.Objects;
@@ -10,68 +9,87 @@ namespace ViewTo.Connector.Unity
   public class ContentBundleMono : ViewObjBehaviour<ContentBundle>
   {
 
-    [SerializeField] private List<TargetContentMono> Targets;
-    [SerializeField] private List<BlockerContentMono> Blockers;
-    [SerializeField] private List<DesignContentMono> Designs;
+    // TODO compile lists added during edit mode  
+    [SerializeField] private List<ViewContentMono> contents;
 
-    public IEnumerable<ViewContentMono> Contents
+    public List<TargetContent> targets
     {
-      get
-      {
-        var items = new List<ViewContentMono>();
-        if (Targets != null) items.AddRange(Targets);
-        if (Blockers != null) items.AddRange(Blockers);
-        if (Designs != null) items.AddRange(Designs);
-        return items;
-      }
+      get => viewObj.targets;
+      private set => viewObj.targets = value;
     }
 
-    public void SetContent<TContentMono>(TContentMono content)
-      where TContentMono : ViewContentMono
+    public List<BlockerContent> blockers
     {
-      switch (content)
+      get => viewObj.blockers;
+      private set => viewObj.blockers = value;
+    }
+
+    public List<DesignContent> designs
+    {
+      get => viewObj.designs;
+      private set => viewObj.designs = value;
+    }
+
+    public List<ViewContentMono> GetAll => contents.Valid() ? contents : new List<ViewContentMono>();
+
+    public List<TContent> Get<TContent>() where TContent : ViewContentMono
+    {
+      var item = new List<TContent>();
+      foreach (var i in contents)
+        if (i is TContent casted)
+          item.Add(casted);
+
+      return item;
+    }
+
+    public void Set(ViewContent item)
+    {
+      contents ??= new List<ViewContentMono>();
+      contents.Add(item.ToUnity());
+
+      switch (item)
       {
-        case TargetContentMono c:
-          Targets ??= new List<TargetContentMono>();
-          Targets.Add(c);
+        case TargetContent o:
+          targets.Add(o);
           break;
-        case BlockerContentMono c:
-          Blockers ??= new List<BlockerContentMono>();
-          Blockers.Add(c);
+        case BlockerContent o:
+          blockers.Add(o);
           break;
-        case DesignContentMono c:
-          Designs ??= new List<DesignContentMono>();
-          Designs.Add(c);
-          break;
-        default:
-          Debug.Log($"Type {content.TypeName()} is not supported");
+        case DesignContent o:
+          designs.Add(o);
           break;
       }
-
     }
+    
+    public override ContentBundle CopyObj()
+    {
+      return new ContentBundle
+      {
+        targets = viewObj.targets, blockers = viewObj.blockers, designs = viewObj.designs
+      };
+    }
+
     protected override void ImportValidObj()
     {
-      PurgeAllContent();
-      if (viewObj.targets != null) Targets = AddToScene<TargetContentMono>(viewObj.targets);
-      if (viewObj.blockers != null) Blockers = AddToScene<BlockerContentMono>(viewObj.blockers);
-      if (viewObj.designs != null) Designs = AddToScene<DesignContentMono>(viewObj.designs);
+      Purge();
 
+      var objs = new List<ViewContent>();
+
+      if (targets.Valid()) objs.AddRange(targets);
+      if (blockers.Valid()) objs.AddRange(blockers);
+      if (designs.Valid()) objs.AddRange(designs);
+
+      contents = new List<ViewContentMono>();
+
+      foreach (var item in objs)
+        contents.Add(item.ToUnity());
     }
 
-    private void PurgeAllContent()
+    private void Purge()
     {
-      var c = Contents.ToArray();
-      if (c.Valid())
-        for (var i = c.Length - 1; i > 0; i--)
-          Destroy(c[i]);
-
-      Targets = new List<TargetContentMono>();
-      Blockers = new List<BlockerContentMono>();
-      Designs = new List<DesignContentMono>();
-
+      if (contents.Valid())
+        for (var i = contents.Count - 1; i > 0; i--)
+          Destroy(contents[i]);
     }
-
-    private List<TShell> AddToScene<TShell>(IEnumerable<ViewContent> objs) where TShell : ViewObjBehaviour
-      => objs.Select(o => o.ToUnity<TShell>()).Where(item => item != null).ToList();
   }
 }

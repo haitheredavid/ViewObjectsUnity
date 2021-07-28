@@ -15,18 +15,32 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private List<string> clouds;
     [SerializeField] private List<Color32> colors;
 
-    public bool hasLinks => linkedShell != null && linkedShell.Count != 0;
+    public bool hasLinks
+    {
+      get => linkedShell != null && linkedShell.Count != 0;
+    }
+
     public List<MetaShell> linkedShell { get; private set; }
 
     public int viewerCount { get; private set; }
     public List<ViewerMono> viewers { get; set; }
 
-    public List<ViewerLayout> layouts => viewObj?.layouts;
+    public List<ViewerLayout> layouts
+    {
+      get => viewObj?.layouts;
+    }
 
     public bool IsGlobal
     {
       get => global;
       set => global = value;
+    }
+
+    public override ViewerBundle CopyObj()
+    {
+      return hasLinks ?
+        new ViewerBundleLinked() {layouts = viewObj.layouts, linkedClouds = linkedShell} :
+        new ViewerBundle() {layouts = layouts};
     }
 
     protected override void ImportValidObj()

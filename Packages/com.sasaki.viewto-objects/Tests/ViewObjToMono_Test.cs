@@ -12,6 +12,7 @@ namespace ViewToUnity.Tests.Units
   public class ViewObjToMono_Test
   {
 
+
     [TestCase(true)]
     [TestCase(false)]
     public void To_ViewCloud(bool isValid)
@@ -24,7 +25,8 @@ namespace ViewToUnity.Tests.Units
         {points = isValid ? pts : null};
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+      Assert.True(mono.isValid == isValid);
 
       if (isValid)
         Assert.True(mono.Points.Length == pts.Length == isValid);
@@ -38,7 +40,7 @@ namespace ViewToUnity.Tests.Units
       var o = isValid ? TestMil.Study : new ViewStudy();
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
     }
 
     [TestCase(true)]
@@ -55,7 +57,7 @@ namespace ViewToUnity.Tests.Units
       } : new ViewerBundle();
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
 
       if (isValid)
       {
@@ -82,7 +84,7 @@ namespace ViewToUnity.Tests.Units
       } : new ViewerBundle();
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
 
       if (isValid)
       {
@@ -119,7 +121,8 @@ namespace ViewToUnity.Tests.Units
       } : new RigObj();
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+
 
     }
 
@@ -146,9 +149,10 @@ namespace ViewToUnity.Tests.Units
       } : new ContentBundle();
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+
       if (isValid)
-        Assert.True(mono.Contents.Count() == o.targets.Count + o.blockers.Count + o.designs.Count);
+        Assert.True(mono.GetAll.Count() == o.targets.Count + o.blockers.Count + o.designs.Count);
     }
 
     [TestCase(true)]
@@ -171,13 +175,15 @@ namespace ViewToUnity.Tests.Units
 
 
       var mono = global.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+
       if (isValid)
         Assert.True(mono.bundles.Count == global.bundles.Count);
 
 
       mono = iso.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+
 
       if (isValid)
         Assert.True(mono.bundles.Any(bundle => bundle is ViewerBundleLinked));
@@ -202,7 +208,8 @@ namespace ViewToUnity.Tests.Units
         {viewName = isValid ? "TestName" : null};
 
       var mono = o.ToUnity();
-      Assert.True(mono.hasViewObj == isValid);
+      Assert.NotNull(mono);
+
 
     }
   }
