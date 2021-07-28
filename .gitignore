@@ -1,16 +1,14 @@
 
-ViewToUnity/Assets/Addons
-ViewToUnity/AssetStoreTools*
-ViewToUnity/Temp/
-ViewToUnity/Library/
-ViewToUnity/obj/
-ViewToUnity/Builds/
-ViewToUnity/Logs/
+[Aa]ssets/Addons
+[Aa]ssetStoreTools*
+[Tt]emp/
+[Ll]ibrary/
+[Uu]serSettings/
+[Bb]uilds/
+[Ll]ogs/
 
-ViewToGrasshopper/obj/
-ViewToGrasshopper/bin/
-
-ViewToLibrary/obj/
+*[Oo]bj/
+*[Bb]in/
 
 # Folder for process work
 [Ss]ketches/
