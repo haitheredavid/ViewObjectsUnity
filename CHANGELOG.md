@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/haitheredavid/viewto-unity/compare/v1.1.5...v1.1.6) (2021-08-24)
+
+
+### Bug Fixes
+
+* upm tag ([cb10af7](https://github.com/haitheredavid/viewto-unity/commit/cb10af73672ecb00e567570bc8bdd769c897d898))
+
 ## [1.1.5](https://github.com/haitheredavid/viewto-unity/compare/v1.1.4...v1.1.5) (2021-08-24)
 
 
