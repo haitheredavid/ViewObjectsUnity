@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/haitheredavid/viewto-unity/compare/v1.1.6...v1.1.7) (2021-08-24)
+
+
+### Bug Fixes
+
+* triggering rebuild ([a93fcb2](https://github.com/haitheredavid/viewto-unity/commit/a93fcb204d7ea2f73daaec1fd79ea4c764921ac8))
+
 ## [1.1.6](https://github.com/haitheredavid/viewto-unity/compare/v1.1.5...v1.1.6) (2021-08-24)
 
 
