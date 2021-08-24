@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/haitheredavid/viewto-unity/compare/v1.1.4...v1.1.5) (2021-08-24)
+
+
+### Bug Fixes
+
+* updated ci ([fb38df8](https://github.com/haitheredavid/viewto-unity/commit/fb38df8405fbd212e1fc823891b9ba94e0333830))
+
 ## [1.1.4](https://github.com/haitheredavid/viewto-unity/compare/v1.1.3...v1.1.4) (2021-08-24)
 
 
