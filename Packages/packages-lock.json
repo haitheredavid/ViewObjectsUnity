@@ -7,8 +7,8 @@
       "dependencies": {},
       "hash": "11321761af40322fdfdd9d7e0cf38809bd0e9fea"
     },
-    "com.sasaki.viewto.objects": {
-      "version": "file:com.sasaki.viewto-objects",
+    "com.sasaki.viewobjects.mono": {
+      "version": "file:com.sasaki.viewobjects.mono",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
