@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/haitheredavid/viewto-unity/compare/v1.1.0...v1.1.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* View Object mono seutp ([9b76e54](https://github.com/haitheredavid/viewto-unity/commit/9b76e5496c322828e13392dddc8b135b4ee62b4a))
+
 # [1.1.0](https://github.com/haitheredavid/viewto-unity/compare/v1.0.1...v1.1.0) (2021-07-28)
 
 
