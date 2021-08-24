@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/haitheredavid/viewto-unity/compare/v1.1.7...v1.1.8) (2021-08-24)
+
+
+### Bug Fixes
+
+* ci branch name ([35d226e](https://github.com/haitheredavid/viewto-unity/commit/35d226e110b11efa5e7f32dd64ba1292e1633c4d))
+
 ## [1.1.7](https://github.com/haitheredavid/viewto-unity/compare/v1.1.6...v1.1.7) (2021-08-24)
 
 
