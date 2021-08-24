@@ -1,3 +1,10 @@
+## [1.1.9](https://github.com/haitheredavid/viewto-unity/compare/v1.1.8...v1.1.9) (2021-08-24)
+
+
+### Bug Fixes
+
+* added pcx ([915d8b4](https://github.com/haitheredavid/viewto-unity/commit/915d8b490b8eeb79337c27555aadc277bae43f9a))
+
 ## [1.1.8](https://github.com/haitheredavid/viewto-unity/compare/v1.1.7...v1.1.8) (2021-08-24)
 
 
