@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/haitheredavid/viewto-unity/compare/v1.1.2...v1.1.3) (2021-08-24)
+
+
+### Bug Fixes
+
+* upm branch ([e7a9d8d](https://github.com/haitheredavid/viewto-unity/commit/e7a9d8d4b67bcc534e400c5848ae9083013677f1))
+
 ## [1.1.2](https://github.com/haitheredavid/viewto-unity/compare/v1.1.1...v1.1.2) (2021-08-24)
 
 
