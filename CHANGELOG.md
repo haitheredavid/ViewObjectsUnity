@@ -7,6 +7,19 @@
 * ci branch name ([35d226e](https://github.com/haitheredavid/viewto-unity/commit/35d226e110b11efa5e7f32dd64ba1292e1633c4d))
 * trigger to next version ([8f5aa84](https://github.com/haitheredavid/viewto-unity/commit/8f5aa8464408be3d7911701f9ba3c231f2d5687c))
 * triggered version change ([47d5644](https://github.com/haitheredavid/viewto-unity/commit/47d5644dcd4599b29969e9bfa9a5675344b3730e))
+* triggering version change ([65eb13c](https://github.com/haitheredavid/viewto-unity/commit/65eb13c3892c6cdf94170d18be8e20f07d276b3c))
+* triggering version number ([93c554c](https://github.com/haitheredavid/viewto-unity/commit/93c554c6cf209e4a87c992c3bcf6229bc8d1681e))
+* updated version for trigger ([8ded250](https://github.com/haitheredavid/viewto-unity/commit/8ded250676ea5914162312d9093d96d9e3c1fe7e))
+
+## [1.1.8](https://github.com/haitheredavid/viewto-unity/compare/v1.1.7...v1.1.8) (2021-08-24)
+
+
+### Bug Fixes
+
+* added pcx ([88e7c1b](https://github.com/haitheredavid/viewto-unity/commit/88e7c1b57bc1370f634e4e4be4cdd3970181b962))
+* ci branch name ([35d226e](https://github.com/haitheredavid/viewto-unity/commit/35d226e110b11efa5e7f32dd64ba1292e1633c4d))
+* trigger to next version ([8f5aa84](https://github.com/haitheredavid/viewto-unity/commit/8f5aa8464408be3d7911701f9ba3c231f2d5687c))
+* triggered version change ([47d5644](https://github.com/haitheredavid/viewto-unity/commit/47d5644dcd4599b29969e9bfa9a5675344b3730e))
 * triggering version number ([93c554c](https://github.com/haitheredavid/viewto-unity/commit/93c554c6cf209e4a87c992c3bcf6229bc8d1681e))
 * updated version for trigger ([8ded250](https://github.com/haitheredavid/viewto-unity/commit/8ded250676ea5914162312d9093d96d9e3c1fe7e))
 
