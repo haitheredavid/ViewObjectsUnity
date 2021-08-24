@@ -1,6 +1,6 @@
 {
   "name": "com.sasaki.viewobjects.mono",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "displayName": "viewobj-mono",
   "description": "ViewObjects for Unity",
   "unity": "2020.3",
@@ -16,7 +16,5 @@
     "name": "david morgan",
     "email": "dmorgan@sasaki.com",
     "url": "https://www.sasaki.com"
-  },
-  "hideInEditor": false,
-  "type": "library"
+  }
 }
