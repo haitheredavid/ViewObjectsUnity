@@ -1,3 +1,18 @@
+## [1.1.10](https://github.com/haitheredavid/viewto-unity/compare/v1.1.9...v1.1.10) (2021-08-24)
+
+
+### Bug Fixes
+
+* added pcx ([88e7c1b](https://github.com/haitheredavid/viewto-unity/commit/88e7c1b57bc1370f634e4e4be4cdd3970181b962))
+* modified tag ci ([b9189ac](https://github.com/haitheredavid/viewto-unity/commit/b9189acaca4bc30ed97f900faab0be3554fe2ca1))
+* overriding tag ([dca2a61](https://github.com/haitheredavid/viewto-unity/commit/dca2a61dc4a0d57db47c40600f09a783b7ea1786))
+* tag sync issue ([a3cb6c4](https://github.com/haitheredavid/viewto-unity/commit/a3cb6c4aa7c15949c4f466ce9a87b7a0dad52d21))
+* trigger to next version ([8f5aa84](https://github.com/haitheredavid/viewto-unity/commit/8f5aa8464408be3d7911701f9ba3c231f2d5687c))
+* triggered version change ([47d5644](https://github.com/haitheredavid/viewto-unity/commit/47d5644dcd4599b29969e9bfa9a5675344b3730e))
+* triggering version change ([65eb13c](https://github.com/haitheredavid/viewto-unity/commit/65eb13c3892c6cdf94170d18be8e20f07d276b3c))
+* triggering version number ([93c554c](https://github.com/haitheredavid/viewto-unity/commit/93c554c6cf209e4a87c992c3bcf6229bc8d1681e))
+* updated version for trigger ([8ded250](https://github.com/haitheredavid/viewto-unity/commit/8ded250676ea5914162312d9093d96d9e3c1fe7e))
+
 ## [1.1.9](https://github.com/haitheredavid/viewto-unity/compare/v1.1.8...v1.1.9) (2021-08-24)
 
 
