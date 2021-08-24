@@ -35,7 +35,7 @@ jobs:
         fi
         git push -f -u origin upm-viewobject
       env:
-        PKG_ROOT: Packages/com.sasaki.viewto-objects
+        PKG_ROOT: Packages/com.sasaki.viewobjects.mono
     - name: Create upm git tag
       if: steps.semantic.outputs.new_release_published == 'true'
       run: |
