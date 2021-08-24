@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/haitheredavid/viewto-unity/compare/v1.1.3...v1.1.4) (2021-08-24)
+
+
+### Bug Fixes
+
+* upmbranch sync ([6fe9254](https://github.com/haitheredavid/viewto-unity/commit/6fe9254b88241a20579a8c5b153f5a5781a4a845))
+
 ## [1.1.3](https://github.com/haitheredavid/viewto-unity/compare/v1.1.2...v1.1.3) (2021-08-24)
 
 
