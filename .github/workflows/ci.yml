@@ -42,4 +42,4 @@ jobs:
         git tag $TAG upm
         git push origin --tags
       env:
-        TAG: upm/v1.1.10
+        TAG: upm/${{ steps.semantic.outputs.new_release_version }}
