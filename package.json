@@ -4,9 +4,6 @@
   "displayName": "viewobj-mono",
   "description": "ViewObjects for Unity",
   "unity": "2020.3",
-  "dependencies": {
-    "jp.keijiro.pcx": "1.0.1"
-  },
   "keywords": [
     "Analysis",
     "Design",
