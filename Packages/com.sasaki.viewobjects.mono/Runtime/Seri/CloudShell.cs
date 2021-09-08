@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
+
   [Serializable]
   public class CloudShell
   {

@@ -114,7 +114,7 @@ namespace ViewToUnity.Tests
     public static RigParametersIsolated RigParamsIso(ViewCloud c) => new RigParametersIsolated
     {
       bundles = ViewerBundle(c), colors = new List<ViewColor>
-        {new ViewColor(255, 255, 255, 255, 0)}
+        { new ViewColor(255, 255, 255, 255, 0) }
     };
 
     public static TargetContent TC(bool isolate) => new TargetContent
@@ -123,16 +123,16 @@ namespace ViewToUnity.Tests
       isolate = isolate,
       bundles = isolate ? ViewerBundle(Cloud(100)) : ViewerBundle()
     };
-    public static DesignContent DC() => new DesignContent {viewName = "TestName"};
+    public static DesignContent DC() => new DesignContent { viewName = "TestName" };
 
     public static ViewCloud Cloud(int count)
     {
       var pts = new CloudPoint[count];
       for (var i = 0; i < pts.Length; i++)
-        pts[i] = new CloudPoint(RV, RV, RV) {meta = "Floor1"};
+        pts[i] = new CloudPoint(RV, RV, RV) { meta = "Floor1" };
 
       return new ViewCloud
-        {points = pts};
+        { points = pts };
     }
 
     public static MetaShell Shell(ViewCloud c) => new MetaShell(c, c.viewID, c.points.Length);

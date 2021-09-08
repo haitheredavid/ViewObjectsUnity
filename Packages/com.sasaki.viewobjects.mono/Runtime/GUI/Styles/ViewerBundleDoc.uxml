@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:engine="UnityEngine.UIElements"
+        xmlns:editor="UnityEditor.UIElements"
+        xsi:noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd">
+
+    <engine:VisualElement name="viewerBundle-container">
+        <engine:Style src="ViewObjectStyles.uss"/>
+        <engine:Label name="setup-label" text="Viewer Layout Setup"/>
+        <engine:VisualElement class="container" name="viewerlayout-setup-container">
+            <engine:Button name="add-layout-button" text="+" class="vto-button"/>
+            <ViewerLayoutDropDownElement/>
+        </engine:VisualElement>
+        <engine:VisualElement name="viewerlayout-items-container">
+            <engine:VisualElement class="container" name="viewerlayout-items-buttons">
+                <engine:Button name="clear-items-button" text="clear" class="vto-button"/>
+            </engine:VisualElement>
+            <editor:PropertyField name="layout-foldout" binding-path="layouts" class="vto-lists"/>
+
+        </engine:VisualElement>
+
+
+    </engine:VisualElement>
+
+
+</engine:UXML>
+

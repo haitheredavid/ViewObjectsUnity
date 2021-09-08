@@ -14,18 +14,14 @@ namespace ViewTo.Connector.Unity
     public static ContentBundleMono ToViewMono(this ContentBundle obj) => obj.ToViewMono<ContentBundleMono>();
 
     public static RigMono ToViewMono(this Rig obj) => obj.ToViewMono<RigMono>();
-    public static RigParamMono ToViewMono(this RigParameters obj) => obj.ToViewMono<RigParamMono>();
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
 
-    public static TargetContentMono ToViewMono(this TargetContent obj) => obj.ToViewMono<TargetContentMono>();
-    public static BlockerContentMono ToViewMono(this BlockerContent obj) => obj.ToViewMono<BlockerContentMono>();
-    public static DesignContentMono ToViewMono(this DesignContent obj) => obj.ToViewMono<DesignContentMono>();
+    public static TargetByTypeContentMono ToViewMono(this TargetContent obj) => obj.ToViewMono<TargetByTypeContentMono>();
+    public static BlockerByTypeContentMono ToViewMono(this BlockerContent obj) => obj.ToViewMono<BlockerByTypeContentMono>();
+    public static DesignByTypeContentMono ToViewMono(this DesignContent obj) => obj.ToViewMono<DesignByTypeContentMono>();
 
-    public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjBehaviour
-    {
-      return new GameObject().ToViewMono<TShell>(obj);
-    }
+    public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjBehaviour => new GameObject().ToViewMono<TShell>(obj);
 
     public static TShell ToViewMono<TShell>(this GameObject go, ViewObj obj) where TShell : ViewObjBehaviour
     {
@@ -33,8 +29,6 @@ namespace ViewTo.Connector.Unity
       shell.TryImport(obj);
       return shell;
     }
-    
-    
 
     public static ViewObjBehaviour ToViewMono(this ViewObj obj)
     {
@@ -42,12 +36,12 @@ namespace ViewTo.Connector.Unity
       {
         ViewStudy o => o.ToViewMono(),
         ContentBundle o => o.ToViewMono(),
-        
-        Rig o => o.ToViewMono(),
-        RigParameters o => o.ToViewMono(),
+
+        Rig o => null,
+        RigParameters o => null,
         ViewerBundle o => o.ToViewMono(),
-        // ViewerLayout o => o.ToViewMono();
-        
+        ViewerLayout o => o.ToViewMono(),
+
         ResultCloud o => o.ToViewMono(),
         ViewCloud o => o.ToViewMono(),
 
@@ -59,6 +53,5 @@ namespace ViewTo.Connector.Unity
       };
 
     }
-
   }
 }

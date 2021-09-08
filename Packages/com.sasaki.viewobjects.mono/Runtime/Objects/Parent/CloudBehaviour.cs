@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using Pcx;
 using UnityEngine;
 using ViewTo.Objects;
 using ViewTo.Objects.Elements;
+using ViewTo.Objects.Mono.Args;
 using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
@@ -12,52 +12,52 @@ namespace ViewTo.Connector.Unity
   [ExecuteAlways]
   public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud, new()
   {
+
     [ReadOnly] [SerializeField] protected int pointCount;
-    [SerializeField] private PointCloudRenderer cloudRenderer;
 
     public string viewID
     {
-      get => viewObj.viewID;
-      set => viewObj.viewID = value;
+      get
+      {
+        if (!viewObj.viewID.Valid())
+          viewObj.viewID = Guid.NewGuid().ToString();
+
+        return viewObj.viewID;
+      }
     }
 
     public CloudPoint[] Points
     {
-      get => viewObj.points;
+      get
+      {
+        viewObj.points ??= Array.Empty<CloudPoint>();
+        return viewObj.points;
+      }
       set
       {
+        if (!value.Valid())
+          return;
+
         viewObj.points = value;
         pointCount = value.Length;
-        UpdateRenderer();
+        TriggerImportArgs(CreateArgs);
       }
     }
 
-    private void UpdateRenderer()
+    private CloudImportArgs CreateArgs
     {
-      RenderPoints((from p in Points select p.ToUnity()).ToList(),
-                   (from p in Points select Color.white).Select(dummy => (Color32)dummy).ToList());
+      get =>
+        new CloudImportArgs(
+          (from p in Points select p.ToUnity()).ToList(),
+          (from p in Points select Color.white).Select(dummy => (Color32)dummy).ToList());
     }
 
     protected override void ImportValidObj()
     {
-      pointCount = viewObj.points.Valid() ?  viewObj.points.Length : 0 ;
+      pointCount = Points.Valid() ? Points.Length : 0;
       gameObject.name = viewObj.TypeName();
-      UpdateRenderer();
-    }
 
-    protected void RenderPoints(List<Vector3> points, List<Color32> colors)
-    {
-      
-      var data = ScriptableObject.CreateInstance<PointCloudData>();
-      data.Initialize(points, colors);
-
-      if (cloudRenderer == null)
-      {
-        cloudRenderer = new GameObject("CloudRender").AddComponent<PointCloudRenderer>();
-        cloudRenderer.gameObject.transform.SetParent(transform);
-      }
-
-      cloudRenderer.sourceData = data;
+      TriggerImportArgs(CreateArgs);
     }
   }
 

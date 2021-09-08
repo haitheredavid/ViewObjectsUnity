@@ -4,27 +4,42 @@ using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
 {
+
   public class ViewerLayoutMono : ViewObjBehaviour<ViewerLayout>
   {
-
-    private ViewerMono _viewerPrefab => new GameObject().AddComponent<ViewerMono>();
-
     public List<ViewerMono> viewers { get; private set; }
+
+    private ViewerMono ViewerPrefab
+    {
+      get => new GameObject().AddComponent<ViewerMono>();
+    }
+
+    public void Clear()
+    {
+      if (viewers.Valid())
+        ViewMonoHelper.ClearList(viewers);
+
+      viewers = new List<ViewerMono>();
+    }
 
     protected override void ImportValidObj()
     {
       gameObject.name = viewObj.TypeName();
-      
       if (!viewObj.viewers.Valid()) return;
 
-      viewers = new List<ViewerMono>();
-      var prefab = _viewerPrefab;
+      Clear();
+
+      var prefab = ViewerPrefab;
+
       foreach (var v in viewObj.viewers)
       {
         var mono = Instantiate(prefab, transform);
         mono.Setup(v);
         viewers.Add(mono);
       }
+
+      ViewMonoHelper.SafeDestroy(prefab.gameObject);
+      Debug.Log("Destory Run");
     }
   }
 }

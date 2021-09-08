@@ -9,46 +9,65 @@ namespace ViewTo.Connector.Unity
 
   public class ViewerBundleMono : ViewObjBehaviour<ViewerBundle>
   {
-
-    
     [SerializeField] private bool global;
     [SerializeField] private Texture2D colorStrip;
     [SerializeField] private List<string> clouds;
     [SerializeField] private List<Color32> colors;
-    [SerializeField] private List<ViewerLayoutMono> layouts;
+    public List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
+
+    #if UNITY_EDITOR
+    public ViewerLayout cachedLayout = new ViewerLayout();
+    #endif
 
     public List<MetaShell> linkedShell { get; private set; }
-
-    public int viewerCount { get; private set; }
-    public List<ViewerMono> viewers { get; set; }
 
     public bool hasLinks
     {
       get => linkedShell != null && linkedShell.Count != 0;
     }
-
     public bool IsGlobal
     {
       get => global;
       set => global = value;
     }
 
+    public void AddLayout()
+    {
+      layouts ??= new List<ViewerLayoutMono>();
+      LayoutToScene(cachedLayout);
+      cachedLayout = new ViewerLayout();
+    }
+
+    public void Clear()
+    {
+      ViewMonoHelper.ClearList(layouts);
+      layouts = new List<ViewerLayoutMono>();
+    }
+
     protected override void ImportValidObj()
     {
       gameObject.name = viewObj.TypeName();
-      viewerCount = 0;
 
       if (viewObj is ViewerBundleLinked linked && linked.linkedClouds.Valid())
         linkedShell = linked.linkedClouds;
 
-      viewers = new List<ViewerMono>();
-      
       layouts = new List<ViewerLayoutMono>();
-      foreach (var l in viewObj.layouts)
-      {
-        viewerCount += l.viewers.Count;
-        layouts.Add(l.ToViewMono());
-      }
+      if (!viewObj.layouts.Valid()) return;
+
+      foreach (var l in viewObj.layouts) LayoutToScene(l);
+    }
+
+    private void LayoutToScene(ViewerLayout obj)
+    {
+      var mono = obj.ToViewMono();
+      mono.transform.SetParent(transform);
+      layouts.Add(mono);
+    }
+
+    public void SetParams(ViewerLayout viewerLayout)
+    {
+      Debug.Log("Add param button clicked");
+      cachedLayout = viewerLayout;
     }
   }
 }
