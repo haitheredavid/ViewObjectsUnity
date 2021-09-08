@@ -16,7 +16,7 @@ namespace ViewTo.Connector.Unity
       get => loadedObjs;
       set => loadedObjs = value;
     }
-    
+
     public string ViewName
     {
       get => viewName;
@@ -34,7 +34,7 @@ namespace ViewTo.Connector.Unity
 
       if (!viewObj.objs.Valid()) return;
 
-      
+
       loadedObjs = new List<ViewObjBehaviour>();
       foreach (var obj in viewObj.objs)
       {

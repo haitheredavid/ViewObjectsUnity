@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using ViewTo.Objects;
 using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewContentMono : ViewObjBehaviour<ViewContent>
-  {
 
+  public abstract class ViewByTypeContentMono : ViewObjBehaviour<ViewContent>
+  {
     [SerializeField] private Color32 viewColor = Color.magenta;
     [ReadOnly] [SerializeField] private int viewColorID;
     [ReadOnly] [SerializeField] private int contentMask;
@@ -16,6 +16,7 @@ namespace ViewTo.Connector.Unity
       get => contentMask;
       set => contentMask = value;
     }
+
     public ViewColor ViewColor
     {
       get => viewObj.viewColor;
@@ -25,6 +26,13 @@ namespace ViewTo.Connector.Unity
         viewColor = value.ToUnity();
         viewColorID = value.Id;
       }
+    }
+
+    protected override void ImportValidObj()
+    {
+      ContentMask = MaskByType();
+      SetMeshData();
+      SetContentData(viewObj);
     }
 
     /// <summary>
@@ -54,6 +62,8 @@ namespace ViewTo.Connector.Unity
 
     }
 
+    protected abstract void SetContentData(ViewContent t);
+
     private int MaskByType() => viewObj switch
     {
       DesignContent _ => 6,
@@ -61,11 +71,22 @@ namespace ViewTo.Connector.Unity
       BlockerContent _ => 8,
       _ => 0
     };
-    protected override void ImportValidObj()
+  }
+
+  public abstract class ViewByTypeContentMono<TContent> : ViewByTypeContentMono
+    where TContent : ViewContent, new()
+  {
+
+    protected virtual void SetValidContent(TContent content)
     {
-      ContentMask = MaskByType();
-      SetMeshData();
-      // SetContentData(viewObj);
+      gameObject.name = content.TypeName();
+    }
+
+    protected override void SetContentData(ViewContent t)
+    {
+      if (t is TContent casted)
+        SetValidContent(casted);
     }
   }
+
 }

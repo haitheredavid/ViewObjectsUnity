@@ -6,7 +6,7 @@ using ViewTo.Objects.Structure;
 namespace ViewTo.Connector.Unity
 {
 
-  public class TargetContentMono : ViewContentMono<TargetContent>, IViewName
+  public class TargetByTypeContentMono : ViewByTypeContentMono<TargetContent>, IViewName
   {
     [SerializeField] private bool isolateContent;
     [SerializeField] private string viewObjectName;
@@ -29,7 +29,7 @@ namespace ViewTo.Connector.Unity
     // {
     //   return new TargetContent {viewColor = ViewColor, bundles = bundles, viewName = viewName, isolate = isolate};
     // }
-    
+
     protected override void SetValidContent(TargetContent content)
     {
       viewObjectName = content.viewName;

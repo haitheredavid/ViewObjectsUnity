@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ViewTo.Objects;
@@ -8,34 +7,13 @@ using ViewTo.Objects.Structure;
 namespace ViewTo.Connector.Unity
 {
 
-  [Serializable]
-  public class ViewColorParam
-  {
-    public Color32 color;
-    public int index;
-  }
-
-  [Serializable]
-  public class RigParam
-  {
-    public List<ViewerBundle> viewerbundles;
-  }
-
-  [Serializable]
-  public class RigParamIso : RigParam
-  {
-    public List<CloudShell> clouds;
-    public List<ViewColorParam> colors;
-  }
-
+  [ExecuteAlways]
   public class RigMono : ViewObjBehaviour<Rig>
   {
 
     [Header("|| Runtime||")]
     [SerializeField] [Range(0, 300)] private int frameRate = 180;
     [SerializeField] private bool isRunning;
-
-    [SerializeField] private List<RigParam> @params;
 
     public List<CloudShell> points
     {
@@ -64,10 +42,6 @@ namespace ViewTo.Connector.Unity
     protected override void ImportValidObj()
     {
       name = viewObj.TypeName();
-      @params = new List<RigParam>();
-
-
     }
-
   }
 }

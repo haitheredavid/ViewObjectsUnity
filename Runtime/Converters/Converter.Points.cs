@@ -13,12 +13,12 @@ namespace ViewTo.Connector.Unity
     {
       return objs.ToDictionary(o => o.id, o => o.ToView());
     }
-    
+
     public static CloudPoint[] ToView(this CloudShell value)
     {
       var items = new CloudPoint[value.count];
 
-      for (int i = 0; i < value.count; i++)
+      for (var i = 0; i < value.count; i++)
         items[i] = value.points[i].ToView(value.meta[i]);
 
       return items;
@@ -28,21 +28,15 @@ namespace ViewTo.Connector.Unity
     {
       var items = new CloudPoint[value.Length];
 
-      for (int i = 0; i < value.Length; i++)
+      for (var i = 0; i < value.Length; i++)
         items[i] = value[i].ToView(meta[i]);
 
       return items;
     }
 
-    public static CloudPoint ToView(this Vector3 value)
-    {
-      return new CloudPoint(value.x, value.z, value.y);
-    }
+    public static CloudPoint ToView(this Vector3 value) => new CloudPoint(value.x, value.z, value.y);
 
-    public static CloudPoint ToView(this Vector3 value, string meta)
-    {
-      return new CloudPoint(value.x, value.z, value.y) {meta = meta};
-    }
+    public static CloudPoint ToView(this Vector3 value, string meta) => new CloudPoint(value.x, value.z, value.y) { meta = meta };
 
     public static Vector3[] ToUnity(this CloudPoint[] value, out string[] meta)
     {
@@ -57,6 +51,7 @@ namespace ViewTo.Connector.Unity
 
       return points;
     }
+
     public static Vector3[] ToUnity(this CloudPoint[] value)
     {
       var points = new Vector3[value.Length];

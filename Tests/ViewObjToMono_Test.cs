@@ -13,17 +13,16 @@ namespace ViewToUnity.Tests.Units
   public class ViewObjToMono_Test
   {
 
-
     [TestCase(true)]
     [TestCase(false)]
     public void To_ViewCloud(bool isValid)
     {
       var pts = new CloudPoint[100];
       for (var i = 0; i < pts.Length; i++)
-        pts[i] = new CloudPoint(TestMil.RV, TestMil.RV, TestMil.RV) {meta = "Floor1"};
+        pts[i] = new CloudPoint(TestMil.RV, TestMil.RV, TestMil.RV) { meta = "Floor1" };
 
       var o = new ViewCloud
-        {points = isValid ? pts : null};
+        { points = isValid ? pts : null };
 
       var mono = o.ToViewMono();
       Assert.NotNull(mono);
@@ -60,13 +59,9 @@ namespace ViewToUnity.Tests.Units
       var mono = o.ToViewMono();
       Assert.NotNull(mono);
 
-      if (isValid)
-      {
-        Assert.False(mono.hasLinks);
-        Assert.True(mono.viewerCount == o.layouts.Sum(l => l.viewers.Count));
-      }
-
+      if (isValid) Assert.False(mono.hasLinks);
     }
+
     [TestCase(true)]
     [TestCase(false)]
     public void To_ViewerLinkedBundle(bool isValid)
@@ -87,11 +82,7 @@ namespace ViewToUnity.Tests.Units
       var mono = o.ToViewMono();
       Assert.NotNull(mono);
 
-      if (isValid)
-      {
-        Assert.True(mono.hasLinks);
-        Assert.True(mono.viewerCount == o.layouts.Sum(l => l.viewers.Count));
-      }
+      if (isValid) Assert.True(mono.hasLinks);
 
     }
 
@@ -101,7 +92,7 @@ namespace ViewToUnity.Tests.Units
     {
       var shared = TestMil.Cloud(1000);
       var iso = TestMil.Cloud(200);
-      var o = isValid ? new Rig()
+      var o = isValid ? new Rig
       {
         globalParams = new List<RigParameters>
         {
@@ -117,7 +108,7 @@ namespace ViewToUnity.Tests.Units
         },
         clouds = new Dictionary<string, CloudPoint[]>
         {
-          {shared.viewID, shared.points}, {iso.viewID, iso.points}
+          { shared.viewID, shared.points }, { iso.viewID, iso.points }
         }
       } : new Rig();
 
@@ -206,7 +197,7 @@ namespace ViewToUnity.Tests.Units
     public void To_DesignContent(bool isValid)
     {
       var o = new DesignContent
-        {viewName = isValid ? "TestName" : null};
+        { viewName = isValid ? "TestName" : null };
 
       var mono = o.ToViewMono();
       Assert.NotNull(mono);

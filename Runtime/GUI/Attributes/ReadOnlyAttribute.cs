@@ -1,11 +1,18 @@
-using UnityEngine;
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
+using UnityEngine;
 
-#endif
+[AttributeUsage(AttributeTargets.Field)]
+public class DropDownStringAttribute : PropertyAttribute
+{
 
-#if UNITY_EDITOR
-#endif
+  public DropDownStringAttribute(string value) => Name = value;
+  public string Name { get; }
+}
+
+public class ReadOnlyAttribute : PropertyAttribute
+{ }
 
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
@@ -23,5 +30,4 @@ public class ReadOnlyDrawer : PropertyDrawer
   }
 }
 
-public class ReadOnlyAttribute : PropertyAttribute
-{ }
+#endif

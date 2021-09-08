@@ -4,7 +4,7 @@ using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
 {
-  public class DesignContentMono : ViewContentMono<DesignContent>, IViewName
+  public class DesignByTypeContentMono : ViewByTypeContentMono<DesignContent>, IViewName
   {
     [SerializeField] private string viewObjectName;
 

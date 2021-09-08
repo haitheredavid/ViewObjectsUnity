@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using ViewTo.Objects;
 using ViewTo.Objects.Structure;
@@ -10,8 +9,7 @@ namespace ViewTo.Connector.Unity
   public class ContentBundleMono : ViewObjBehaviour<ContentBundle>
   {
 
-    // TODO compile lists added during edit mode  
-    [SerializeField] private List<ViewContentMono> contents;
+    [SerializeField] private List<ViewByTypeContentMono> contents;
 
     public List<TargetContent> targets
     {
@@ -31,23 +29,26 @@ namespace ViewTo.Connector.Unity
       private set => viewObj.designs = value;
     }
 
-    public void Set(IEnumerable<ViewContentMono> items)
+    public List<ViewByTypeContentMono> GetAll
+    {
+      get => contents.Valid() ? contents : new List<ViewByTypeContentMono>();
+    }
+
+    public void Set(IEnumerable<ViewByTypeContentMono> items)
     {
       foreach (var i in items)
         if (i != null)
           Set(i);
     }
 
-    public void Set(ViewContentMono item)
+    public void Set(ViewByTypeContentMono item)
     {
-      contents ??= new List<ViewContentMono>();
+      contents ??= new List<ViewByTypeContentMono>();
       item.transform.SetParent(transform);
       contents.Add(item);
     }
 
-    public List<ViewContentMono> GetAll => contents.Valid() ? contents : new List<ViewContentMono>();
-
-    public List<TContent> Get<TContent>() where TContent : ViewContentMono
+    public List<TContent> Get<TContent>() where TContent : ViewByTypeContentMono
     {
       var item = new List<TContent>();
       foreach (var i in contents)
@@ -63,13 +64,16 @@ namespace ViewTo.Connector.Unity
       gameObject.name = "Content Bundle";
       var items = new List<ViewContent>();
 
-      items.AddRange(viewObj.targets);
-      items.AddRange(viewObj.blockers);
-      items.AddRange(viewObj.designs);
+      if (targets.Valid())
+        items.AddRange(targets);
+      if (blockers.Valid())
+        items.AddRange(blockers);
+      if (designs.Valid())
+        items.AddRange(designs);
 
-      contents = new List<ViewContentMono>();
+      contents = new List<ViewByTypeContentMono>();
       foreach (var i in items)
-        if (i.ToViewMono() is ViewContentMono mono)
+        if (i.ToViewMono() is ViewByTypeContentMono mono)
         {
           mono.transform.SetParent(transform);
           contents.Add(mono);
@@ -80,16 +84,13 @@ namespace ViewTo.Connector.Unity
     {
       if (contents.Valid())
         for (var i = contents.Count - 1; i >= 0; i--)
-        {
           if (Application.isPlaying)
             Destroy(contents[i].gameObject);
           else
             DestroyImmediate(contents[i].gameObject);
-        }
 
-      contents = new List<ViewContentMono>();
+      contents = new List<ViewByTypeContentMono>();
 
     }
-
   }
 }
