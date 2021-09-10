@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement style="align-items: stretch; flex-direction: row; height: 43px;">
+        <ui:VisualElement style="width: auto; flex-direction: row; justify-content: space-between; height: 43px;">
+            <ui:Button text="Button" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ViewerLayoutElement style="flex-direction: column; width: 100%; align-items: stretch; justify-content: space-between;">
+            <uie:ObjectField label="Object Field" />
+        </ViewerLayoutElement>
+    </ui:VisualElement>
+    <uie:ToolbarSpacer style="height: 14px; width: 464px;" />
+    <ViewerLayoutElement style="flex-direction: column; width: 361px;">
+        <uie:Vector3Field label="Vec3 Field" style="flex-direction: row; justify-content: space-around; align-items: stretch;" />
+    </ViewerLayoutElement>
+    <ui:VisualElement />
+</ui:UXML>
