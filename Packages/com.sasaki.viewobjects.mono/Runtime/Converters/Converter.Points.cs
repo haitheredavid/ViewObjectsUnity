@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using ViewTo.Objects.Elements;
 
 namespace ViewTo.Connector.Unity
 {
@@ -9,12 +8,12 @@ namespace ViewTo.Connector.Unity
   public static partial class ViewConverter
   {
 
-    public static Dictionary<string, CloudPoint[]> ToView(this List<CloudShell> objs)
+    public static Dictionary<string, CloudPoint[]> ToView(this List<CloudShellUnity> objs)
     {
       return objs.ToDictionary(o => o.id, o => o.ToView());
     }
 
-    public static CloudPoint[] ToView(this CloudShell value)
+    public static CloudPoint[] ToView(this CloudShellUnity value)
     {
       var items = new CloudPoint[value.count];
 

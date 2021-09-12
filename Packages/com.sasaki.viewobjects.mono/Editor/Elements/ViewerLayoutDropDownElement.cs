@@ -1,17 +1,20 @@
 ﻿using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using ViewTo;
 using ViewTo.Connector.Unity;
-using ViewTo.Objects.Elements;
 using ViewTo.Objects.Mono.Args;
-using ViewTo.Objects.Structure;
-
+using ViewTo.ViewObject;
 
 public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
 {
+  public new class UxmlTraits : VisualElement.UxmlTraits
+  { }
+
+  public new class UxmlFactory : UxmlFactory<ViewerLayoutDropDownElement, UxmlTraits>
+  { }
 
   protected override ViewObjArgs<ViewerLayout> CreateArgs(ViewerLayout obj) => new ViewerLayoutArgs(obj);
-
   protected override ViewerLayout ProcessObjParams(ViewerLayout @object)
   {
     paramRoot.Clear();
@@ -72,12 +75,12 @@ public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
 
       var obj = GameObject.Find(evt.newValue.name);
 
-      MetaShell newShell = null;
+      CloudShell newShell = new CloudShell();
       if (obj != null)
       {
         var mono = obj.GetComponent<ViewCloudMono>();
         if (mono != null)
-          newShell = new MetaShell(mono.viewObj.GetType(), mono.viewID, mono.Points?.Length ?? 0);
+          newShell = new CloudShell(mono.viewObj.GetType(), mono.viewID, mono.Points?.Length ?? 0);
       }
       ViewObjUpdated(new ViewerLayoutNormal
       {
@@ -105,10 +108,4 @@ public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
     });
     return param;
   }
-
-  public new class UxmlTraits : VisualElement.UxmlTraits
-  { }
-
-  public new class UxmlFactory : UxmlFactory<ViewerLayoutDropDownElement, UxmlTraits>
-  { }
 }

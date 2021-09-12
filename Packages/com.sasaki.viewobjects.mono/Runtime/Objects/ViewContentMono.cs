@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Structure;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -8,14 +9,39 @@ namespace ViewTo.Connector.Unity
   {
 
     [SerializeField] private Color32 viewColor = Color.magenta;
-    [ReadOnly] [SerializeField] private int viewColorID;
-    [ReadOnly] [SerializeField] private int contentMask;
+    [SerializeField] private int contentMask;
+    [SerializeField] private Material analysisMaterial;
+    [SerializeField] private int objectCount;
+    [SerializeField] private string viewName = "test name";
+
+    public List<GameObject> GetSceneObjs
+    {
+      get => transform.GatherKids();
+      set
+      {
+        foreach (Transform child in transform)
+          ViewMonoHelper.SafeDestroy(child.gameObject);
+
+        StoreSceneObjs(value);
+        SetMeshData();
+      }
+    }
+
+    private void StoreSceneObjs(List<GameObject> items)
+    {
+      viewObj.objects = new List<object>();
+      foreach (var obj in items)
+        viewObj.objects.Add(obj);
+
+      objectCount = viewObj.objects.Count;
+    }
 
     public int ContentMask
     {
       get => contentMask;
       set => contentMask = value;
     }
+
     public ViewColor ViewColor
     {
       get => viewObj.viewColor;
@@ -23,35 +49,91 @@ namespace ViewTo.Connector.Unity
       {
         viewObj.viewColor = value;
         viewColor = value.ToUnity();
-        viewColorID = value.Id;
       }
+    }
+
+    public string ViewName
+    {
+      get => viewName;
+      private set
+      {
+        viewName = value;
+        viewObj.viewName = value;
+        gameObject.name = viewObj.TypeName() + "-" + viewObj.viewName;
+      }
+    }
+    public void SetArgs(ViewContent args)
+    {
+      if (!args.viewName.Valid())
+        args.viewName = viewName;
+      else
+        viewName = args.viewName;
+
+      viewObj = args;
+      SetContentParams();
+
+      StoreSceneObjs(GetSceneObjs);
+    }
+
+    public void Params(bool args)
+    {
+      if (viewObj is TargetContent tc)
+        tc.isolate = args;
+    }
+
+    public void Params(string args)
+    {
+      ViewName = args;
+    }
+
+    private void SetContentParams()
+    {
+      ViewName = viewObj.viewName;
+      ContentMask = MaskByType();
+    }
+
+    protected override void ImportValidObj()
+    {
+      SetContentParams();
+      SetMeshData();
     }
 
     /// <summary>
     ///   references the objects converted to the view content list and imports them
     /// </summary>
-    protected virtual void SetMeshData()
+    private void SetMeshData()
     {
       if (!viewObj.objects.Valid()) return;
 
       foreach (var obj in viewObj.objects)
-        if (obj is GameObject go)
-        {
-          go.transform.SetParent(transform);
-        }
+      {
+        var mat = analysisMaterial != null ? new Material(analysisMaterial) : new Material(Shader.Find("Unlit"));
+
+        GameObject go;
+        if (obj is GameObject o)
+          go = o;
         else if (obj is Mesh mesh)
         {
-          var mf = new GameObject().AddComponent<MeshFilter>();
-          mf.gameObject.AddComponent<MeshRenderer>();
+          go = new GameObject(mesh.name);
+          var filter = new GameObject().AddComponent<MeshFilter>();
 
+          // TODO move to shared toolkit
           if (Application.isPlaying)
-            mf.mesh = mesh;
+            filter.mesh = mesh;
           else
-            mf.sharedMesh = mesh;
-
-          mf.transform.SetParent(transform);
+            filter.sharedMesh = mesh;
         }
+        else
+          throw new Exception("not an object set for converting");
 
+        var meshRend = go.GetComponent<MeshRenderer>();
+        if (meshRend == null)
+          meshRend = go.AddComponent<MeshRenderer>();
+
+        meshRend.material = mat;
+
+        go.transform.SetParent(transform);
+      }
     }
 
     private int MaskByType() => viewObj switch
@@ -61,11 +143,6 @@ namespace ViewTo.Connector.Unity
       BlockerContent _ => 8,
       _ => 0
     };
-    protected override void ImportValidObj()
-    {
-      ContentMask = MaskByType();
-      SetMeshData();
-      // SetContentData(viewObj);
-    }
+
   }
 }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using ViewTo;
+using ViewTo.AnalysisObject;
 using ViewTo.Connector.Unity;
-using ViewTo.Objects;
-using ViewTo.Objects.Elements;
-using ViewTo.Objects.Structure;
+using ViewTo.StudyObject;
+using ViewTo.ViewObject;
 
 namespace ViewToUnity.Tests.Units
 {
@@ -50,7 +51,7 @@ namespace ViewToUnity.Tests.Units
 
       var o = isValid ? new ViewerBundle
       {
-        layouts = new List<ViewerLayout>
+        layouts = new List<IViewerLayout>
         {
           new ViewerLayout(), new ViewerLayoutCube()
         }
@@ -69,11 +70,11 @@ namespace ViewToUnity.Tests.Units
 
       var o = isValid ? new ViewerBundleLinked
       {
-        linkedClouds = new List<MetaShell>
+        linkedClouds = new List<CloudShell>
         {
           TestMil.Shell(TestMil.Cloud(100))
         },
-        layouts = new List<ViewerLayout>
+        layouts = new List<IViewerLayout>
         {
           new ViewerLayout(), new ViewerLayoutCube()
         }
@@ -94,13 +95,9 @@ namespace ViewToUnity.Tests.Units
       var iso = TestMil.Cloud(200);
       var o = isValid ? new Rig
       {
-        globalParams = new List<RigParameters>
+        globalParams = new List<IRigParam>
         {
           TestMil.RigParams
-        },
-        isolatedParams = new List<RigParametersIsolated>
-        {
-          TestMil.RigParamsIso(iso)
         },
         globalColors = new List<ViewColor>
         {

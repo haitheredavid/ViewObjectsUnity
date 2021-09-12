@@ -1,6 +1,5 @@
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Structure;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {

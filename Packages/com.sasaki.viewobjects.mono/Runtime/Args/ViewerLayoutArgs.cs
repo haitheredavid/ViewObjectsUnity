@@ -1,4 +1,4 @@
-﻿using ViewTo.Objects.Structure;
+﻿using ViewTo.ViewObject;
 
 namespace ViewTo.Objects.Mono.Args
 {

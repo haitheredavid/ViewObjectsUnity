@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.Objects.Structure;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -39,7 +39,6 @@ namespace ViewTo.Connector.Unity
       }
 
       ViewMonoHelper.SafeDestroy(prefab.gameObject);
-      Debug.Log("Destory Run");
     }
   }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
-using ViewTo.Objects;
+using ViewTo;
 using ViewTo.Objects.Mono.Args;
-using ViewTo.Objects.Structure;
 
 public abstract class ViewObjDropDownElement<TObj> : SimpleDropForObjects<TObj> where TObj : ViewObj
 {
   public event EventHandler<ViewObjArgs<TObj>> onViewObjUpdate;
+
 
   protected abstract ViewObjArgs<TObj> CreateArgs(TObj obj);
 
