@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/haitheredavid/viewto-unity/compare/v1.1.10...v1.1.11) (2021-09-12)
+
+
+### Bug Fixes
+
+* working for all objects ([ed58f92](https://github.com/haitheredavid/viewto-unity/commit/ed58f92dca0dbd585b97d589e54b8020cda6f0aa))
+
 ## [1.1.10](https://github.com/haitheredavid/viewto-unity/compare/v1.1.9...v1.1.10) (2021-08-24)
 
 
