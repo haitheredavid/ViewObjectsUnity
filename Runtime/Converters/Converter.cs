@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Structure;
+using ViewTo.AnalysisObject;
+using ViewTo.StudyObject;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -38,7 +39,7 @@ namespace ViewTo.Connector.Unity
         ContentBundle o => o.ToViewMono(),
 
         Rig o => null,
-        RigParameters o => null,
+        // RigParameters o => null,
         ViewerBundle o => o.ToViewMono(),
         ViewerLayout o => o.ToViewMono(),
 

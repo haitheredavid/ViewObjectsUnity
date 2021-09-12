@@ -1,10 +1,11 @@
-﻿using UnityEditor;
+﻿using CodiceApp.EventTracking;
+using UnityEditor;
 using UnityEngine.UIElements;
 using ViewTo.Connector.Unity;
 
 namespace ViewTo.Objects.Mono
 {
-  [CustomEditor(typeof(ViewCloudMono))]
+  [CustomEditor(typeof(ViewContentMono))]
   public class ViewContentEditor : Editor
   {
     private ViewContentMono mono;
@@ -14,16 +15,19 @@ namespace ViewTo.Objects.Mono
     {
       visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(ViewMonoHelper.StylesPath + "ViewContentDoc.uxml");
     }
-
+    
     public override VisualElement CreateInspectorGUI()
     {
       mono = (ViewContentMono)target;
       var root = visualTree.CloneTree();
 
-      var layoutDropDown = root.Q<ViewContentDropDownElement>();
-      layoutDropDown.onViewObjUpdate += (sender, args) => mono.TryImport(args.viewObj);
-      layoutDropDown.SetValue(mono.viewObj);
+      var element = root.Q<ViewContentDropDownElement>();
+      element.SetValue(mono.viewObj);
 
+      element.onViewObjUpdate += (sender, args) => { mono.SetArgs(args.viewObj); };
+      
+      element.IsolateUpdated += (sender, args) => { mono.Params(args); };
+      
       return root;
     }
   }

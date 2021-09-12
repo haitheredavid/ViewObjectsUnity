@@ -1,5 +1,4 @@
 using UnityEngine;
-using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
 {

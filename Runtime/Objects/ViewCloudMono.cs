@@ -1,4 +1,4 @@
-using ViewTo.Objects;
+using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Elements;
-using ViewTo.Objects.Structure;
+using ViewTo;
+using ViewTo.AnalysisObject;
+using ViewTo.StudyObject;
+using ViewTo.ViewObject;
 
 namespace ViewToUnity.Tests
 {
@@ -36,7 +37,7 @@ namespace ViewToUnity.Tests
 
         var bundle1 = new ViewerBundle
         {
-          layouts = new List<ViewerLayout>
+          layouts = new List<IViewerLayout>
           {
             new ViewerLayout(), new ViewerLayoutCube()
           }
@@ -44,12 +45,12 @@ namespace ViewToUnity.Tests
 
         var bundle2 = new ViewerBundleLinked
         {
-          layouts = new List<ViewerLayout>
+          layouts = new List<IViewerLayout>
           {
             new ViewerLayoutCube(), new ViewerLayoutFocus()
           },
 
-          linkedClouds = new List<MetaShell>
+          linkedClouds = new List<CloudShell>
           {
             Shell(cloud2)
           }
@@ -94,17 +95,10 @@ namespace ViewToUnity.Tests
           }
         };
 
-        var rigParams = new RigParameters
-        {
-          bundles = new List<ViewerBundle>
-          {
-            bundle1, bundle2
-          }
-        };
 
         s.objs = new List<ViewObj>
         {
-          cloud1, cloud2, content, rigParams
+          cloud1, cloud2, content, bundle1, bundle2
         };
 
         return s;
@@ -135,17 +129,17 @@ namespace ViewToUnity.Tests
         { points = pts };
     }
 
-    public static MetaShell Shell(ViewCloud c) => new MetaShell(c, c.viewID, c.points.Length);
+    public static CloudShell Shell(ViewCloud c) => new CloudShell(c, c.viewID, c.points.Length);
 
     public static List<ViewerBundle> ViewerBundle(ViewCloud c) => new List<ViewerBundle>
     {
       new ViewerBundleLinked
       {
-        linkedClouds = new List<MetaShell>
+        linkedClouds = new List<CloudShell>
         {
           Shell(c)
         },
-        layouts = new List<ViewerLayout>
+        layouts = new List<IViewerLayout>
         {
           new ViewerLayoutFocus()
         }
@@ -155,7 +149,7 @@ namespace ViewToUnity.Tests
     {
       new ViewerBundle
       {
-        layouts = new List<ViewerLayout>
+        layouts = new List<IViewerLayout>
         {
           new ViewerLayout(), new ViewerLayoutCube()
         }

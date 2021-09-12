@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
-
   [Serializable]
-  public class CloudShell
+  public class CloudShellUnity
   {
     public int count;
     public string id;

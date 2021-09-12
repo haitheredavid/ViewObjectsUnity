@@ -1,19 +1,18 @@
 using System;
 using UnityEngine;
-using ViewTo.Objects;
 using ViewTo.Objects.Mono.Args;
-using ViewTo.Objects.Structure;
 
 namespace ViewTo.Connector.Unity
 {
 
   public abstract class ViewObjBehaviour : MonoBehaviour, IValidator
   {
-    public abstract ViewObj GetViewObj { get; }
-    public abstract bool isValid { get; }
     public abstract void TryImport(ViewObj obj);
 
+    public abstract bool isValid { get; }
+    
     protected abstract void ImportValidObj();
+    
     protected void TriggerImportArgs(ViewObjArgs args) => OnViewObjectImported?.Invoke(args);
 
     public event Action<ViewObjArgs> OnViewObjectImported;
@@ -24,7 +23,7 @@ namespace ViewTo.Connector.Unity
 
     private TObj _internalObj;
 
-    public override ViewObj GetViewObj
+    public virtual ViewObj GetViewObj
     {
       get => viewObj;
     }

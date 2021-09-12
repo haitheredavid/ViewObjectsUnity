@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Structure;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -38,9 +37,14 @@ namespace ViewTo.Connector.Unity
       loadedObjs = new List<ViewObjBehaviour>();
       foreach (var obj in viewObj.objs)
       {
-        if (obj == null) continue;
-
         var mono = obj.ToViewMono();
+
+        if (mono == null)
+        {
+          Debug.Log($"did not convert {obj.TypeName()} to mono ");
+          continue;
+        }
+        
         mono.transform.SetParent(transform);
         loadedObjs.Add(mono);
       }

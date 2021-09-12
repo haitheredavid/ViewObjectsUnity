@@ -1,10 +1,8 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Elements;
 using ViewTo.Objects.Mono.Args;
-using ViewTo.Objects.Structure;
+using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -13,7 +11,7 @@ namespace ViewTo.Connector.Unity
   public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud, new()
   {
 
-    [ReadOnly] [SerializeField] protected int pointCount;
+    [SerializeField] protected int pointCount;
 
     public string viewID
     {

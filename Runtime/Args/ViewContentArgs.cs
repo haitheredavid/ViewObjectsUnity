@@ -1,4 +1,6 @@
-﻿namespace ViewTo.Objects.Mono.Args
+﻿using ViewTo.ViewObject;
+
+namespace ViewTo.Objects.Mono.Args
 {
   public class ViewContentArgs : ViewObjArgs<ViewContent>
   {

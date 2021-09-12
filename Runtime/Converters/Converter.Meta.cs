@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ViewTo.Objects.Elements;
 
 namespace ViewTo.Connector.Unity
 {
   public static partial class ViewConverter
   {
 
-    public static List<CloudShell> ToUnity(this Dictionary<string, CloudPoint[]> obj) => obj.Select(i => new CloudShell
+    public static List<CloudShellUnity> ToUnity(this Dictionary<string, CloudPoint[]> obj) => obj.Select(i => new CloudShellUnity
       {
         count = i.Value.Length,
         id = i.Key,

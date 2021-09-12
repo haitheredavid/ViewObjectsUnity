@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using ViewTo.Objects;
-using ViewTo.Objects.Elements;
-using ViewTo.Objects.Structure;
+using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {

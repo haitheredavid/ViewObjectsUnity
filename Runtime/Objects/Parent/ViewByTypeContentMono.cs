@@ -1,6 +1,5 @@
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Structure;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -8,8 +7,8 @@ namespace ViewTo.Connector.Unity
   public abstract class ViewByTypeContentMono : ViewObjBehaviour<ViewContent>
   {
     [SerializeField] private Color32 viewColor = Color.magenta;
-    [ReadOnly] [SerializeField] private int viewColorID;
-    [ReadOnly] [SerializeField] private int contentMask;
+    [SerializeField] private int viewColorID;
+    [SerializeField] private int contentMask;
 
     public int ContentMask
     {

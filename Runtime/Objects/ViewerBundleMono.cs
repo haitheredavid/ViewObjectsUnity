@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.Objects;
-using ViewTo.Objects.Elements;
-using ViewTo.Objects.Structure;
+using ViewTo.StudyObject;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -15,11 +14,9 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private List<Color32> colors;
     public List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
 
-    #if UNITY_EDITOR
     public ViewerLayout cachedLayout = new ViewerLayout();
-    #endif
 
-    public List<MetaShell> linkedShell { get; private set; }
+    public List<CloudShell> linkedShell { get; private set; }
 
     public bool hasLinks
     {
@@ -54,7 +51,9 @@ namespace ViewTo.Connector.Unity
       layouts = new List<ViewerLayoutMono>();
       if (!viewObj.layouts.Valid()) return;
 
-      foreach (var l in viewObj.layouts) LayoutToScene(l);
+      foreach (var l in viewObj.layouts)
+        if (l is ViewerLayout vl)
+          LayoutToScene(vl);
     }
 
     private void LayoutToScene(ViewerLayout obj)
