@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
-
   public class ViewerMono : MonoBehaviour
   {
 

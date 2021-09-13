@@ -13,7 +13,7 @@ namespace ViewTo.Objects.Mono
 
     private void OnEnable()
     {
-      visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(ViewMonoHelper.StylesPath + "ViewerBundleDoc.uxml");
+      visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(MonoHelper.StylesPath + "ViewerBundleDoc.uxml");
     }
 
     public override VisualElement CreateInspectorGUI()

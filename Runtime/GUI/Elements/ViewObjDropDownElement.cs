@@ -6,7 +6,6 @@ public abstract class ViewObjDropDownElement<TObj> : SimpleDropForObjects<TObj> 
 {
   public event EventHandler<ViewObjArgs<TObj>> onViewObjUpdate;
 
-
   protected abstract ViewObjArgs<TObj> CreateArgs(TObj obj);
 
   protected void ViewObjUpdated(TObj obj)

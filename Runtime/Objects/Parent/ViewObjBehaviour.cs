@@ -45,6 +45,7 @@ namespace ViewTo.Connector.Unity
         viewObj = casted;
         ImportValidObj();
       }
+
     }
   }
 

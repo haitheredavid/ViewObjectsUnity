@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
-  public static class ViewMonoHelper
+  public static class MonoHelper
   {
 
     public static readonly string RuntimeDir = "Packages/com.sasaki.viewobjects.mono/Runtime/";
