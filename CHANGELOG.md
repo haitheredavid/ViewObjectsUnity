@@ -1,3 +1,10 @@
+## [1.1.14](https://github.com/haitheredavid/viewto-unity/compare/v1.1.13...v1.1.14) (2021-09-13)
+
+
+### Bug Fixes
+
+* added dll ([dda99df](https://github.com/haitheredavid/viewto-unity/commit/dda99df5ae4aab52924463f7c4eead25db020a36))
+
 ## [1.1.13](https://github.com/haitheredavid/viewto-unity/compare/v1.1.12...v1.1.13) (2021-09-13)
 
 
