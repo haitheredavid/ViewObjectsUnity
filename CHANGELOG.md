@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/haitheredavid/viewto-unity/compare/v1.1.11...v1.1.12) (2021-09-13)
+
+
+### Bug Fixes
+
+* removed view content by type scripts ([0b21dc6](https://github.com/haitheredavid/viewto-unity/commit/0b21dc624acd27454f8a25c59adb5f113fda5723))
+
 ## [1.1.11](https://github.com/haitheredavid/viewto-unity/compare/v1.1.10...v1.1.11) (2021-09-12)
 
 
