@@ -1,3 +1,10 @@
+## [1.1.15](https://github.com/haitheredavid/viewto-unity/compare/v1.1.14...v1.1.15) (2021-09-13)
+
+
+### Performance Improvements
+
+* meta file issue fixed ([7dc871c](https://github.com/haitheredavid/viewto-unity/commit/7dc871cceca7cc28fa81c870a7ba9790579156c7))
+
 ## [1.1.14](https://github.com/haitheredavid/viewto-unity/compare/v1.1.13...v1.1.14) (2021-09-13)
 
 
