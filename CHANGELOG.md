@@ -1,3 +1,10 @@
+## [1.1.13](https://github.com/haitheredavid/viewto-unity/compare/v1.1.12...v1.1.13) (2021-09-13)
+
+
+### Bug Fixes
+
+* meta files added ([37401ac](https://github.com/haitheredavid/viewto-unity/commit/37401ac46d52d217c1c60ca2aa2dcd7c1aa571c7))
+
 ## [1.1.12](https://github.com/haitheredavid/viewto-unity/compare/v1.1.11...v1.1.12) (2021-09-13)
 
 
