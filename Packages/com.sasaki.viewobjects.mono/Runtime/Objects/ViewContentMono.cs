@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ViewTo.StudyObject;
 using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
@@ -14,13 +15,25 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private int objectCount;
     [SerializeField] private string viewName = "test name";
 
+    public List<ViewerBundle> bundles
+    {
+      get
+      {
+        if (viewObj is TargetContent tc)
+          return tc.bundles;
+
+        Debug.Log("Only Target Content will have Viewer Bundles!");
+        return null;
+      }
+    }
+
     public List<GameObject> GetSceneObjs
     {
       get => transform.GatherKids();
       set
       {
         foreach (Transform child in transform)
-          ViewMonoHelper.SafeDestroy(child.gameObject);
+          MonoHelper.SafeDestroy(child.gameObject);
 
         StoreSceneObjs(value);
         SetMeshData();
@@ -38,8 +51,11 @@ namespace ViewTo.Connector.Unity
 
     public int ContentMask
     {
-      get => contentMask;
-      set => contentMask = value;
+      get
+      {
+        contentMask = MaskByType();
+        return contentMask;
+      }
     }
 
     public ViewColor ViewColor
@@ -62,15 +78,11 @@ namespace ViewTo.Connector.Unity
         gameObject.name = viewObj.TypeName() + "-" + viewObj.viewName;
       }
     }
+
     public void SetArgs(ViewContent args)
     {
-      if (!args.viewName.Valid())
-        args.viewName = viewName;
-      else
-        viewName = args.viewName;
-
       viewObj = args;
-      SetContentParams();
+      ViewName = args.viewName;
 
       StoreSceneObjs(GetSceneObjs);
     }
@@ -86,15 +98,9 @@ namespace ViewTo.Connector.Unity
       ViewName = args;
     }
 
-    private void SetContentParams()
-    {
-      ViewName = viewObj.viewName;
-      ContentMask = MaskByType();
-    }
-
     protected override void ImportValidObj()
     {
-      SetContentParams();
+      ViewName = viewObj.viewName;
       SetMeshData();
     }
 

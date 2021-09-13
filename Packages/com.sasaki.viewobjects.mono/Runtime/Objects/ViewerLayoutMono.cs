@@ -17,7 +17,7 @@ namespace ViewTo.Connector.Unity
     public void Clear()
     {
       if (viewers.Valid())
-        ViewMonoHelper.ClearList(viewers);
+        MonoHelper.ClearList(viewers);
 
       viewers = new List<ViewerMono>();
     }
@@ -38,7 +38,8 @@ namespace ViewTo.Connector.Unity
         viewers.Add(mono);
       }
 
-      ViewMonoHelper.SafeDestroy(prefab.gameObject);
+      MonoHelper.SafeDestroy(prefab.gameObject);
+      
     }
   }
 }

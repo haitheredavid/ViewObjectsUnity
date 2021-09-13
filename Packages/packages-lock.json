@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.haithere.tools.uikits": {
-      "version": "1.0.5",
+      "version": "1.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -20,7 +20,9 @@
       "version": "file:com.sasaki.viewobjects.mono",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.haithere.tools.uikits": "1.0.6"
+      }
     },
     "com.unity.collab-proxy": {
       "version": "1.9.0",

@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using ViewTo;
 using ViewTo.Objects.Mono.Args;
@@ -10,15 +9,10 @@ public class ViewContentDropDownElement : ViewObjDropDownElement<ViewContent>
   public ViewContentDropDownElement()
   {
     skipBaseObj = true;
-
   }
 
   protected override ViewObjArgs<ViewContent> CreateArgs(ViewContent obj) => new ViewContentArgs(obj);
 
-  private TextField nameField;
-  private IntegerField countField;
-
-  //TODO setup structure for view content objects
   protected override ViewContent ProcessObjParams(ViewContent @object)
   {
     paramRoot.Clear();

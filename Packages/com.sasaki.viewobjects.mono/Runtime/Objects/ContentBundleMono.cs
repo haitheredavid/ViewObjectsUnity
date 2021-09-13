@@ -9,7 +9,7 @@ namespace ViewTo.Connector.Unity
   public class ContentBundleMono : ViewObjBehaviour<ContentBundle>
   {
 
-    [SerializeField] private List<ViewByTypeContentMono> contents;
+    [SerializeField] private List<ViewContentMono> contents;
 
     public List<TargetContent> targets
     {
@@ -29,30 +29,30 @@ namespace ViewTo.Connector.Unity
       private set => viewObj.designs = value;
     }
 
-    public List<ViewByTypeContentMono> GetAll
+    public List<ViewContentMono> GetAll
     {
-      get => contents.Valid() ? contents : new List<ViewByTypeContentMono>();
+      get => contents.Valid() ? contents : new List<ViewContentMono>();
     }
 
-    public void Set(IEnumerable<ViewByTypeContentMono> items)
+    public void Set(IEnumerable<ViewContentMono> items)
     {
       foreach (var i in items)
         if (i != null)
           Set(i);
     }
 
-    public void Set(ViewByTypeContentMono item)
+    public void Set(ViewContentMono item)
     {
-      contents ??= new List<ViewByTypeContentMono>();
+      contents ??= new List<ViewContentMono>();
       item.transform.SetParent(transform);
       contents.Add(item);
     }
 
-    public List<TContent> Get<TContent>() where TContent : ViewByTypeContentMono
+    public List<TContent> Get<TContent>() where TContent : ViewContent
     {
       var item = new List<TContent>();
       foreach (var i in contents)
-        if (i is TContent casted)
+        if (i.viewObj is TContent casted)
           item.Add(casted);
 
       return item;
@@ -71,9 +71,9 @@ namespace ViewTo.Connector.Unity
       if (designs.Valid())
         items.AddRange(designs);
 
-      contents = new List<ViewByTypeContentMono>();
+      contents = new List<ViewContentMono>();
       foreach (var i in items)
-        if (i.ToViewMono() is ViewByTypeContentMono mono)
+        if (i.ToViewMono() is ViewContentMono mono)
         {
           mono.transform.SetParent(transform);
           contents.Add(mono);
@@ -89,7 +89,7 @@ namespace ViewTo.Connector.Unity
           else
             DestroyImmediate(contents[i].gameObject);
 
-      contents = new List<ViewByTypeContentMono>();
+      contents = new List<ViewContentMono>();
 
     }
   }

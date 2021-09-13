@@ -1,5 +1,4 @@
-﻿using CodiceApp.EventTracking;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine.UIElements;
 using ViewTo.Connector.Unity;
 
@@ -13,7 +12,7 @@ namespace ViewTo.Objects.Mono
 
     private void OnEnable()
     {
-      visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(ViewMonoHelper.StylesPath + "ViewContentDoc.uxml");
+      visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(MonoHelper.StylesPath + "ViewContentDoc.uxml");
     }
     
     public override VisualElement CreateInspectorGUI()

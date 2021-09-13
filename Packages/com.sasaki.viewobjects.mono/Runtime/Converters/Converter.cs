@@ -14,14 +14,13 @@ namespace ViewTo.Connector.Unity
     public static ViewStudyMono ToViewMono(this ViewStudy obj) => obj.ToViewMono<ViewStudyMono>();
     public static ContentBundleMono ToViewMono(this ContentBundle obj) => obj.ToViewMono<ContentBundleMono>();
 
+    public static ViewContentMono ToViewMono(this ViewContent obj) => obj.ToViewMono<ViewContentMono>();
+    
+    
     public static RigMono ToViewMono(this Rig obj) => obj.ToViewMono<RigMono>();
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
-
-    public static TargetByTypeContentMono ToViewMono(this TargetContent obj) => obj.ToViewMono<TargetByTypeContentMono>();
-    public static BlockerByTypeContentMono ToViewMono(this BlockerContent obj) => obj.ToViewMono<BlockerByTypeContentMono>();
-    public static DesignByTypeContentMono ToViewMono(this DesignContent obj) => obj.ToViewMono<DesignByTypeContentMono>();
-
+  
     public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjBehaviour => new GameObject().ToViewMono<TShell>(obj);
 
     public static TShell ToViewMono<TShell>(this GameObject go, ViewObj obj) where TShell : ViewObjBehaviour
@@ -46,10 +45,7 @@ namespace ViewTo.Connector.Unity
         ResultCloud o => o.ToViewMono(),
         ViewCloud o => o.ToViewMono(),
 
-        TargetContent o => o.ToViewMono(),
-        DesignContent o => o.ToViewMono(),
-        BlockerContent o => o.ToViewMono(),
-
+        ViewContent o => o.ToViewMono(),
         _ => throw new ArgumentOutOfRangeException(nameof(obj), obj, null)
       };
 

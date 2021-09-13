@@ -22,11 +22,6 @@ namespace ViewTo.Connector.Unity
     {
       get => linkedShell != null && linkedShell.Count != 0;
     }
-    public bool IsGlobal
-    {
-      get => global;
-      set => global = value;
-    }
 
     public void AddLayout()
     {
@@ -37,7 +32,7 @@ namespace ViewTo.Connector.Unity
 
     public void Clear()
     {
-      ViewMonoHelper.ClearList(layouts);
+      MonoHelper.ClearList(layouts);
       layouts = new List<ViewerLayoutMono>();
     }
 
@@ -65,7 +60,6 @@ namespace ViewTo.Connector.Unity
 
     public void SetParams(ViewerLayout viewerLayout)
     {
-      Debug.Log("Add param button clicked");
       cachedLayout = viewerLayout;
     }
   }
