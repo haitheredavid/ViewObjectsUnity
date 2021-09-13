@@ -1,6 +1,6 @@
 {
   "name": "com.sasaki.viewobjects.mono",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "displayName": "viewobj-mono",
   "description": "ViewObjects for Unity",
   "unity": "2021.1",
