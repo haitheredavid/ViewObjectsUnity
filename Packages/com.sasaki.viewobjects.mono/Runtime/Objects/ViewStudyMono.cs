@@ -26,7 +26,7 @@ namespace ViewTo.Connector.Unity
       }
     }
 
-    protected override void ImportValidObj()
+    protected override void ImportValidObj(ViewStudy viewObj)
     {
       viewName = viewObj.viewName;
       gameObject.name = viewName.Valid() ? viewName : viewObj.TypeName();
@@ -38,13 +38,11 @@ namespace ViewTo.Connector.Unity
       foreach (var obj in viewObj.objs)
       {
         var mono = obj.ToViewMono();
-
         if (mono == null)
         {
           Debug.Log($"did not convert {obj.TypeName()} to mono ");
           continue;
         }
-        
         mono.transform.SetParent(transform);
         loadedObjs.Add(mono);
       }

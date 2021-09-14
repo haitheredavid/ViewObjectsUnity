@@ -10,75 +10,38 @@ namespace ViewTo.Connector.Unity
   {
 
     [SerializeField] private List<ViewContentMono> contents;
-
-    public List<TargetContent> targets
+    
+    public List<ViewContentMono> Get<TContent>() where TContent : ViewContent
     {
-      get => viewObj.targets;
-      private set => viewObj.targets = value;
-    }
-
-    public List<BlockerContent> blockers
-    {
-      get => viewObj.blockers;
-      private set => viewObj.blockers = value;
-    }
-
-    public List<DesignContent> designs
-    {
-      get => viewObj.designs;
-      private set => viewObj.designs = value;
-    }
-
-    public List<ViewContentMono> GetAll
-    {
-      get => contents.Valid() ? contents : new List<ViewContentMono>();
-    }
-
-    public void Set(IEnumerable<ViewContentMono> items)
-    {
-      foreach (var i in items)
-        if (i != null)
-          Set(i);
-    }
-
-    public void Set(ViewContentMono item)
-    {
-      contents ??= new List<ViewContentMono>();
-      item.transform.SetParent(transform);
-      contents.Add(item);
-    }
-
-    public List<TContent> Get<TContent>() where TContent : ViewContent
-    {
-      var item = new List<TContent>();
+      var item = new List<ViewContentMono>();
       foreach (var i in contents)
-        if (i.viewObj is TContent casted)
-          item.Add(casted);
+        if (i.GetRef is TContent)
+          item.Add(i);
 
       return item;
     }
-
-    protected override void ImportValidObj()
+    
+    protected override void ImportValidObj(ContentBundle viewObj)
     {
+      Purge();
+      
+      gameObject.name = viewObj.TypeName();
 
-      gameObject.name = "Content Bundle";
       var items = new List<ViewContent>();
-
-      if (targets.Valid())
-        items.AddRange(targets);
-      if (blockers.Valid())
-        items.AddRange(blockers);
-      if (designs.Valid())
-        items.AddRange(designs);
-
+      
+      items.CheckAndAdd(viewObj.targets);
+      items.CheckAndAdd(viewObj.blockers);
+      items.CheckAndAdd(viewObj.designs);
+      
       contents = new List<ViewContentMono>();
-      foreach (var i in items)
-        if (i.ToViewMono() is ViewContentMono mono)
-        {
-          mono.transform.SetParent(transform);
-          contents.Add(mono);
-        }
+      foreach (var vc in items)
+      {
+        var mono = vc.ToViewMono();
+        mono.transform.SetParent(transform);
+        contents.Add(mono);
+      }
     }
+    
 
     private void Purge()
     {

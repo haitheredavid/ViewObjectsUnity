@@ -11,51 +11,45 @@ namespace ViewTo.Connector.Unity
   public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud, new()
   {
 
-    [SerializeField] protected int pointCount;
+    [SerializeField] private string viewId;
+    [SerializeField] private CloudPoint[] points;
 
-    public string viewID
+    public string GetId
     {
-      get
-      {
-        if (!viewObj.viewID.Valid())
-          viewObj.viewID = Guid.NewGuid().ToString();
-
-        return viewObj.viewID;
-      }
+      get => viewId;
     }
 
-    public CloudPoint[] Points
+    public int pointCount
     {
-      get
-      {
-        viewObj.points ??= Array.Empty<CloudPoint>();
-        return viewObj.points;
-      }
-      set
-      {
-        if (!value.Valid())
-          return;
-
-        viewObj.points = value;
-        pointCount = value.Length;
-        TriggerImportArgs(CreateArgs);
-      }
+      get => points.Valid() ? points.Length : 0;
     }
 
     private CloudImportArgs CreateArgs
     {
       get =>
         new CloudImportArgs(
-          (from p in Points select p.ToUnity()).ToList(),
-          (from p in Points select Color.white).Select(dummy => (Color32)dummy).ToList());
+          (from p in points select p.ToUnity()).ToList(),
+          (from p in points select Color.white).Select(dummy => (Color32)dummy).ToList());
     }
 
-    protected override void ImportValidObj()
+    public void SetPoints(CloudPoint[] pts)
     {
-      pointCount = Points.Valid() ? Points.Length : 0;
-      gameObject.name = viewObj.TypeName();
+      if (!pts.Valid()) return;
 
+      points = pts;
       TriggerImportArgs(CreateArgs);
+    }
+
+    protected override void ImportValidObj(TObj viewObj)
+    {
+      if (viewObj is ViewCloud vo)
+      {
+        gameObject.name = vo.TypeName();
+        viewId = vo.viewID.Valid() ? vo.viewID : Guid.NewGuid().ToString();
+        SetPoints(viewObj.points);
+
+
+      }
     }
   }
 

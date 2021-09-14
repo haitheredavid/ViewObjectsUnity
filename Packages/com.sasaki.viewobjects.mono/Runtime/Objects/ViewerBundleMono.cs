@@ -8,26 +8,15 @@ namespace ViewTo.Connector.Unity
 
   public class ViewerBundleMono : ViewObjBehaviour<ViewerBundle>
   {
-    [SerializeField] private bool global;
+
     [SerializeField] private Texture2D colorStrip;
-    [SerializeField] private List<string> clouds;
     [SerializeField] private List<Color32> colors;
-    public List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
-
-    public ViewerLayout cachedLayout = new ViewerLayout();
-
+    [SerializeField] private List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
     public List<CloudShell> linkedShell { get; private set; }
 
-    public bool hasLinks
+    public bool linked
     {
       get => linkedShell != null && linkedShell.Count != 0;
-    }
-
-    public void AddLayout()
-    {
-      layouts ??= new List<ViewerLayoutMono>();
-      LayoutToScene(cachedLayout);
-      cachedLayout = new ViewerLayout();
     }
 
     public void Clear()
@@ -36,19 +25,35 @@ namespace ViewTo.Connector.Unity
       layouts = new List<ViewerLayoutMono>();
     }
 
-    protected override void ImportValidObj()
+    public void Build()
+    {
+      if (!layouts.Valid())
+        return;
+
+      foreach (var l in layouts)
+        l.Build();
+      
+      
+    }
+
+    protected override void ImportValidObj(ViewerBundle viewObj)
     {
       gameObject.name = viewObj.TypeName();
 
-      if (viewObj is ViewerBundleLinked linked && linked.linkedClouds.Valid())
-        linkedShell = linked.linkedClouds;
-
       layouts = new List<ViewerLayoutMono>();
+
       if (!viewObj.layouts.Valid()) return;
 
-      foreach (var l in viewObj.layouts)
-        if (l is ViewerLayout vl)
+      foreach (var iLayout in viewObj.layouts)
+      {
+        if (iLayout is ViewerLayout vl)
+        {
           LayoutToScene(vl);
+        }
+      }
+
+      if (viewObj is ViewerBundleLinked link && link.linkedClouds.Valid())
+        linkedShell = link.linkedClouds;
     }
 
     private void LayoutToScene(ViewerLayout obj)
@@ -58,9 +63,5 @@ namespace ViewTo.Connector.Unity
       layouts.Add(mono);
     }
 
-    public void SetParams(ViewerLayout viewerLayout)
-    {
-      cachedLayout = viewerLayout;
-    }
   }
 }

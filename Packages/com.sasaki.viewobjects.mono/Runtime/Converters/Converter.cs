@@ -17,7 +17,6 @@ namespace ViewTo.Connector.Unity
     public static ViewContentMono ToViewMono(this ViewContent obj) => obj.ToViewMono<ViewContentMono>();
     
     
-    public static RigMono ToViewMono(this Rig obj) => obj.ToViewMono<RigMono>();
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
   
@@ -37,8 +36,6 @@ namespace ViewTo.Connector.Unity
         ViewStudy o => o.ToViewMono(),
         ContentBundle o => o.ToViewMono(),
 
-        Rig o => null,
-        // RigParameters o => null,
         ViewerBundle o => o.ToViewMono(),
         ViewerLayout o => o.ToViewMono(),
 

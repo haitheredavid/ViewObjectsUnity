@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
@@ -14,9 +15,15 @@ namespace ViewTo.Connector.Unity
     public static ViewCloudMono TryFetchInScene(this CloudShell shell)
     {
 
-      return Object.FindObjectsOfType<ViewCloudMono>().FirstOrDefault(o => o.viewID != null
+      return Object.FindObjectsOfType<ViewCloudMono>().FirstOrDefault(o => o.GetId != null
                                                                            && shell.objId != null
-                                                                           && o.viewID.Equals(shell.objId));
+                                                                           && o.GetId.Equals(shell.objId));
+    }
+
+    public static void CheckAndAdd<TObj>(this List<ViewContent> values, List<TObj> items) where TObj : ViewContent
+    {
+      if (items.Valid())
+        values.AddRange(items);
     }
 
     public static void ClearList<TBehaviour>(List<TBehaviour> list) where TBehaviour : MonoBehaviour
@@ -44,20 +51,24 @@ namespace ViewTo.Connector.Unity
       return items;
     }
 
-    public static void SetMeshVisibilityRecursive( this GameObject obj , bool status ){
-      var mr = obj.GetComponent<MeshRenderer>( );
-      if ( mr != null )
+    public static void SetMeshVisibilityRecursive(this GameObject obj, bool status)
+    {
+      var mr = obj.GetComponent<MeshRenderer>();
+      if (mr != null)
         mr.enabled = status;
 
-      foreach ( Transform child in obj.transform ) {
-        child.gameObject.SetMeshVisibilityRecursive( status );
+      foreach (Transform child in obj.transform)
+      {
+        child.gameObject.SetMeshVisibilityRecursive(status);
       }
     }
 
-    public static void SetLayerRecursively(this GameObject obj , int layer) {
+    public static void SetLayerRecursively(this GameObject obj, int layer)
+    {
       obj.layer = layer;
 
-      foreach (Transform child in obj.transform) {
+      foreach (Transform child in obj.transform)
+      {
         child.gameObject.SetLayerRecursively(layer);
       }
     }

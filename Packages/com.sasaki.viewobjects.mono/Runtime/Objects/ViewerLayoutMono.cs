@@ -1,17 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-
   public class ViewerLayoutMono : ViewObjBehaviour<ViewerLayout>
   {
+
+    [SerializeField] private SoViewerLayout data;
+    
     public List<ViewerMono> viewers { get; private set; }
 
-    private ViewerMono ViewerPrefab
+    public string viewName
     {
-      get => new GameObject().AddComponent<ViewerMono>();
+      get => data != null ? data.viewName : string.Empty;
+    }
+
+    public ViewerLayout GetRefType
+    {
+      get { return data != null ? data.RefTo : null; }
     }
 
     public void Clear()
@@ -22,24 +30,33 @@ namespace ViewTo.Connector.Unity
       viewers = new List<ViewerMono>();
     }
 
-    protected override void ImportValidObj()
+    public void Build(Action<ViewerMono> onBuildComplete = null)
     {
-      gameObject.name = viewObj.TypeName();
-      if (!viewObj.viewers.Valid()) return;
+      if (data == null)
+        return;
 
       Clear();
 
-      var prefab = ViewerPrefab;
+      var prefab = new GameObject().AddComponent<ViewerMono>();
 
-      foreach (var v in viewObj.viewers)
+      foreach (var v in data.viewers)
       {
         var mono = Instantiate(prefab, transform);
         mono.Setup(v);
         viewers.Add(mono);
-      }
 
+        onBuildComplete?.Invoke(mono);
+      }
       MonoHelper.SafeDestroy(prefab.gameObject);
-      
+    }
+    
+    protected override void ImportValidObj(ViewerLayout viewObj)
+    {
+      data = ScriptableObject.CreateInstance<SoViewerLayout>();
+      data.SetRef(viewObj);
+
+      data.name = viewObj.TypeName();
+      gameObject.name = viewObj.TypeName();
     }
   }
 }
