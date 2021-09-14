@@ -1,3 +1,10 @@
+## [1.1.17](https://github.com/haitheredavid/viewto-unity/compare/v1.1.16...v1.1.17) (2021-09-14)
+
+
+### Bug Fixes
+
+* added rig param ([f292513](https://github.com/haitheredavid/viewto-unity/commit/f292513d60408bf95a93eb2c0e450f154a930399))
+
 ## [1.1.16](https://github.com/haitheredavid/viewto-unity/compare/v1.1.15...v1.1.16) (2021-09-14)
 
 
