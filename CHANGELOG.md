@@ -1,3 +1,10 @@
+## [1.1.16](https://github.com/haitheredavid/viewto-unity/compare/v1.1.15...v1.1.16) (2021-09-14)
+
+
+### Bug Fixes
+
+* stored object data in scriptable obj ([f732e0a](https://github.com/haitheredavid/viewto-unity/commit/f732e0a42d50e3f9cd9e4226c26ac77244e8e64f))
+
 ## [1.1.15](https://github.com/haitheredavid/viewto-unity/compare/v1.1.14...v1.1.15) (2021-09-13)
 
 
