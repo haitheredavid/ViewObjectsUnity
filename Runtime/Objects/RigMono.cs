@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using ViewTo.AnalysisObject;
 
@@ -13,7 +12,7 @@ namespace ViewTo.Connector.Unity
   /// should work for now thou. 
   /// </summary>
   [ExecuteAlways]
-  public class RigMono : ViewObjBehaviour<Rig>
+  public class RigMono : MonoBehaviour
   {
 
     [SerializeField] [Range(0, 300)] private int frameRate = 180;
@@ -22,34 +21,35 @@ namespace ViewTo.Connector.Unity
     /// <summary>
     /// the points data that is handed to the rig after build
     /// </summary>
-    public List<CloudShellUnity> globalPoints
-    {
-      get { return viewObj.clouds != null && viewObj.clouds.Any() ? viewObj.clouds.ToUnity() : null; }
-      set => viewObj.clouds = value.ToView();
-    }
+    [SerializeField] private List<ViewCloudMono> globalPoints;
 
     /// <summary>
     /// global colors used for analysis stage.
     /// colors are set from core command where view study builds out rig
     /// </summary>
-    public List<ViewColor> globalColors
-    {
-      get => viewObj.globalColors;
-      set => viewObj.globalColors = value;
-    }
+    [SerializeField] private List<ViewColor> globalColors;
 
     /// <summary>
     /// types of viewers to be using
     /// </summary>
-    public List<IRigParam> @params
-    {
-      get => viewObj.globalParams;
-      set => viewObj.globalParams = value;
-    }
+    [SerializeField] private List<SoViewerBundle> globalBundles;
 
-    protected override void ImportValidObj()
+    public void ImportValidObj(Rig viewObj)
     {
       name = viewObj.TypeName();
+
+      globalColors = viewObj.globalColors;
+      globalBundles = new List<SoViewerBundle>();
+
+      foreach (var g in viewObj.globalParams)
+      {
+        foreach (var bundle in g.bundles)
+        {
+          var b = ScriptableObject.CreateInstance<SoViewerBundle>();
+          b.SetRef(bundle);
+          globalBundles.Add(b);
+        }
+      }
     }
   }
 }

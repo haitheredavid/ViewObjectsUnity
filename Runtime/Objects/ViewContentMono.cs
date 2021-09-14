@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.StudyObject;
 using ViewTo.ViewObject;
+using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
   public class ViewContentMono : ViewObjBehaviour<ViewContent>
   {
+    [SerializeField] private SoViewContent data;
 
-    [SerializeField] private Color32 viewColor = Color.magenta;
-    [SerializeField] private int contentMask;
-    [SerializeField] private Material analysisMaterial;
-    [SerializeField] private int objectCount;
-    [SerializeField] private string viewName = "test name";
-
-    public List<ViewerBundle> bundles
+    public int ContentMask
     {
-      get
-      {
-        if (viewObj is TargetContent tc)
-          return tc.bundles;
-
-        Debug.Log("Only Target Content will have Viewer Bundles!");
-        return null;
-      }
+      get { return data != null ? data.mask : 0; }
+    }
+    
+    public ViewContent GetRef
+    {
+      get => data != null ? data.RefTo : null;
     }
 
     public List<GameObject> GetSceneObjs
@@ -35,95 +28,60 @@ namespace ViewTo.Connector.Unity
         foreach (Transform child in transform)
           MonoHelper.SafeDestroy(child.gameObject);
 
-        StoreSceneObjs(value);
-        SetMeshData();
-      }
-    }
-
-    private void StoreSceneObjs(List<GameObject> items)
-    {
-      viewObj.objects = new List<object>();
-      foreach (var obj in items)
-        viewObj.objects.Add(obj);
-
-      objectCount = viewObj.objects.Count;
-    }
-
-    public int ContentMask
-    {
-      get
-      {
-        contentMask = MaskByType();
-        return contentMask;
+        // StoreSceneObjs(value);
       }
     }
 
     public ViewColor ViewColor
     {
-      get => viewObj.viewColor;
-      set
-      {
-        viewObj.viewColor = value;
-        viewColor = value.ToUnity();
-      }
+      get => data.viewColor;
+      set => data.viewColor = value;
     }
 
     public string ViewName
     {
-      get => viewName;
-      private set
-      {
-        viewName = value;
-        viewObj.viewName = value;
-        gameObject.name = viewObj.TypeName() + "-" + viewObj.viewName;
-      }
+      get => data != null ? data.viewName : "empty";
     }
 
-    public void SetArgs(ViewContent args)
+    public void SetArgs(ViewContent value)
     {
-      viewObj = args;
-      ViewName = args.viewName;
+      var newData = ScriptableObject.CreateInstance<SoViewContent>();
+      newData.SetRef(value);
+      newData.viewName = data.viewName;
 
-      StoreSceneObjs(GetSceneObjs);
+      data = newData;
+
+      gameObject.name = data.FullName;
     }
 
-    public void Params(bool args)
+    protected override void ImportValidObj(ViewContent viewObj)
     {
-      if (viewObj is TargetContent tc)
-        tc.isolate = args;
-    }
+      data = ScriptableObject.CreateInstance<SoViewContent>();
+      data.SetRef(viewObj);
 
-    public void Params(string args)
-    {
-      ViewName = args;
-    }
-
-    protected override void ImportValidObj()
-    {
-      ViewName = viewObj.viewName;
-      SetMeshData();
+      gameObject.name = data.FullName;
+      SetMeshData(data.objects);
     }
 
     /// <summary>
     ///   references the objects converted to the view content list and imports them
     /// </summary>
-    private void SetMeshData()
+    private void SetMeshData(List<Object> items)
     {
-      if (!viewObj.objects.Valid()) return;
+      if (!items.Valid()) return;
 
-      foreach (var obj in viewObj.objects)
+      var mat = new Material(data.analysisMaterial);
+
+      foreach (var obj in items)
       {
-        var mat = analysisMaterial != null ? new Material(analysisMaterial) : new Material(Shader.Find("Unlit"));
-
         GameObject go;
         if (obj is GameObject o)
           go = o;
         else if (obj is Mesh mesh)
         {
           go = new GameObject(mesh.name);
-          var filter = new GameObject().AddComponent<MeshFilter>();
+          var filter = go.AddComponent<MeshFilter>();
 
-          // TODO move to shared toolkit
           if (Application.isPlaying)
             filter.mesh = mesh;
           else
@@ -136,19 +94,11 @@ namespace ViewTo.Connector.Unity
         if (meshRend == null)
           meshRend = go.AddComponent<MeshRenderer>();
 
-        meshRend.material = mat;
+        meshRend.material = Instantiate(mat);
 
         go.transform.SetParent(transform);
       }
     }
-
-    private int MaskByType() => viewObj switch
-    {
-      DesignContent _ => 6,
-      TargetContent _ => 7,
-      BlockerContent _ => 8,
-      _ => 0
-    };
 
   }
 }

@@ -24,11 +24,11 @@ namespace ViewTo.Objects.Mono
       var setupContainer = root.Q<VisualElement>("viewerlayout-setup-container");
 
       var createButton = setupContainer.Q<Button>("add-layout-button");
-      createButton.clickable.clicked += mono.AddLayout;
+      // createButton.clickable.clicked += mono.AddLayout;
 
       var layoutDropDown = setupContainer.Q<ViewerLayoutDropDownElement>();
-      layoutDropDown.onViewObjUpdate += (sender, args) => mono.SetParams(args.viewObj);
-      layoutDropDown.SetValue(mono.cachedLayout);
+      // layoutDropDown.onViewObjUpdate += (sender, args) => mono.SetParams(args.viewObj);
+      // layoutDropDown.SetValue(mono.cachedLayout);
 
       var itemContainer = root.Q<VisualElement>("viewerlayout-items-container");
 

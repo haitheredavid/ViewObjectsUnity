@@ -6,6 +6,7 @@ using ViewTo.Connector.Unity;
 using ViewTo.Objects.Mono.Args;
 using ViewTo.ViewObject;
 
+
 public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
 {
   public new class UxmlTraits : VisualElement.UxmlTraits
@@ -15,6 +16,7 @@ public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
   { }
 
   protected override ViewObjArgs<ViewerLayout> CreateArgs(ViewerLayout obj) => new ViewerLayoutArgs(obj);
+  
   protected override ViewerLayout ProcessObjParams(ViewerLayout @object)
   {
     paramRoot.Clear();
@@ -79,8 +81,8 @@ public class ViewerLayoutDropDownElement : ViewObjDropDownElement<ViewerLayout>
       if (obj != null)
       {
         var mono = obj.GetComponent<ViewCloudMono>();
-        if (mono != null)
-          newShell = new CloudShell(mono.viewObj.GetType(), mono.viewID, mono.Points?.Length ?? 0);
+        // if (mono != null)
+        //   newShell = new CloudShell(mono.viewObj.GetType(), mono.viewID, mono.Points?.Length ?? 0);
       }
       ViewObjUpdated(new ViewerLayoutNormal
       {

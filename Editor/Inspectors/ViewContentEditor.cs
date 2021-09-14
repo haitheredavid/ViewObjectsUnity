@@ -4,6 +4,7 @@ using ViewTo.Connector.Unity;
 
 namespace ViewTo.Objects.Mono
 {
+
   [CustomEditor(typeof(ViewContentMono))]
   public class ViewContentEditor : Editor
   {
@@ -14,19 +15,20 @@ namespace ViewTo.Objects.Mono
     {
       visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(MonoHelper.StylesPath + "ViewContentDoc.uxml");
     }
-    
+
     public override VisualElement CreateInspectorGUI()
     {
       mono = (ViewContentMono)target;
       var root = visualTree.CloneTree();
 
+      
       var element = root.Q<ViewContentDropDownElement>();
-      element.SetValue(mono.viewObj);
+      // element.SetValue(mono.viewObj);
+      //
+      // element.onViewObjUpdate += (sender, args) => { mono.SetArgs(args.viewObj); };
+      //
+      // element.IsolateUpdated += (sender, args) => { mono.Params(args); };
 
-      element.onViewObjUpdate += (sender, args) => { mono.SetArgs(args.viewObj); };
-      
-      element.IsolateUpdated += (sender, args) => { mono.Params(args); };
-      
       return root;
     }
   }

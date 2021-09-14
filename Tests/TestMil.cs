@@ -19,6 +19,25 @@ namespace ViewToUnity.Tests
         };
     }
 
+    public static Mesh GetPrimitiveMesh(PrimitiveType t)
+    {
+      var mf = GameObject.CreatePrimitive(t).GetComponent<MeshFilter>();
+
+      Mesh mesh;
+      if (Application.isPlaying)
+      {
+        mesh = Object.Instantiate(mf.mesh);
+        Object.Destroy(mf.gameObject);
+      }
+      else
+      {
+        mesh = Object.Instantiate(mf.sharedMesh);
+        Object.DestroyImmediate(mf.gameObject);
+      }
+
+
+      return mesh;
+    }
     public static double RV
     {
       get => Random.Range(0, 100);
@@ -58,7 +77,11 @@ namespace ViewToUnity.Tests
 
         var target1 = new TargetContent
         {
-          viewName = "GlobalFunSpot"
+          viewName = "GlobalFunSpot",
+          objects = new List<object>()
+          {
+            GetPrimitiveMesh(PrimitiveType.Sphere), GetPrimitiveMesh(PrimitiveType.Cube)
+          }
         };
 
         var target2 = new TargetContent
