@@ -14,7 +14,6 @@ namespace ViewTo.Objects.Mono
     [SerializeField] private bool run;
     [SerializeField] private bool build;
     [SerializeField] private ViewStudyMono study;
-    [SerializeField] private RigMono rig;
 
     private void Update()
     {

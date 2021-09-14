@@ -20,16 +20,16 @@ namespace ViewTo.Connector.Unity
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
   
-    public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjBehaviour => new GameObject().ToViewMono<TShell>(obj);
+    public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjMono => new GameObject().ToViewMono<TShell>(obj);
 
-    public static TShell ToViewMono<TShell>(this GameObject go, ViewObj obj) where TShell : ViewObjBehaviour
+    public static TShell ToViewMono<TShell>(this GameObject go, ViewObj obj) where TShell : ViewObjMono
     {
       var shell = (TShell)go.AddComponent(typeof(TShell));
       shell.TryImport(obj);
       return shell;
     }
 
-    public static ViewObjBehaviour ToViewMono(this ViewObj obj)
+    public static ViewObjMono ToViewMono(this ViewObj obj)
     {
       return obj switch
       {

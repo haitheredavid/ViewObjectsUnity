@@ -4,13 +4,13 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewStudyMono : ViewObjBehaviour<ViewStudy>
+  public class ViewStudyMono : ViewObjMono<ViewStudy>
   {
 
     [SerializeField] private string viewName;
-    [SerializeField] private List<ViewObjBehaviour> loadedObjs;
+    [SerializeField] private List<ViewObjMono> loadedObjs;
 
-    public List<ViewObjBehaviour> objs
+    public List<ViewObjMono> objs
     {
       get => loadedObjs;
       set => loadedObjs = value;
@@ -34,7 +34,7 @@ namespace ViewTo.Connector.Unity
       if (!viewObj.objs.Valid()) return;
 
 
-      loadedObjs = new List<ViewObjBehaviour>();
+      loadedObjs = new List<ViewObjMono>();
       foreach (var obj in viewObj.objs)
       {
         var mono = obj.ToViewMono();

@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewTo.AnalysisObject;
 using ViewTo.ViewObject;
+using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
+
   public static class MonoHelper
   {
 
@@ -12,12 +16,71 @@ namespace ViewTo.Connector.Unity
     public static readonly string GUIDir = RuntimeDir + "GUI/";
     public static readonly string StylesPath = GUIDir + "Styles/";
 
+    public static SoRigParam SoCreate(this IRigParam param, List<ViewColor> globalColors)
+    {
+      var so = ScriptableObject.CreateInstance<SoRigParam>();
+      
+      so.viewers = new List<SoViewerBundle>();
+      foreach (var b in param.bundles)
+      {
+        var soItem = ScriptableObject.CreateInstance<SoViewerBundle>();
+        soItem.SetRef(b);
+        so.viewers.Add(soItem);
+      }
+
+      if (param is RigParametersIsolated iso)
+      {
+        so.isolate = true;
+        so.contentColors = iso.colors;
+      }
+      else
+      {
+        so.isolate = false;
+        so.contentColors = globalColors;
+      }
+      
+      return so;
+    }
+
+    public static bool CheckForInterface<IFace>(this Type objType)
+    {
+      return objType.GetInterfaces().Any(x => x == typeof(IFace));
+    }
+
+    public static AMono TryFetchInScene<AMono>(string idToFind) where AMono : ViewObjMono
+    {
+      foreach (var monoToCheck in Object.FindObjectsOfType<AMono>())
+        if (monoToCheck.GetType().CheckForInterface<IGenerateID>())
+        {
+          try
+          {
+
+            if (monoToCheck is IGenerateID valueToCheck
+                && valueToCheck.viewID.Valid()
+                && valueToCheck.viewID.Equals(idToFind))
+              return monoToCheck;
+
+          }
+          catch (Exception e)
+          {
+            Console.WriteLine(e);
+            throw;
+          }
+        }
+      return null;
+    }
+
+    public static AMono TryFetchInScene<AMono>(this IGenerateID idToFind) where AMono : ViewObjMono
+    {
+      return TryFetchInScene<AMono>(idToFind.viewID);
+    }
+
     public static ViewCloudMono TryFetchInScene(this CloudShell shell)
     {
 
-      return Object.FindObjectsOfType<ViewCloudMono>().FirstOrDefault(o => o.GetId != null
+      return Object.FindObjectsOfType<ViewCloudMono>().FirstOrDefault(o => o.viewID != null
                                                                            && shell.objId != null
-                                                                           && o.GetId.Equals(shell.objId));
+                                                                           && o.viewID.Equals(shell.objId));
     }
 
     public static void CheckAndAdd<TObj>(this List<ViewContent> values, List<TObj> items) where TObj : ViewContent

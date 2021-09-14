@@ -5,7 +5,7 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewerLayoutMono : ViewObjBehaviour<ViewerLayout>
+  public class ViewerLayoutMono : ViewObjMono<ViewerLayout>
   {
 
     [SerializeField] private SoViewerLayout data;
@@ -19,7 +19,7 @@ namespace ViewTo.Connector.Unity
 
     public ViewerLayout GetRefType
     {
-      get { return data != null ? data.RefTo : null; }
+      get { return data != null ? data.GetRef : null; }
     }
 
     public void Clear()

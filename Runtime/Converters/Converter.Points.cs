@@ -8,21 +8,6 @@ namespace ViewTo.Connector.Unity
   public static partial class ViewConverter
   {
 
-    public static Dictionary<string, CloudPoint[]> ToView(this List<CloudShellUnity> objs)
-    {
-      return objs.ToDictionary(o => o.id, o => o.ToView());
-    }
-
-    public static CloudPoint[] ToView(this CloudShellUnity value)
-    {
-      var items = new CloudPoint[value.count];
-
-      for (var i = 0; i < value.count; i++)
-        items[i] = value.points[i].ToView(value.meta[i]);
-
-      return items;
-    }
-
     public static CloudPoint[] ToView(Vector3[] value, string[] meta)
     {
       var items = new CloudPoint[value.Length];
