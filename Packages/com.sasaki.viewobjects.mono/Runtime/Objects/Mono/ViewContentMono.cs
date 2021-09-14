@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewContentMono : ViewObjBehaviour<ViewContent>
+  public class ViewContentMono : ViewObjMono<ViewContent>
   {
     [SerializeField] private SoViewContent data;
 
@@ -17,7 +17,7 @@ namespace ViewTo.Connector.Unity
     
     public ViewContent GetRef
     {
-      get => data != null ? data.RefTo : null;
+      get => data != null ? data.GetRef : null;
     }
 
     public List<GameObject> GetSceneObjs

@@ -6,10 +6,14 @@ using ViewTo.ViewObject;
 namespace ViewTo.Connector.Unity
 {
 
-  public class ContentBundleMono : ViewObjBehaviour<ContentBundle>
+  public class ContentBundleMono : ViewObjMono<ContentBundle>
   {
-
     [SerializeField] private List<ViewContentMono> contents;
+
+    public List<ViewContentMono> GetAll()
+    {
+      return contents;
+    }
     
     public List<ViewContentMono> Get<TContent>() where TContent : ViewContent
     {
@@ -20,19 +24,19 @@ namespace ViewTo.Connector.Unity
 
       return item;
     }
-    
+
     protected override void ImportValidObj(ContentBundle viewObj)
     {
       Purge();
-      
+
       gameObject.name = viewObj.TypeName();
 
       var items = new List<ViewContent>();
-      
+
       items.CheckAndAdd(viewObj.targets);
       items.CheckAndAdd(viewObj.blockers);
       items.CheckAndAdd(viewObj.designs);
-      
+
       contents = new List<ViewContentMono>();
       foreach (var vc in items)
       {
@@ -41,7 +45,6 @@ namespace ViewTo.Connector.Unity
         contents.Add(mono);
       }
     }
-    
 
     private void Purge()
     {

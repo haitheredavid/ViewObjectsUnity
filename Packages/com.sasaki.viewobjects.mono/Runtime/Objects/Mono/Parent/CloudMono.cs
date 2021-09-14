@@ -8,15 +8,15 @@ namespace ViewTo.Connector.Unity
 {
 
   [ExecuteAlways]
-  public abstract class CloudBehaviour<TObj> : ViewObjBehaviour<TObj> where TObj : ViewCloud, new()
+  public abstract class CloudMono<TObj> : ViewObjMono<TObj>, IGenerateID where TObj : ViewCloud, new()
   {
 
-    [SerializeField] private string viewId;
+    [SerializeField] private string id;
     [SerializeField] private CloudPoint[] points;
 
-    public string GetId
+    public string viewID
     {
-      get => viewId;
+      get => id;
     }
 
     public int pointCount
@@ -45,7 +45,7 @@ namespace ViewTo.Connector.Unity
       if (viewObj is ViewCloud vo)
       {
         gameObject.name = vo.TypeName();
-        viewId = vo.viewID.Valid() ? vo.viewID : Guid.NewGuid().ToString();
+        id = vo.viewID.Valid() ? vo.viewID : Guid.NewGuid().ToString();
         SetPoints(viewObj.points);
 
 

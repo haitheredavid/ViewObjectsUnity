@@ -7,12 +7,14 @@ using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
+
   public class SoViewContent : ScriptableObject, IToSource<ViewContent>
   {
 
     public int mask;
     public string viewName;
     public List<Object> objects;
+    
     public Material analysisMaterial;
 
     public int colorId;
@@ -30,11 +32,11 @@ namespace ViewTo.Connector.Unity
 
     public string FullName
     {
-      get => RefTo?.TypeName()[0] + "-" + viewName;
+      get => GetRef?.TypeName()[0] + "-" + viewName;
     }
     
     public ClassTypeReference objType;
-    public ViewContent RefTo
+    public ViewContent GetRef
     {
       get => objType != null ? (ViewContent)Activator.CreateInstance(objType.Type) : null;
     }

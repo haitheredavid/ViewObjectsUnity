@@ -3,6 +3,6 @@
   public interface IToSource<TObj> where TObj : ViewObj
   {
     public void SetRef(TObj obj);
-    public TObj RefTo { get; }
+    public TObj GetRef { get; }
   }
 }

@@ -5,7 +5,7 @@ using ViewTo.Objects.Mono.Args;
 namespace ViewTo.Connector.Unity
 {
 
-  public abstract class ViewObjBehaviour : MonoBehaviour
+  public abstract class ViewObjMono : MonoBehaviour
   {
     public abstract void TryImport(ViewObj obj);
 
@@ -14,7 +14,7 @@ namespace ViewTo.Connector.Unity
     public event Action<ViewObjArgs> OnViewObjectImported;
   }
 
-  public abstract class ViewObjBehaviour<TObj> : ViewObjBehaviour where TObj : ViewObj, new()
+  public abstract class ViewObjMono<TObj> : ViewObjMono where TObj : ViewObj, new()
   {
 
     protected abstract void ImportValidObj(TObj viewObj);

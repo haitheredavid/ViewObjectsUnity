@@ -6,7 +6,7 @@ using ViewTo.ViewObject;
 namespace ViewTo.Connector.Unity
 {
 
-  public class ViewerBundleMono : ViewObjBehaviour<ViewerBundle>
+  public class ViewerBundleMono : ViewObjMono<ViewerBundle>
   {
 
     [SerializeField] private Texture2D colorStrip;
