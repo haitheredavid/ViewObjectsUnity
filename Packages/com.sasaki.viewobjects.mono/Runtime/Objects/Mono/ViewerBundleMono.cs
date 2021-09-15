@@ -9,16 +9,9 @@ namespace ViewTo.Connector.Unity
   public class ViewerBundleMono : ViewObjMono<ViewerBundle>
   {
 
-    [SerializeField] private Texture2D colorStrip;
-    [SerializeField] private List<Color32> colors;
     [SerializeField] private List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
-    public List<CloudShell> linkedShell { get; private set; }
 
-    public bool linked
-    {
-      get => linkedShell != null && linkedShell.Count != 0;
-    }
-
+ 
     public void Clear()
     {
       MonoHelper.ClearList(layouts);
@@ -32,10 +25,10 @@ namespace ViewTo.Connector.Unity
 
       foreach (var l in layouts)
         l.Build();
-      
-      
     }
 
+    
+    
     protected override void ImportValidObj(ViewerBundle viewObj)
     {
       gameObject.name = viewObj.TypeName();
@@ -52,8 +45,6 @@ namespace ViewTo.Connector.Unity
         }
       }
 
-      if (viewObj is ViewerBundleLinked link && link.linkedClouds.Valid())
-        linkedShell = link.linkedClouds;
     }
 
     private void LayoutToScene(ViewerLayout obj)
