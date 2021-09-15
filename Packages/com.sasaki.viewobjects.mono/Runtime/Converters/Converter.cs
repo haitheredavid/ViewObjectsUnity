@@ -8,6 +8,7 @@ namespace ViewTo.Connector.Unity
 {
   public static partial class ViewConverter
   {
+
     public static ViewCloudMono ToViewMono(this ViewCloud obj) => obj.ToViewMono<ViewCloudMono>();
     public static ResultCloudMono ToViewMono(this ResultCloud obj) => obj.ToViewMono<ResultCloudMono>();
 
@@ -15,10 +16,23 @@ namespace ViewTo.Connector.Unity
     public static ContentBundleMono ToViewMono(this ContentBundle obj) => obj.ToViewMono<ContentBundleMono>();
 
     public static ViewContentMono ToViewMono(this ViewContent obj) => obj.ToViewMono<ViewContentMono>();
-    
+
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
+    public static ViewerBundleMono ToViewMono(this SoViewerBundle obj)
+    {      
+      var go = new GameObject().AddComponent<ViewerBundleMono>();
+      go.Init(obj);
+      return go;
+    }
+
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
-  
+    public static ViewerLayoutMono ToViewMono(this SoViewerLayout obj)
+    {
+      var go = new GameObject().AddComponent<ViewerLayoutMono>();
+      go.Init(obj);
+      return go;
+    }
+
     public static TShell ToViewMono<TShell>(this ViewObj obj) where TShell : ViewObjMono => new GameObject().ToViewMono<TShell>(obj);
 
     public static TShell ToViewMono<TShell>(this GameObject go, ViewObj obj) where TShell : ViewObjMono

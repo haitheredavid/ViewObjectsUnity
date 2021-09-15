@@ -22,7 +22,7 @@ namespace ViewTo.Objects.Mono
         foreach (var objBehaviour in study.objs)
         {
           if (objBehaviour is ViewerBundleMono mono) 
-            mono.Build();
+            mono.CreateViewers();
         }
         build = false;
       }

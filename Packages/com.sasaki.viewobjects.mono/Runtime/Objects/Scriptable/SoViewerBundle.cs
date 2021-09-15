@@ -6,13 +6,17 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-  
-  
-  
+
   public class SoViewerBundle : ScriptableObject, IToSource<ViewerBundle>
   {
     public List<SoViewerLayout> items;
     public List<ViewCloudMono> linkedCloud;
+
+    public string ViewObjName
+    {
+      get { return GetRef?.TypeName(); }
+    }
+    
     
     [SerializeField] private ClassTypeReference objType;
 

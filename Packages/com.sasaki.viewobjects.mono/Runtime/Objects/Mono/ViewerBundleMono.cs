@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.StudyObject;
@@ -9,49 +10,51 @@ namespace ViewTo.Connector.Unity
   public class ViewerBundleMono : ViewObjMono<ViewerBundle>
   {
 
+    [SerializeField] private SoViewerBundle data;
     [SerializeField] private List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
 
- 
     public void Clear()
     {
       MonoHelper.ClearList(layouts);
       layouts = new List<ViewerLayoutMono>();
     }
 
-    public void Build()
+    public void CreateViewers(Action<ViewerMono> onViewerCreate = null)
     {
       if (!layouts.Valid())
         return;
 
       foreach (var l in layouts)
-        l.Build();
+        l.Build(onViewerCreate);
     }
 
-    
-    
+    public void Init(SoViewerBundle input)
+    {
+      data = input;
+      gameObject.name = data.ViewObjName;
+      LayoutToScene();
+    }
+
     protected override void ImportValidObj(ViewerBundle viewObj)
     {
-      gameObject.name = viewObj.TypeName();
+      var input = ScriptableObject.CreateInstance<SoViewerBundle>();
+      input.SetRef(viewObj);
+      Init(input);
+    }
+
+    private void LayoutToScene()
+    {
+      if (!data.items.Valid()) return;
 
       layouts = new List<ViewerLayoutMono>();
 
-      if (!viewObj.layouts.Valid()) return;
-
-      foreach (var iLayout in viewObj.layouts)
+      foreach (var item in data.items)
       {
-        if (iLayout is ViewerLayout vl)
-        {
-          LayoutToScene(vl);
-        }
+        var mono = item.ToViewMono();
+        mono.transform.SetParent(transform);
+        layouts.Add(mono);
       }
 
-    }
-
-    private void LayoutToScene(ViewerLayout obj)
-    {
-      var mono = obj.ToViewMono();
-      mono.transform.SetParent(transform);
-      layouts.Add(mono);
     }
 
   }
