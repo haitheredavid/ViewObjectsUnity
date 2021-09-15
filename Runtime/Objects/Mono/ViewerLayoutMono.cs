@@ -11,12 +11,7 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private SoViewerLayout data;
     
     public List<ViewerMono> viewers { get; private set; }
-
-    public string viewName
-    {
-      get => data != null ? data.viewName : string.Empty;
-    }
-
+    
     public ViewerLayout GetRefType
     {
       get { return data != null ? data.GetRef : null; }
@@ -29,6 +24,14 @@ namespace ViewTo.Connector.Unity
 
       viewers = new List<ViewerMono>();
     }
+    
+    public void Init(SoViewerLayout so)
+    {
+      Clear();
+      
+      data = so;
+      gameObject.name = so.GetName;
+    }
 
     public void Build(Action<ViewerMono> onBuildComplete = null)
     {
@@ -38,7 +41,6 @@ namespace ViewTo.Connector.Unity
       Clear();
 
       var prefab = new GameObject().AddComponent<ViewerMono>();
-
       foreach (var v in data.viewers)
       {
         var mono = Instantiate(prefab, transform);
@@ -49,7 +51,7 @@ namespace ViewTo.Connector.Unity
       }
       MonoHelper.SafeDestroy(prefab.gameObject);
     }
-    
+
     protected override void ImportValidObj(ViewerLayout viewObj)
     {
       data = ScriptableObject.CreateInstance<SoViewerLayout>();

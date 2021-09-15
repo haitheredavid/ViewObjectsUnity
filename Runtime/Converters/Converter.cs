@@ -16,7 +16,6 @@ namespace ViewTo.Connector.Unity
 
     public static ViewContentMono ToViewMono(this ViewContent obj) => obj.ToViewMono<ViewContentMono>();
     
-    
     public static ViewerBundleMono ToViewMono(this ViewerBundle obj) => obj.ToViewMono<ViewerBundleMono>();
     public static ViewerLayoutMono ToViewMono(this ViewerLayout obj) => obj.ToViewMono<ViewerLayoutMono>();
   
