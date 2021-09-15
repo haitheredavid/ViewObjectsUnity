@@ -1,3 +1,10 @@
+## [1.1.19](https://github.com/haitheredavid/viewto-unity/compare/v1.1.18...v1.1.19) (2021-09-15)
+
+
+### Bug Fixes
+
+* scriptable objects implemented with monos ([d3ea4e9](https://github.com/haitheredavid/viewto-unity/commit/d3ea4e9dd05c0558483404a7721f23a64560bcd1))
+
 ## [1.1.18](https://github.com/haitheredavid/viewto-unity/compare/v1.1.17...v1.1.18) (2021-09-15)
 
 
