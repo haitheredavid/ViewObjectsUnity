@@ -12,18 +12,14 @@ namespace ViewTo.Connector.Unity
 
     public string GetName
     {
-      get { return GetRef?.TypeName(); }
+      get => GetRef?.TypeName();
     }
-    
-    
+
     public List<Viewer> viewers
     {
-      get
-      {
-        var o = Activator.CreateInstance(objType.Type) as ViewerLayout;
-        return o?.viewers;
-      }
+      get => GetRef?.viewers;
     }
+
 
     public ViewerLayout GetRef
     {

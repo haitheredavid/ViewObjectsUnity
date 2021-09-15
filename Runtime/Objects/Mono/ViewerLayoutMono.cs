@@ -25,12 +25,11 @@ namespace ViewTo.Connector.Unity
       viewers = new List<ViewerMono>();
     }
     
-    public void Init(SoViewerLayout so)
+    public void Init(SoViewerLayout input)
     {
       Clear();
-      
-      data = so;
-      gameObject.name = so.GetName;
+      data = input;
+      gameObject.name = input.GetName;
     }
 
     public void Build(Action<ViewerMono> onBuildComplete = null)
@@ -52,13 +51,12 @@ namespace ViewTo.Connector.Unity
       MonoHelper.SafeDestroy(prefab.gameObject);
     }
 
+    
     protected override void ImportValidObj(ViewerLayout viewObj)
     {
-      data = ScriptableObject.CreateInstance<SoViewerLayout>();
-      data.SetRef(viewObj);
-
-      data.name = viewObj.TypeName();
-      gameObject.name = viewObj.TypeName();
+      var input = ScriptableObject.CreateInstance<SoViewerLayout>();
+      input.SetRef(viewObj);
+      Init(input);
     }
   }
 }
