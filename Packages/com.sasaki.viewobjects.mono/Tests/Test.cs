@@ -11,23 +11,30 @@ namespace ViewTo.Objects.Mono
   public class Test : MonoBehaviour
   {
 
-    [SerializeField] private bool run;
-    [SerializeField] private bool build;
+    [SerializeField] private bool create;
+    [SerializeField] private bool update;
+    [SerializeField] private bool prime;
     [SerializeField] private ViewStudyMono study;
 
     private void Update()
     {
-      if (build && study != null)
+      if (update && study != null)
       {
-        foreach (var objBehaviour in study.objs)
-        {
-          if (objBehaviour is ViewerBundleMono mono) 
-            mono.CreateViewers();
-        }
-        build = false;
+        update = false;
+        foreach (var o in study.objs)
+          if (o is ContentBundleMono mono)
+            mono.ChangeColors();
       }
 
-      if (!run) return;
+      if (prime && study != null)
+      {
+        prime = false;
+        foreach (var o in study.objs)
+          if (o is ContentBundleMono mono)
+            mono.Prime();
+      }
+
+      if (!create) return;
 
       if (study != null)
         MonoHelper.SafeDestroy(study.gameObject);
@@ -35,10 +42,7 @@ namespace ViewTo.Objects.Mono
       study = TestMil.Study.ToViewMono();
       Debug.Log($"Study setup worked? {study != null}");
 
-
-      run = false;
-
-
+      create = false;
     }
 
   }

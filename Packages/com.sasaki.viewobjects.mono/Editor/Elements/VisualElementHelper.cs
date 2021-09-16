@@ -26,25 +26,25 @@ public static class VisualElementHelper
     return element;
   }
 
-  public static ListView CreateContentListElement(this ViewContentMono mono)
-  {
-    var container = new ListView();
-
-    if (mono == null || !mono.GetSceneObjs.Valid())
-      return container;
-
-
-    foreach (var o in mono.GetSceneObjs)
-    {
-      container.Add(new ObjectField(o.name)
-      {
-        name = "content-obj-field",
-        label = o.name
-      });
-    }
-
-    return container;
-  }
+  // public static ListView CreateContentListElement(this ViewContentMono mono)
+  // {
+  //   var container = new ListView();
+  //
+  //   if (mono == null || !mono.GetSceneObjs.Valid())
+  //     return container;
+  //
+  //
+  //   foreach (var o in mono.GetSceneObjs)
+  //   {
+  //     container.Add(new ObjectField(o.name)
+  //     {
+  //       name = "content-obj-field",
+  //       label = o.name
+  //     });
+  //   }
+  //
+  //   return container;
+  // }
 
   public static IntegerField CreateObjectCountElement(this ViewContent obj)
   {
