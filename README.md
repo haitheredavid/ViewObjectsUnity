@@ -1,2 +1,2 @@
 # viewto-unity
-ViewObject converter and mono structure for ViewTo tool
+ViewObjects for unity
