@@ -1,3 +1,10 @@
+## [1.1.21](https://github.com/haitheredavid/viewto-unity/compare/v1.1.20...v1.1.21) (2021-09-16)
+
+
+### Performance Improvements
+
+* force update to openupm ([c6804ad](https://github.com/haitheredavid/viewto-unity/commit/c6804adfd8f102e7661ac6ae0287f5bb93e0dccf))
+
 ## [1.1.20](https://github.com/haitheredavid/viewto-unity/compare/v1.1.19...v1.1.20) (2021-09-16)
 
 
