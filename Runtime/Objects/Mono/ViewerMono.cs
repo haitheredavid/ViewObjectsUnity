@@ -2,9 +2,13 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
+  public interface IViewerMono
+  {
+    public void Setup(Viewer viewer);
+  }
+
   public class ViewerMono : MonoBehaviour
   {
-
     public void Setup(Viewer viewer)
     {
       gameObject.name = "Viewer: " + viewer.Direction;

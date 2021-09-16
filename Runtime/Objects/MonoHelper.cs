@@ -1,16 +1,33 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ViewTo.AnalysisObject;
+using ViewTo.StudyObject;
 using ViewTo.ViewObject;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 namespace ViewTo.Connector.Unity
 {
 
   public static class MonoHelper
   {
+    public static List<ViewColor> CreateBundledColors(this ICollection content)
+    {
+      var colorSet = new HashSet<ViewColor>();
+      var r = new Random();
+
+      while (colorSet.Count < content.Count)
+      {
+        var b = new byte[3];
+        r.NextBytes(b);
+        var tempColor = new ViewColor(b[0], b[1], b[2], 255, colorSet.Count);
+        colorSet.Add(tempColor);
+      }
+      return colorSet.ToList();
+    }
 
     public static readonly string RuntimeDir = "Packages/com.sasaki.viewobjects.mono/Runtime/";
     public static readonly string GUIDir = RuntimeDir + "GUI/";

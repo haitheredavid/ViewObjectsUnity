@@ -10,6 +10,13 @@ namespace ViewTo.Connector.Unity
   {
     [SerializeField] private List<ViewContentMono> contents;
 
+    public void ChangeColors()
+    {
+      var colors = contents.CreateBundledColors();
+      for (var i = 0; i < contents.Count; i++) 
+        contents[i].ViewColor = colors[i];
+    }
+    
     public List<ViewContentMono> GetAll()
     {
       return contents;
@@ -25,6 +32,12 @@ namespace ViewTo.Connector.Unity
       return item;
     }
 
+    public void Prime()
+    {
+      foreach (var c in contents) 
+        c.PrimeMeshData();
+    }
+    
     protected override void ImportValidObj(ContentBundle viewObj)
     {
       Purge();

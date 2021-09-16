@@ -2,56 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.ViewObject;
-using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
   public class ViewContentMono : ViewObjMono<ViewContent>
   {
     [SerializeField] private SoViewContent data;
+    [SerializeField] private List<ContentObj> objs;
 
     public int ContentMask
     {
       get { return data != null ? data.mask : 0; }
     }
-    
+
     public ViewContent GetRef
     {
       get => data != null ? data.GetRef : null;
     }
 
-    public List<GameObject> GetSceneObjs
-    {
-      get => transform.GatherKids();
-      set
-      {
-        foreach (Transform child in transform)
-          MonoHelper.SafeDestroy(child.gameObject);
-
-        // StoreSceneObjs(value);
-      }
-    }
-
     public ViewColor ViewColor
     {
       get => data.viewColor;
-      set => data.viewColor = value;
+      set
+      {
+        data.viewColor = value;
+        var c = value.ToUnity();
+        if (objs.Valid())
+          foreach (var o in objs)
+            o.MatColor = c;
+      }
     }
 
     public string ViewName
     {
       get => data != null ? data.viewName : "empty";
-    }
-
-    public void SetArgs(ViewContent value)
-    {
-      var newData = ScriptableObject.CreateInstance<SoViewContent>();
-      newData.SetRef(value);
-      newData.viewName = data.viewName;
-
-      data = newData;
-
-      gameObject.name = data.FullName;
     }
 
     protected override void ImportValidObj(ViewContent viewObj)
@@ -60,19 +44,19 @@ namespace ViewTo.Connector.Unity
       data.SetRef(viewObj);
 
       gameObject.name = data.FullName;
-      SetMeshData(data.objects);
     }
 
     /// <summary>
     ///   references the objects converted to the view content list and imports them
     /// </summary>
-    private void SetMeshData(List<Object> items)
+    public void PrimeMeshData(Action<ContentObj> onAfterPrime = null)
     {
-      if (!items.Valid()) return;
+      if (!data.objects.Valid()) return;
 
-      var mat = new Material(data.analysisMaterial);
+      objs = new List<ContentObj>();
 
-      foreach (var obj in items)
+
+      foreach (var obj in data.objects)
       {
         GameObject go;
         if (obj is GameObject o)
@@ -90,13 +74,13 @@ namespace ViewTo.Connector.Unity
         else
           throw new Exception("not an object set for converting");
 
-        var meshRend = go.GetComponent<MeshRenderer>();
-        if (meshRend == null)
-          meshRend = go.AddComponent<MeshRenderer>();
-
-        meshRend.material = Instantiate(mat);
-
         go.transform.SetParent(transform);
+        var contentObj = go.AddComponent<ContentObj>();
+
+        contentObj.SetParent(this, new Material(data.analysisMaterial));
+        objs.Add(contentObj);
+
+        onAfterPrime?.Invoke(contentObj);
       }
     }
 
