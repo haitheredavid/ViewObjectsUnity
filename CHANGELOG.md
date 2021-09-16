@@ -1,3 +1,10 @@
+## [1.1.20](https://github.com/haitheredavid/viewto-unity/compare/v1.1.19...v1.1.20) (2021-09-16)
+
+
+### Bug Fixes
+
+* content import process fixed for color assignment ([c4a41e5](https://github.com/haitheredavid/viewto-unity/commit/c4a41e5cc601f20d395991e895dc59502eff6ddb))
+
 ## [1.1.19](https://github.com/haitheredavid/viewto-unity/compare/v1.1.18...v1.1.19) (2021-09-15)
 
 
