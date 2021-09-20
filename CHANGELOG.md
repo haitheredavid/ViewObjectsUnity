@@ -1,3 +1,10 @@
+## [1.1.22](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.21...v1.1.22) (2021-09-20)
+
+
+### Bug Fixes
+
+* issue with view content not using masks ([80b6f9f](https://github.com/haitheredavid/viewobjects-mono/commit/80b6f9fe1dfcfc8c1e003ec324a6ea3dfd83ec34))
+
 ## [1.1.21](https://github.com/haitheredavid/viewto-unity/compare/v1.1.20...v1.1.21) (2021-09-16)
 
 
