@@ -48,6 +48,7 @@ namespace ViewTo.Connector.Unity
 
       viewName = obj.viewName;
       viewColor = obj.viewColor;
+      
       mask = obj switch
       {
         DesignContent _ => 6,

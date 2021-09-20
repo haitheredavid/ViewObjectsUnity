@@ -10,7 +10,7 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private SoViewContent data;
     [SerializeField] private List<ContentObj> objs;
 
-    public int ContentMask
+    public int contentLayerMask
     {
       get { return data != null ? data.mask : 0; }
     }
@@ -79,7 +79,9 @@ namespace ViewTo.Connector.Unity
 
         contentObj.SetParent(this, new Material(data.analysisMaterial));
         objs.Add(contentObj);
-
+        
+        gameObject.SetLayerRecursively(contentLayerMask);
+        
         onAfterPrime?.Invoke(contentObj);
       }
     }
