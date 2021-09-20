@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.StudyObject;
@@ -13,15 +14,15 @@ namespace ViewTo.Connector.Unity
     public void ChangeColors()
     {
       var colors = contents.CreateBundledColors();
-      for (var i = 0; i < contents.Count; i++) 
+      for (var i = 0; i < contents.Count; i++)
         contents[i].ViewColor = colors[i];
     }
-    
+
     public List<ViewContentMono> GetAll()
     {
       return contents;
     }
-    
+
     public List<ViewContentMono> Get<TContent>() where TContent : ViewContent
     {
       var item = new List<ViewContentMono>();
@@ -32,12 +33,15 @@ namespace ViewTo.Connector.Unity
       return item;
     }
 
-    public void Prime()
+    public void Prime(Action<ViewContentMono> OnAfterPrime = null, Action<ContentObj> OnContentObjPrimed = null)
     {
-      foreach (var c in contents) 
-        c.PrimeMeshData();
+      foreach (var c in contents)
+      {
+        c.PrimeMeshData(OnContentObjPrimed);
+        OnAfterPrime?.Invoke(c);
+      }
     }
-    
+
     protected override void ImportValidObj(ContentBundle viewObj)
     {
       Purge();
