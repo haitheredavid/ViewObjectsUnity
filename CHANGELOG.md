@@ -1,3 +1,10 @@
+## [1.1.23](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.22...v1.1.23) (2021-09-21)
+
+
+### Bug Fixes
+
+* result cloud data handling supported in mono ([c5c279d](https://github.com/haitheredavid/viewobjects-mono/commit/c5c279dabbe367c9ef70fbfe49d035227a6d2432))
+
 ## [1.1.22](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.21...v1.1.22) (2021-09-20)
 
 
