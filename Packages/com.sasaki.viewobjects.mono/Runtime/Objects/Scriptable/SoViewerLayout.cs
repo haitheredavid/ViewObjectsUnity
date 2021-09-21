@@ -5,6 +5,7 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
+
   public class SoViewerLayout : ScriptableObject, IToSource<ViewerLayout>
   {
 

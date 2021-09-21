@@ -140,6 +140,17 @@ namespace ViewToUnity.Tests
       isolate = isolate,
       bundles = isolate ? ViewerBundle(Cloud(100)) : ViewerBundle()
     };
+
+
+    public static double[] ResultValues(int count)
+    {
+      var values = new double[count];
+      for (int i = 0; i < count; i++) 
+        values[i] = Random.Range(0, 1);
+
+      return values;
+    } 
+    
     public static DesignContent DC() => new DesignContent { viewName = "TestName" };
 
     public static ViewCloud Cloud(int count)

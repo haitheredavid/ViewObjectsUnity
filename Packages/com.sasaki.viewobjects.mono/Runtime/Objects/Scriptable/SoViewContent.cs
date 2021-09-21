@@ -25,6 +25,9 @@ namespace ViewTo.Connector.Unity
       get { return new ViewColor(color.r, color.g, color.b, color.a, colorId); }
       set
       {
+        if (value == null )
+          return;
+
         color = value.ToUnity();
         colorId = value.Id;
       }
