@@ -1,10 +1,22 @@
 using System.Collections.Generic;
+using UnityEngine;
 using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ResultCloudMono : CloudMono<ResultCloud>, IResultCloud<PixelData>
+  
+  
+  public class ResultCloudMono : CloudMono<ResultCloud>
   {
-    public List<PixelData> data { get; set; }
+    [SerializeField] private SoResultData data;
+
+    protected override void ImportValidObj(ResultCloud viewObj)
+    {
+      base.ImportValidObj(viewObj);
+
+      data = ScriptableObject.CreateInstance<SoResultData>();
+      data.Init(viewObj.data);
+    }
+
   }
 }

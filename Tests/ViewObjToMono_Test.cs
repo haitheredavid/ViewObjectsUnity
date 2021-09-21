@@ -27,13 +27,29 @@ namespace ViewToUnity.Tests.Units
 
       var mono = o.ToViewMono();
       Assert.NotNull(mono);
-      // Assert.True(mono.isValid == isValid);
-      //
-      // if (isValid)
-      //   Assert.True(mono.Points.Length == pts.Length == isValid);
-
     }
 
+    [TestCase(true)]
+    [TestCase(false)]
+    public void To_ResultCloud(bool isValid)
+    {
+      var pts = new CloudPoint[100];
+      for (var i = 0; i < pts.Length; i++)
+        pts[i] = new CloudPoint(TestMil.RV, TestMil.RV, TestMil.RV) { meta = "Floor1" };
+
+      var data = new List<IResultData>();
+      for (int i = 0; i < 6; i++) data.Add(new ContentResultData(TestMil.ResultValues(pts.Length), "Target", $"Item{i}", default));
+
+      var o = new ResultCloud()
+      {
+        data = isValid ? data : null,
+        points = isValid ? pts : null
+      };
+
+      var mono = o.ToViewMono();
+      Assert.NotNull(mono);
+    }
+    
     [TestCase(true)]
     [TestCase(false)]
     public void To_Study(bool isValid)
@@ -84,34 +100,6 @@ namespace ViewToUnity.Tests.Units
       Assert.NotNull(mono);
 
       // if (isValid) Assert.True(mono.linked);
-
-    }
-
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_RigObj(bool isValid)
-    {
-      var shared = TestMil.Cloud(1000);
-      var iso = TestMil.Cloud(200);
-      var o = isValid ? new Rig
-      {
-        globalParams = new List<IRigParam>
-        {
-          TestMil.RigParams
-        },
-        globalColors = new List<ViewColor>
-        {
-          new ViewColor(100, 100, 100, 100, 0), new ViewColor(0, 0, 0, 0, 0)
-        },
-        clouds = new Dictionary<string, CloudPoint[]>
-        {
-          { shared.viewID, shared.points }, { iso.viewID, iso.points }
-        }
-      } : new Rig();
-
-      var mono = o.ToViewMono();
-      Assert.NotNull(mono);
-
 
     }
 

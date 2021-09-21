@@ -16,8 +16,7 @@ namespace ViewTo.Connector.Unity
     {
       get { return GetRef?.TypeName(); }
     }
-    
-    
+
     [SerializeField] private ClassTypeReference objType;
 
     public ViewerBundle GetRef
@@ -29,12 +28,13 @@ namespace ViewTo.Connector.Unity
     {
       objType = new ClassTypeReference(obj.GetType());
       items = new List<SoViewerLayout>();
-      foreach (var l in obj.layouts)
-      {
-        var so = CreateInstance<SoViewerLayout>();
-        so.SetRef(l as ViewerLayout);
-        items.Add(so);
-      }
+      if (obj.layouts.Valid())
+        foreach (var l in obj.layouts)
+        {
+          var so = CreateInstance<SoViewerLayout>();
+          so.SetRef(l as ViewerLayout);
+          items.Add(so);
+        }
     }
   }
 }

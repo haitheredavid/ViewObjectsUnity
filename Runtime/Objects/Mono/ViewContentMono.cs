@@ -37,6 +37,7 @@ namespace ViewTo.Connector.Unity
     {
       get => data != null ? data.viewName : "empty";
     }
+    
 
     protected override void ImportValidObj(ViewContent viewObj)
     {
