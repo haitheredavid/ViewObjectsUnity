@@ -1,3 +1,10 @@
+## [1.1.24](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.23...v1.1.24) (2021-09-24)
+
+
+### Bug Fixes
+
+* modified view color property for results ([a3a87dd](https://github.com/haitheredavid/viewobjects-mono/commit/a3a87ddace9523f266b875308bd8ac20b66fdc9f))
+
 ## [1.1.23](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.22...v1.1.23) (2021-09-21)
 
 
