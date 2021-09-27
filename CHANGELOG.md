@@ -1,3 +1,10 @@
+## [1.1.25](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.24...v1.1.25) (2021-09-27)
+
+
+### Bug Fixes
+
+* changed pixel data storage ([d2fe2ff](https://github.com/haitheredavid/viewobjects-mono/commit/d2fe2ff9ad3c96bbdcea8cbb103e367ec204c9c5))
+
 ## [1.1.24](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.23...v1.1.24) (2021-09-24)
 
 
