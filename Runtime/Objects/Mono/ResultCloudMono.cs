@@ -4,8 +4,6 @@ using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {
-  
-  
   public class ResultCloudMono : CloudMono<ResultCloud>
   {
     [SerializeField] private SoResultData data;

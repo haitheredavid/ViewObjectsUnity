@@ -7,6 +7,18 @@ using ViewTo.ViewObject;
 namespace ViewTo.Connector.Unity
 {
 
+  public class IiI : MonoBehaviour
+  {
+
+    public void Start()
+    {
+      throw new NotImplementedException();
+    }
+
+  }
+  
+  
+
   public class ContentBundleMono : ViewObjMono<ContentBundle>
   {
     [SerializeField] private List<ViewContentMono> contents;
