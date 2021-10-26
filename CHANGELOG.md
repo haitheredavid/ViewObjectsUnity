@@ -1,3 +1,10 @@
+## [1.1.26](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.25...v1.1.26) (2021-10-26)
+
+
+### Bug Fixes
+
+* updated object dll ([2c3c663](https://github.com/haitheredavid/viewobjects-mono/commit/2c3c663320953e8564bf051148097912dad305d9))
+
 ## [1.1.25](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.24...v1.1.25) (2021-09-27)
 
 
