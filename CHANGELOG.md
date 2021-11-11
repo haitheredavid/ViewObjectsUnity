@@ -1,3 +1,10 @@
+## [1.1.27](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.26...v1.1.27) (2021-11-11)
+
+
+### Bug Fixes
+
+* updated version ([0cd7542](https://github.com/haitheredavid/viewobjects-mono/commit/0cd754275f8bda1aee94da2f4c05bbdc79e74d58))
+
 ## [1.1.26](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.25...v1.1.26) (2021-10-26)
 
 
