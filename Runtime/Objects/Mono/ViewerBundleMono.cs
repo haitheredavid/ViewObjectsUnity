@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.StudyObject;
-using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-
   public class ViewerBundleMono : ViewObjMono<ViewerBundle>
   {
 

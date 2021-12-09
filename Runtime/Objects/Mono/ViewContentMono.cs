@@ -73,7 +73,7 @@ namespace ViewTo.Connector.Unity
             filter.sharedMesh = mesh;
         }
         else
-          throw new Exception("not an object set for converting");
+          throw new Exception("no objects set for converting");
 
         go.transform.SetParent(transform);
         var contentObj = go.AddComponent<ContentObj>();
