@@ -4,48 +4,72 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewStudyMono : ViewObjMono<ViewStudy>
+  public class ViewStudyMono : ViewObjMono, IViewStudy
   {
 
-    [SerializeField] private string viewName;
     [SerializeField] private List<ViewObjMono> loadedObjs;
 
-    public List<ViewObjMono> objs
+    public string viewName
     {
-      get => loadedObjs;
-      set => loadedObjs = value;
+      get => gameObject.name;
+      set => name = value;
+    }
+    public bool isValid
+    {
+      get => objs.Valid() && viewName.Valid();
     }
 
-    public string ViewName
+    public List<object> objs
     {
-      get => viewName;
+      get
+      {
+        var res = new List<object>();
+        foreach (var obj in loadedObjs)
+        {
+          if (obj != null)
+            res.Add(obj);
+        }
+
+        return res;
+      }
       set
       {
-        viewName = value;
-        name = value;
+        loadedObjs = new List<ViewObjMono>();
+
+        foreach (var obj in value)
+          if (obj is ViewObjMono mono)
+            loadedObjs.Add(mono);
       }
     }
 
-    protected override void ImportValidObj(ViewStudy viewObj)
+    public override void TryImport(ViewObj @object)
     {
-      viewName = viewObj.viewName;
-      gameObject.name = viewName.Valid() ? viewName : viewObj.TypeName();
-
-      if (!viewObj.objs.Valid()) return;
-
-
-      loadedObjs = new List<ViewObjMono>();
-      foreach (var obj in viewObj.objs)
+      if (@object is ViewStudy viewObj)
       {
-        var mono = obj.ToViewMono();
-        if (mono == null)
+        viewName = viewObj.viewName;
+        gameObject.name = viewName.Valid() ? viewName : viewObj.TypeName();
+
+        if (!viewObj.objs.Valid()) return;
+
+        loadedObjs = new List<ViewObjMono>();
+        foreach (var obj in viewObj.objs)
         {
-          Debug.Log($"did not convert {obj.TypeName()} to mono ");
-          continue;
+          if (obj is ViewObj vo)
+          {
+            var mono = vo.ToViewMono();
+            if (mono == null)
+            {
+              Debug.Log($"did not convert {obj.TypeName()} to mono ");
+              continue;
+            }
+            
+            mono.transform.SetParent(transform);
+            loadedObjs.Add(mono);
+          }
+         
         }
-        mono.transform.SetParent(transform);
-        loadedObjs.Add(mono);
       }
     }
+
   }
 }
