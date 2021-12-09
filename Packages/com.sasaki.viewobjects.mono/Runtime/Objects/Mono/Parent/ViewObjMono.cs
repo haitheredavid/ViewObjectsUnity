@@ -3,9 +3,10 @@ using UnityEngine;
 namespace ViewTo.Connector.Unity
 {
 
+  
   public abstract class ViewObjMono : MonoBehaviour
   {
-    public abstract void TryImport(ViewObj obj);
+    public abstract void TryImport(ViewObj @object);
   }
 
   public abstract class ViewObjMono<TObj> : ViewObjMono where TObj : ViewObj, new()
@@ -13,9 +14,9 @@ namespace ViewTo.Connector.Unity
 
     protected abstract void ImportValidObj(TObj viewObj);
 
-    public override void TryImport(ViewObj obj)
+    public override void TryImport(ViewObj @object)
     {
-      if (obj is TObj casted)
+      if (@object is TObj casted)
         ImportValidObj(casted);
 
     }
