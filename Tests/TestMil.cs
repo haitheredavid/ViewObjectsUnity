@@ -119,7 +119,7 @@ namespace ViewToUnity.Tests
         };
 
 
-        s.objs = new List<ViewObj>
+        s.objs = new List<object>
         {
           cloud1, cloud2, content, bundle1, bundle2
         };
