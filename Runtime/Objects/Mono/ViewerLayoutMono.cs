@@ -5,26 +5,35 @@ using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewerLayoutMono : ViewObjMono<ViewerLayout>
+  public class ViewerLayoutMono : ViewObjMono, IViewerLayout
   {
 
+    [SerializeField] private List<ViewerMono> sceneViewers;
+
     [SerializeField] private SoViewerLayout data;
-    
-    public List<ViewerMono> viewers { get; private set; }
-    
-    public ViewerLayout GetRefType
+
+    [SerializeField] private ClassTypeReference objType;
+
+    public IViewerLayout GetRef
     {
-      get { return data != null ? data.GetRef : null; }
+      get => objType != null ? (ViewerLayout)Activator.CreateInstance(objType.Type) : null;
+    }
+
+    public List<IViewer> viewers { get; private set; }
+
+    public void SetRef(IViewerLayout obj)
+    {
+      objType = new ClassTypeReference(obj.GetType());
     }
 
     public void Clear()
     {
       if (viewers.Valid())
-        MonoHelper.ClearList(viewers);
+        MonoHelper.ClearList(sceneViewers);
 
-      viewers = new List<ViewerMono>();
+      sceneViewers = new List<ViewerMono>();
     }
-    
+
     public void Init(SoViewerLayout input)
     {
       Clear();
@@ -40,7 +49,7 @@ namespace ViewTo.Connector.Unity
       Clear();
 
       var prefab = new GameObject().AddComponent<ViewerMono>();
-      foreach (var v in data.viewers)
+      foreach (var v in sceneViewers)
       {
         var mono = Instantiate(prefab, transform);
         mono.Setup(v);
@@ -49,14 +58,6 @@ namespace ViewTo.Connector.Unity
         onBuildComplete?.Invoke(mono);
       }
       MonoHelper.SafeDestroy(prefab.gameObject);
-    }
-
-    
-    protected override void ImportValidObj(ViewerLayout viewObj)
-    {
-      var input = ScriptableObject.CreateInstance<SoViewerLayout>();
-      input.SetRef(viewObj);
-      Init(input);
     }
   }
 }

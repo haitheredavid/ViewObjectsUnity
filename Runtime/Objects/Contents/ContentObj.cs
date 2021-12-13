@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using ViewTo.Objects.Mono.Extensions;
 
 namespace ViewTo.Connector.Unity
 {
   public class ContentObj : MonoBehaviour
   {
-    [SerializeField]private Material mat;
-    
+    [SerializeField] private Material mat;
+
     public Color32 MatColor
     {
       set => mat.color = value;

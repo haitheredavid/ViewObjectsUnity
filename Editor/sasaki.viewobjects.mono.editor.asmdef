@@ -1,19 +1,19 @@
 {
-    "name": "sasaki.viewobjects.mono.editor",
-    "rootNamespace": "",
-    "references": [
-        "GUID:fc6ff17f88bfd2d4aa48ca4994f15fcd",
-        "GUID:41a0fcecf8ef4708b69c613651e69777"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": true,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "sasaki.viewobjects.mono.editor",
+  "rootNamespace": "",
+  "references": [
+    "GUID:fc6ff17f88bfd2d4aa48ca4994f15fcd",
+    "GUID:41a0fcecf8ef4708b69c613651e69777"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
