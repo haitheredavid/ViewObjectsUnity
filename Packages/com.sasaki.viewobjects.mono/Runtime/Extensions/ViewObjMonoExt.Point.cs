@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ViewTo.Connector.Unity
+namespace ViewTo.Objects.Mono.Extensions
 {
-
-  public static partial class ViewConverter
+  public static partial class ViewObjMonoExt
   {
-
+    public static Vector3[] GetPointsAsVectors(this IViewCloud obj) => obj.points.Valid() ? null : obj.points.ToUnity();
     public static CloudPoint[] ToView(Vector3[] value, string[] meta)
     {
       var items = new CloudPoint[value.Length];
@@ -17,11 +14,8 @@ namespace ViewTo.Connector.Unity
 
       return items;
     }
-
     public static CloudPoint ToView(this Vector3 value) => new CloudPoint(value.x, value.z, value.y);
-
     public static CloudPoint ToView(this Vector3 value, string meta) => new CloudPoint(value.x, value.z, value.y) { meta = meta };
-
     public static Vector3[] ToUnity(this CloudPoint[] value, out string[] meta)
     {
       meta = null;
@@ -35,7 +29,6 @@ namespace ViewTo.Connector.Unity
 
       return points;
     }
-
     public static Vector3[] ToUnity(this CloudPoint[] value)
     {
       var points = new Vector3[value.Length];
@@ -44,7 +37,6 @@ namespace ViewTo.Connector.Unity
 
       return points;
     }
-
     /// <summary>
     ///   flips value
     /// </summary>
