@@ -1,8 +1,8 @@
 ﻿namespace ViewTo.Connector.Unity
 {
-  public interface IToSource<TObj> where TObj : ViewObj
+  public interface IToSource<TObj> where TObj : IViewObj
   {
-    public void SetRef(TObj obj);
     public TObj GetRef { get; }
+    public void SetRef(TObj obj);
   }
 }

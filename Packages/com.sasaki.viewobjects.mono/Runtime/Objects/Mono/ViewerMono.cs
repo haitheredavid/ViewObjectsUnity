@@ -2,22 +2,29 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
-  public interface IViewerMono
+  public class ViewerMono : MonoBehaviour, IViewer
   {
-    public void Setup(Viewer viewer);
-  }
+    [SerializeField] private ViewerDirection viewerDir;
 
-  public class ViewerMono : MonoBehaviour
-  {
-    public void Setup(Viewer viewer)
+    public ViewerDirection Direction
     {
-      gameObject.name = "Viewer: " + viewer.Direction;
-      Align(viewer.Direction);
+      get => viewerDir;
+      set
+      {
+        viewerDir = value;
+        Align();
+      }
     }
 
-    private void Align(ViewerDirection dir)
+    public void Setup(IViewer viewer)
     {
-      var camDirection = dir switch
+      gameObject.name = "Viewer: " + viewer.Direction;
+      Direction = viewer.Direction;
+    }
+
+    private void Align()
+    {
+      var camDirection = Direction switch
       {
         ViewerDirection.Front => new Vector3(0, 0, 0),
         ViewerDirection.Left => new Vector3(0, 90, 0),

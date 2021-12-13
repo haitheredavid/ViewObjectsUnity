@@ -1,59 +1,57 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using ViewTo.StudyObject;
 
 namespace ViewTo.Connector.Unity
 {
-  public class ViewerBundleMono : ViewObjMono<ViewerBundle>
+  public class ViewerBundleMono : ViewObjMono, IViewerBundle
   {
 
     [SerializeField] private SoViewerBundle data;
-    [SerializeField] private List<ViewerLayoutMono> layouts = new List<ViewerLayoutMono>();
+    [SerializeField] [HideInInspector] public List<ViewCloudMono> linkedCloud;
+    [SerializeField] private List<ViewerLayoutMono> viewerLayouts = new List<ViewerLayoutMono>();
+
+    public List<IViewerLayout> layouts
+    {
+      get => viewerLayouts.Valid() ? viewerLayouts.Cast<IViewerLayout>().ToList() : new List<IViewerLayout>();
+      set
+      {
+        viewerLayouts = new List<ViewerLayoutMono>();
+
+        foreach (var item in value)
+        {
+          ViewerLayoutMono mono = null;
+          if (item is ViewerLayoutMono casted)
+          {
+            mono = casted;
+          }
+          else
+          {
+            mono = new GameObject().AddComponent<ViewerLayoutMono>();
+            mono.SetRef(item);
+          }
+
+          mono.transform.SetParent(transform);
+          viewerLayouts.Add(mono);
+        }
+
+      }
+    }
 
     public void Clear()
     {
-      MonoHelper.ClearList(layouts);
-      layouts = new List<ViewerLayoutMono>();
+      MonoHelper.ClearList(viewerLayouts);
+      viewerLayouts = new List<ViewerLayoutMono>();
     }
 
-    public void CreateViewers(Action<ViewerMono> onViewerCreate = null)
+    public void Build(Action<ViewerMono> onViewerCreate = null)
     {
       if (!layouts.Valid())
         return;
 
-      foreach (var l in layouts)
+      foreach (var l in viewerLayouts)
         l.Build(onViewerCreate);
     }
-
-    public void Init(SoViewerBundle input)
-    {
-      data = input;
-      gameObject.name = data.ViewObjName;
-      LayoutToScene();
-    }
-
-    protected override void ImportValidObj(ViewerBundle viewObj)
-    {
-      var input = ScriptableObject.CreateInstance<SoViewerBundle>();
-      input.SetRef(viewObj);
-      Init(input);
-    }
-
-    private void LayoutToScene()
-    {
-      if (!data.items.Valid()) return;
-
-      layouts = new List<ViewerLayoutMono>();
-
-      foreach (var item in data.items)
-      {
-        var mono = item.ToViewMono();
-        mono.transform.SetParent(transform);
-        layouts.Add(mono);
-      }
-
-    }
-
   }
 }

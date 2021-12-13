@@ -1,11 +1,9 @@
-﻿using ViewTo.ViewObject;
-
-namespace ViewTo.Objects.Mono.Args
+﻿namespace ViewTo.Objects.Mono.Args
 {
-  public class ViewerLayoutArgs : ViewObjArgs<ViewerLayout>
+  public class ViewerLayoutArgs : ViewObjArgs<IViewerLayout>
   {
 
-    public ViewerLayoutArgs(ViewerLayout @object) : base(@object)
+    public ViewerLayoutArgs(IViewerLayout @object) : base(@object)
     { }
   }
 }

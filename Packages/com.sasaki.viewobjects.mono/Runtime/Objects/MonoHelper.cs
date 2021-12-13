@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ViewTo.AnalysisObject;
-using ViewTo.StudyObject;
-using ViewTo.ViewObject;
 using Object = UnityEngine.Object;
 using Random = System.Random;
 
@@ -14,6 +12,10 @@ namespace ViewTo.Connector.Unity
 
   public static class MonoHelper
   {
+
+    public static readonly string RuntimeDir = "Packages/com.sasaki.viewobjects.mono/Runtime/";
+    public static readonly string GUIDir = RuntimeDir + "GUI/";
+    public static readonly string StylesPath = GUIDir + "Styles/";
     public static List<ViewColor> CreateBundledColors(this ICollection content)
     {
       var colorSet = new HashSet<ViewColor>();
@@ -29,14 +31,10 @@ namespace ViewTo.Connector.Unity
       return colorSet.ToList();
     }
 
-    public static readonly string RuntimeDir = "Packages/com.sasaki.viewobjects.mono/Runtime/";
-    public static readonly string GUIDir = RuntimeDir + "GUI/";
-    public static readonly string StylesPath = GUIDir + "Styles/";
-
     public static SoRigParam SoCreate(this IRigParam param, List<ViewColor> globalColors)
     {
       var so = ScriptableObject.CreateInstance<SoRigParam>();
-      
+
       so.viewers = new List<SoViewerBundle>();
       foreach (var b in param.bundles)
       {
@@ -55,7 +53,7 @@ namespace ViewTo.Connector.Unity
         so.isolate = false;
         so.contentColors = globalColors;
       }
-      
+
       return so;
     }
 
@@ -68,7 +66,6 @@ namespace ViewTo.Connector.Unity
     {
       foreach (var monoToCheck in Object.FindObjectsOfType<AMono>())
         if (monoToCheck.GetType().CheckForInterface<IGenerateID>())
-        {
           try
           {
 
@@ -83,14 +80,10 @@ namespace ViewTo.Connector.Unity
             Console.WriteLine(e);
             throw;
           }
-        }
       return null;
     }
 
-    public static AMono TryFetchInScene<AMono>(this IGenerateID idToFind) where AMono : ViewObjMono
-    {
-      return TryFetchInScene<AMono>(idToFind.viewID);
-    }
+    public static AMono TryFetchInScene<AMono>(this IGenerateID idToFind) where AMono : ViewObjMono => TryFetchInScene<AMono>(idToFind.viewID);
 
     public static ViewCloudMono TryFetchInScene(this CloudShell shell)
     {
@@ -100,7 +93,7 @@ namespace ViewTo.Connector.Unity
                                                                            && o.viewID.Equals(shell.objId));
     }
 
-    public static void CheckAndAdd<TObj>(this List<ViewContent> values, List<TObj> items) where TObj : ViewContent
+    public static void CheckAndAdd<TObj>(this List<IViewContent> values, List<IViewContent> items) where TObj : IViewContent
     {
       if (items.Valid())
         values.AddRange(items);
@@ -137,20 +130,14 @@ namespace ViewTo.Connector.Unity
       if (mr != null)
         mr.enabled = status;
 
-      foreach (Transform child in obj.transform)
-      {
-        child.gameObject.SetMeshVisibilityRecursive(status);
-      }
+      foreach (Transform child in obj.transform) child.gameObject.SetMeshVisibilityRecursive(status);
     }
 
     public static void SetLayerRecursively(this GameObject obj, int layer)
     {
       obj.layer = layer;
 
-      foreach (Transform child in obj.transform)
-      {
-        child.gameObject.SetLayerRecursively(layer);
-      }
+      foreach (Transform child in obj.transform) child.gameObject.SetLayerRecursively(layer);
     }
   }
 }
