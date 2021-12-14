@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using ViewTo;
-using ViewTo.AnalysisObject;
 using ViewTo.Connector.Unity;
-using ViewTo.StudyObject;
+using ViewTo.Objects.Mono.Extensions;
 using ViewTo.ViewObject;
 
 namespace ViewToUnity.Tests.Units
@@ -14,179 +13,110 @@ namespace ViewToUnity.Tests.Units
   public class ViewObjToMono_Test
   {
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_ViewCloud(bool isValid)
+    [Test]
+    public void To_ViewCloud()
     {
-      var pts = new CloudPoint[100];
-      for (var i = 0; i < pts.Length; i++)
-        pts[i] = new CloudPoint(TestMil.RV, TestMil.RV, TestMil.RV) { meta = "Floor1" };
-
-      var o = new ViewCloud
-        { points = isValid ? pts : null };
-
-      var mono = o.ToViewMono();
+      var mono = TestMil.CreateCloud(100);
       Assert.NotNull(mono);
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_ResultCloud(bool isValid)
+    [Test]
+    public void To_ResultCloud()
     {
-      var pts = new CloudPoint[100];
-      for (var i = 0; i < pts.Length; i++)
-        pts[i] = new CloudPoint(TestMil.RV, TestMil.RV, TestMil.RV) { meta = "Floor1" };
+      var mono = TestMil.CreateCloud(100, 6);
+      Assert.NotNull(mono);
+    }
 
-      var data = new List<IResultData>();
-      for (int i = 0; i < 6; i++) data.Add(new ContentResultData(TestMil.ResultValues(pts.Length), "Target", $"Item{i}", default));
+    [Test]
+    public void To_Study()
+    {
+      var mono = TestMil.Init<ViewStudyMono>();
+      mono.viewName = "ViewStudy";
 
-      var o = new ResultCloud()
+      mono.objs = new List<IViewObj>
       {
-        data = isValid ? data : null,
-        points = isValid ? pts : null
+        TestMil.CreateContentBundle(),
+        TestMil.CreateCloud(100),
+        TestMil.CreateViewerBundle(TestMil.CreateViewerLayouts<ViewerLayoutHorizontal>())
       };
 
-      var mono = o.ToViewMono();
       Assert.NotNull(mono);
-    }
-    
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_Study(bool isValid)
-    {
-      var o = isValid ? TestMil.Study : new ViewStudy();
-
-      var mono = o.ToViewMono();
-      Assert.NotNull(mono);
+      Assert.True(mono.gameObject.name.Equals(mono.viewName));
+      Assert.True(mono.objs.Valid());
+      Assert.True(mono.isValid);
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_ViewerBundle(bool isValid)
+    [Test]
+    public void To_ViewerBundle()
     {
+      var mono = TestMil.CreateViewerBundle(TestMil.CreateViewerLayouts<ViewerLayoutHorizontal>());
 
-      var o = isValid ? new ViewerBundle
-      {
-        layouts = new List<IViewerLayout>
-        {
-          new ViewerLayout(), new ViewerLayoutCube()
-        }
-      } : new ViewerBundle();
-
-      var mono = o.ToViewMono();
       Assert.NotNull(mono);
-
-      // if (isValid) Assert.False(mono.linked);
+      Assert.True(mono.layouts.Valid());
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_ViewerLinkedBundle(bool isValid)
+    [Test]
+    public void To_ViewerLinkedBundle()
     {
 
-      var o = isValid ? new ViewerBundleLinked
-      {
-        linkedClouds = new List<CloudShell>
-        {
-          TestMil.Shell(TestMil.Cloud(100))
-        },
-        layouts = new List<IViewerLayout>
-        {
-          new ViewerLayout(), new ViewerLayoutCube()
-        }
-      } : new ViewerBundle();
+      var clouds = new List<IViewCloud> { TestMil.CreateCloud(100), TestMil.CreateCloud(25) }
+        .Select(x => x.GetShell()).ToList();
 
-      var mono = o.ToViewMono();
+      var mono = TestMil.CreateViewerBundle(clouds, TestMil.CreateViewerLayouts<ViewerLayoutHorizontal>());
+
       Assert.NotNull(mono);
-
-      // if (isValid) Assert.True(mono.linked);
-
+      Assert.True(mono.layouts.Valid());
+      Assert.True(mono.linkedClouds.Valid());
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_ContentBundle(bool isValid)
+    [Test]
+    public void To_ContentBundle()
     {
-      var o = isValid ? new ContentBundle
-      {
-        targets = new List<TargetContent>
-        {
-          TestMil.TC(false),
-          TestMil.TC(true)
-        },
-        blockers = new List<BlockerContent>
-        {
-          new BlockerContent(), new BlockerContent()
-        },
-        designs = new List<DesignContent>
-        {
-          TestMil.DC(),
-          TestMil.DC()
-        }
-      } : new ContentBundle();
+      var mono = TestMil.CreateContentBundle();
 
-      var mono = o.ToViewMono();
       Assert.NotNull(mono);
-      //
-      // if (isValid)
-      //   Assert.True(mono.GetAll.Count() == o.targets.Count + o.blockers.Count + o.designs.Count);
+      Assert.True(mono.contents.Valid());
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_TargetContent(bool isValid)
+    [Test]
+    public void To_TargetContent()
     {
+      var mono = TestMil.CreateContent("globalTarget", TestMil.CreateViewerBundles(TestMil.CreateViewerLayouts<ViewerLayoutHorizontal>()), false);
 
-      var global = isValid ? new TargetContent
-      {
-        viewName = "TestName",
-        bundles = TestMil.ViewerBundle()
-      } : new TargetContent();
-
-      var iso = isValid ? new TargetContent
-      {
-        viewName = "TestName",
-        bundles = TestMil.ViewerBundle(TestMil.Cloud(100)),
-        isolate = true
-      } : new TargetContent();
-
-
-      var mono = global.ToViewMono();
       Assert.NotNull(mono);
-      //
-      // if (isValid)
-      //   Assert.True(mono.bundles.Count == global.bundles.Count);
-      //
-      //
-      // mono = iso.ToViewMono();
-      // Assert.NotNull(mono);
-      //
-      //
-      // if (isValid)
-      //   Assert.True(mono.bundles.Any(bundle => bundle is ViewerBundleLinked));
+      Assert.True(mono.viewName.Valid());
+      Assert.True(mono.bundles.Valid());
+      Assert.False(mono.objects.Valid());
 
+      Assert.False(mono.isolate);
+    }
+
+    [Test]
+    public void To_TargetContentIsolate()
+    {
+      var mono = TestMil.CreateContent("isolateTarget", TestMil.CreateViewerBundles(TestMil.CreateViewerLayouts<ViewerLayoutHorizontal>()), true);
+      Assert.NotNull(mono);
+      Assert.True(mono.viewName.Valid());
+      Assert.True(mono.bundles.Valid());
+      Assert.False(mono.objects.Valid());
+
+      Assert.True(mono.isolate);
     }
 
     [Test]
     public void To_BlockerContent()
     {
-      var o = new BlockerContent();
-      var mono = o.ToViewMono();
-
+      var mono = TestMil.CreateContent<BlockerContentMono>("test");
       Assert.NotNull(mono);
-
+      Assert.True(mono.viewName.Valid());
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
-    public void To_DesignContent(bool isValid)
+    [Test]
+    public void To_DesignContent()
     {
-      var o = new DesignContent
-        { viewName = isValid ? "TestName" : null };
-
-      var mono = o.ToViewMono();
+      var mono = TestMil.CreateContent<DesignContentMono>("test");
       Assert.NotNull(mono);
-
+      Assert.True(mono.viewName.Valid());
 
     }
   }

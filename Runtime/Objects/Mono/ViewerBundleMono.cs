@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace ViewTo.Connector.Unity
 {
+
   public class ViewerBundleMono : ViewObjMono, IViewerBundle
   {
 
     [SerializeField] private SoViewerBundle data;
-    [SerializeField] [HideInInspector] public List<ViewCloudMono> linkedCloud;
     [SerializeField] private List<ViewerLayoutMono> viewerLayouts = new List<ViewerLayoutMono>();
 
     public List<IViewerLayout> layouts

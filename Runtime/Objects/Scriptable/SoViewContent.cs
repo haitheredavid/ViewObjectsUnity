@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using ViewTo.Objects.Mono.Extensions;
 using ViewTo.ViewObject;
 using Object = UnityEngine.Object;
 
 namespace ViewTo.Connector.Unity
 {
 
-  public class SoViewContent : ScriptableObject, IToSource<ViewContent>
+  public class SoViewContent : ScriptableObject, IToSource<IViewContent>
   {
 
     public int mask;
     public string viewName;
     public List<Object> objects;
-    
+
     public Material analysisMaterial;
 
     public int colorId;
     public Color32 color;
 
+    public ClassTypeReference objType;
+
     public ViewColor viewColor
     {
-      get { return new ViewColor(color.r, color.g, color.b, color.a, colorId); }
+      get => new ViewColor(color.r, color.g, color.b, color.a, colorId);
       set
       {
-        if (value == null )
+        if (value == null)
           return;
 
         color = value.ToUnity();
@@ -37,21 +39,20 @@ namespace ViewTo.Connector.Unity
     {
       get => GetRef?.TypeName()[0] + "-" + viewName;
     }
-    
-    public ClassTypeReference objType;
-    public ViewContent GetRef
+
+    public IViewContent GetRef
     {
-      get => objType != null ? (ViewContent)Activator.CreateInstance(objType.Type) : null;
+      get => objType != null ? (IViewContent)Activator.CreateInstance(objType.Type) : null;
     }
 
-    public void SetRef(ViewContent obj)
+    public void SetRef(IViewContent obj)
     {
       analysisMaterial = new Material(Shader.Find(@"Unlit/Color"));
       objType = new ClassTypeReference(obj.GetType());
 
       viewName = obj.viewName;
       viewColor = obj.viewColor;
-      
+
       mask = obj switch
       {
         DesignContent _ => 6,

@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.StudyObject;
 using ViewTo.ViewObject;
 
 namespace ViewTo.Connector.Unity
 {
 
-  public class SoViewerBundle : ScriptableObject, IToSource<ViewerBundle>
+  public class SoViewerBundle : ScriptableObject, IToSource<IViewerBundle>
   {
     public List<SoViewerLayout> items;
     public List<ViewCloudMono> linkedCloud;
 
-    public string ViewObjName
-    {
-      get { return GetRef?.TypeName(); }
-    }
-
     [SerializeField] private ClassTypeReference objType;
 
-    public ViewerBundle GetRef
+    public string ViewObjName
     {
-      get => objType != null ? (ViewerBundle)Activator.CreateInstance(objType.Type) : null;
+      get => GetRef?.TypeName();
     }
 
-    public void SetRef(ViewerBundle obj)
+    public IViewerBundle GetRef
+    {
+      get => objType != null ? (IViewerBundle)Activator.CreateInstance(objType.Type) : null;
+    }
+
+    public void SetRef(IViewerBundle obj)
     {
       objType = new ClassTypeReference(obj.GetType());
       items = new List<SoViewerLayout>();

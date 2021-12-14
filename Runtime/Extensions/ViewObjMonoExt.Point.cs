@@ -4,7 +4,10 @@ namespace ViewTo.Objects.Mono.Extensions
 {
   public static partial class ViewObjMonoExt
   {
+    public static CloudShell GetShell(this IViewCloud obj) => new CloudShell(obj, obj.viewID, obj.count);
+
     public static Vector3[] GetPointsAsVectors(this IViewCloud obj) => obj.points.Valid() ? null : obj.points.ToUnity();
+
     public static CloudPoint[] ToView(Vector3[] value, string[] meta)
     {
       var items = new CloudPoint[value.Length];
@@ -14,8 +17,11 @@ namespace ViewTo.Objects.Mono.Extensions
 
       return items;
     }
+
     public static CloudPoint ToView(this Vector3 value) => new CloudPoint(value.x, value.z, value.y);
+
     public static CloudPoint ToView(this Vector3 value, string meta) => new CloudPoint(value.x, value.z, value.y) { meta = meta };
+
     public static Vector3[] ToUnity(this CloudPoint[] value, out string[] meta)
     {
       meta = null;
@@ -37,6 +43,7 @@ namespace ViewTo.Objects.Mono.Extensions
 
       return points;
     }
+
     /// <summary>
     ///   flips value
     /// </summary>

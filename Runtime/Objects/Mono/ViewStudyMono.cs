@@ -39,36 +39,9 @@ namespace ViewTo.Connector.Unity
         foreach (var obj in value)
           if (obj is ViewObjMono mono)
             loadedObjs.Add(mono);
+          else
+            Debug.Log(obj.TypeName() + "- is not valid for mono");
       }
     }
-
-    // public override void TryImport(IViewObj @object)
-    // {
-    //   if (@object is IViewStudy viewObj)
-    //   {
-    //     viewName = viewObj.viewName;
-    //     gameObject.name = viewName.Valid() ? viewName : viewObj.TypeName();
-    //
-    //     if (!viewObj.objs.Valid()) return;
-    //
-    //     loadedObjs = new List<ViewObjMono>();
-    //     foreach (var obj in viewObj.objs)
-    //     {
-    //       if (obj is ViewObj vo)
-    //       {
-    //         var mono = vo.ToViewMono();
-    //         if (mono == null)
-    //         {
-    //           Debug.Log($"did not convert {obj.TypeName()} to mono ");
-    //           continue;
-    //         }
-    //
-    //         mono.transform.SetParent(transform);
-    //         loadedObjs.Add(mono);
-    //       }
-    //
-    //     }
-    //   }
-    // }
   }
 }
