@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using ViewTo.ViewObject;
 
@@ -16,12 +15,6 @@ namespace ViewTo.Connector.Unity
       get => GetRef?.TypeName();
     }
 
-    public List<Viewer> viewers
-    {
-      get => GetRef?.viewers;
-    }
-
-
     public ViewerLayout GetRef
     {
       get => objType != null ? (ViewerLayout)Activator.CreateInstance(objType.Type) : null;
@@ -31,7 +24,6 @@ namespace ViewTo.Connector.Unity
     {
       objType = new ClassTypeReference(obj.GetType());
     }
-
   }
 
 }

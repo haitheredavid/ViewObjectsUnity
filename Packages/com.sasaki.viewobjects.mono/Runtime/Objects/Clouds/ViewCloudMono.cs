@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using ViewTo.Objects.Mono.Extensions;
 
@@ -10,6 +11,11 @@ namespace ViewTo.Connector.Unity
     [SerializeField] private string id;
 
     [SerializeField] private CloudPoint[] cloudPoints;
+
+    private void Awake()
+    {
+      id ??= Guid.NewGuid().ToString();
+    }
 
     public string viewID
     {
