@@ -1,3 +1,10 @@
+## [1.1.28](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.27...v1.1.28) (2021-12-14)
+
+
+### Bug Fixes
+
+* integrated new interface structure ([4edd659](https://github.com/haitheredavid/viewobjects-mono/commit/4edd659808ee358d1f7c97a6a752854d2a2bfd2b))
+
 ## [1.1.27](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.26...v1.1.27) (2021-11-11)
 
 
