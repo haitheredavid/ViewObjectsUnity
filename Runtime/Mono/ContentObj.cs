@@ -1,0 +1,30 @@
+﻿using UnityEngine;
+
+namespace ViewTo.Objects.Mono
+{
+  public class ContentObj : MonoBehaviour
+  {
+    [SerializeField] private Material mat;
+
+    public Color32 MatColor
+    {
+      set => mat.color = value;
+    }
+
+    public void SetParent(ViewContentMono parent, Material dataAnalysisMaterial)
+    {
+      mat = dataAnalysisMaterial;
+
+      var meshRend = gameObject.GetComponent<MeshRenderer>();
+      if (meshRend == null)
+        meshRend = gameObject.AddComponent<MeshRenderer>();
+
+      mat.color = parent.viewColor.ToUnity();
+      if (Application.isPlaying)
+        meshRend.material = mat;
+      else
+        meshRend.sharedMaterial = mat;
+
+    }
+  }
+}

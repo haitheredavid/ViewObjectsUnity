@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ViewToUnity.Tests
+namespace ViewTo.Objects.Mono.Tests
 {
   public static partial class TestMil
   {

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo;
-using ViewTo.Connector.Unity;
 using ViewTo.ViewObject;
 
-namespace ViewToUnity.Tests
+namespace ViewTo.Objects.Mono.Tests
 {
   public static partial class TestMil
   {
@@ -25,10 +23,10 @@ namespace ViewToUnity.Tests
       {
         CreateContent("Target1"),
         CreateContent("Target2", CreateViewerBundles(CreateViewerLayouts<ViewerLayoutHorizontal>()), true),
-        CreateContent<BlockerContentMono>("Blocker1"),
-        CreateContent<BlockerContentMono>("Blocker2"),
-        CreateContent<DesignContentMono>("Design1"),
-        CreateContent<DesignContentMono>("Design2")
+        CreateContent<ContentBlockerMono>("Blocker1"),
+        CreateContent<ContentBlockerMono>("Blocker2"),
+        CreateContent<ContentDesignMono>("Design1"),
+        CreateContent<ContentDesignMono>("Design2")
       };
 
       return mono;
@@ -36,14 +34,14 @@ namespace ViewToUnity.Tests
 
     public static ITargetContent CreateContent(string name)
     {
-      var obj = Init<TargetContentMono>();
+      var obj = Init<ContentTargetMono>();
       obj.viewName = name;
       return obj;
     }
 
     public static ITargetContent CreateContent(string name, List<IViewerBundle> bundles, bool isolate)
     {
-      var obj = Init<TargetContentMono>();
+      var obj = Init<ContentTargetMono>();
       obj.viewName = name;
       obj.bundles = bundles;
       obj.isolate = isolate;
