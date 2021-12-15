@@ -1,3 +1,10 @@
+## [1.1.29](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.28...v1.1.29) (2021-12-15)
+
+
+### Bug Fixes
+
+* removed package ([081ca85](https://github.com/haitheredavid/viewobjects-mono/commit/081ca852bac1b2cf358b3d1c032d856c2fdf2f85))
+
 ## [1.1.28](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.27...v1.1.28) (2021-12-14)
 
 
