@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "com.haithere.tools.uikits": {
-      "version": "1.1.0",
-      "depth": 0,
+      "version": "1.0.6",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.ui": "1.0.0-preview.17"
@@ -79,7 +79,7 @@
     },
     "com.unity.textcore": {
       "version": "1.0.0-preview.3",
-      "depth": 2,
+      "depth": 3,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -104,7 +104,7 @@
     },
     "com.unity.ui": {
       "version": "1.0.0-preview.17",
-      "depth": 1,
+      "depth": 2,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielementsnative": "1.0.0",
