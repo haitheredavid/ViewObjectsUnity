@@ -1,3 +1,10 @@
+## [1.1.30](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.29...v1.1.30) (2021-12-17)
+
+
+### Bug Fixes
+
+* adjusted connection to SoViewerLayout ([03f0a66](https://github.com/haitheredavid/viewobjects-mono/commit/03f0a66c3ae731a786fc44583ffd78a6db67f164))
+
 ## [1.1.29](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.28...v1.1.29) (2021-12-15)
 
 
