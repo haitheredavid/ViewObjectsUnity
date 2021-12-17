@@ -1,3 +1,10 @@
+## [1.1.32](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.31...v1.1.32) (2021-12-17)
+
+
+### Bug Fixes
+
+* removed ui toolkit package ([fc08173](https://github.com/haitheredavid/viewobjects-mono/commit/fc08173bae20e56d83edb07619adf7ef8349be28))
+
 ## [1.1.31](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.30...v1.1.31) (2021-12-17)
 
 
