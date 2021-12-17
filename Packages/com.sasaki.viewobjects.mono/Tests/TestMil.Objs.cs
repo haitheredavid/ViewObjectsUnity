@@ -112,7 +112,7 @@ namespace ViewTo.Objects.Mono.Tests
     public static IViewerLayout CreateViewerLayout<TLayout>() where TLayout : ViewerLayout
     {
       var obj = Init<ViewerLayoutMono>();
-      obj.SetRef(Instance<TLayout>());
+      obj.SetData(Instance<TLayout>());
       return obj;
     }
   }

@@ -28,7 +28,7 @@ namespace ViewTo.Objects.Mono
           else
           {
             mono = new GameObject().AddComponent<ViewerLayoutMono>();
-            mono.SetRef(item);
+            mono.SetData(item);
           }
 
           mono.transform.SetParent(transform);

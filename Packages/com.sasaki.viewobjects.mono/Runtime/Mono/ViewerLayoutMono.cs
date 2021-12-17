@@ -7,23 +7,28 @@ namespace ViewTo.Objects.Mono
 {
   public class ViewerLayoutMono : ViewObjMono, IViewerLayout
   {
-
     [SerializeField] private List<ViewerMono> sceneViewers;
 
     [SerializeField] private SoViewerLayout data;
 
-    [SerializeField] private ClassTypeReference objType;
-
-    public IViewerLayout GetRef
-    {
-      get => objType != null ? (ViewerLayout)Activator.CreateInstance(objType.Type) : null;
-    }
-
     public List<IViewer> viewers { get; private set; }
 
-    public void SetRef(IViewerLayout obj)
+    public void SetData(IViewerLayout obj)
     {
-      objType = new ClassTypeReference(obj.GetType());
+      Clear();
+      
+      data = ScriptableObject.CreateInstance<SoViewerLayout>();
+      data.SetRef(obj);
+
+      gameObject.name = data.GetName;
+    }
+
+    public void SetData(SoViewerLayout obj)
+    {
+      Clear();
+      
+      data = obj;
+      gameObject.name = data.GetName;
     }
 
     public void Clear()
@@ -32,13 +37,6 @@ namespace ViewTo.Objects.Mono
         ViewObjMonoExt.ClearList(sceneViewers);
 
       sceneViewers = new List<ViewerMono>();
-    }
-
-    public void Init(SoViewerLayout input)
-    {
-      Clear();
-      data = input;
-      gameObject.name = input.GetName;
     }
 
     public void Build(Action<ViewerMono> onBuildComplete = null)
