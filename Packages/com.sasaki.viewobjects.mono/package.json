@@ -16,7 +16,5 @@
   },
   "type": "library",
   "hideInEditor": false,
-  "dependencies": {
-    "com.haithere.tools.uikits": "1.0.6"
-  }
+  "dependencies": {}
 }
