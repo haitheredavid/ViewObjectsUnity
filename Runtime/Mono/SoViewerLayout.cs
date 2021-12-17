@@ -7,22 +7,28 @@ namespace ViewTo.Objects.Mono
 
   public class SoViewerLayout : ScriptableObject
   {
-
     [SerializeField] private ClassTypeReference objType;
 
+    public IViewerLayout GetRef
+    {
+      get => objType != null ? (IViewerLayout)Activator.CreateInstance(objType.Type) : null;
+    }
+    
+    public void SetRef(IViewerLayout obj)
+    {
+      objType = new ClassTypeReference(obj.GetType());
+    }
+    
     public string GetName
     {
       get => GetRef?.TypeName();
     }
 
-    public ViewerLayout GetRef
+    public ViewerLayoutMono ToViewMono()
     {
-      get => objType != null ? (ViewerLayout)Activator.CreateInstance(objType.Type) : null;
-    }
-
-    public void SetRef(ViewerLayout obj)
-    {
-      objType = new ClassTypeReference(obj.GetType());
+      var mono = new GameObject().AddComponent<ViewerLayoutMono>();
+      mono.SetData(this);
+      return mono;
     }
   }
 
