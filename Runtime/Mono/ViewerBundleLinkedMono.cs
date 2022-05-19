@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using ViewObjects;
+using ViewObjects.Cloud;
 
 namespace ViewTo.Objects.Mono
 {

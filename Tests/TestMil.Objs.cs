@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.ViewObject;
+using ViewObjects;
+using ViewObjects.Cloud;
+using ViewObjects.Content;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono.Tests
 {
@@ -48,7 +51,7 @@ namespace ViewTo.Objects.Mono.Tests
       return obj;
     }
 
-    public static IViewContent CreateContent<TContent>(string name) where TContent : ViewContentMono
+    public static IViewContent CreateContent<TContent>(string name) where TContent : ContentMono
     {
       var obj = Init<TContent>();
       obj.viewName = name;

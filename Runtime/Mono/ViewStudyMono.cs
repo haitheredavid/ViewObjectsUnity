@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using ViewObjects;
 
 namespace ViewTo.Objects.Mono
 {
@@ -38,9 +39,14 @@ namespace ViewTo.Objects.Mono
 
         foreach (var obj in value)
           if (obj is ViewObjMono mono)
+          {
+            mono.transform.SetParent(transform);
             loadedObjs.Add(mono);
+          }
           else
+          {
             Debug.Log(obj.TypeName() + "- is not valid for mono");
+          }
       }
     }
   }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewObjects;
 using Object = UnityEngine.Object;
 
 namespace ViewTo.Objects
@@ -13,7 +14,6 @@ namespace ViewTo.Objects
     {
       return objType.GetInterfaces().Any(x => x == typeof(IFace));
     }
-
     
     public static void CheckAndAdd<TObj>(this List<IViewContent> values, List<IViewContent> items) where TObj : IViewContent
     {
