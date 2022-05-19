@@ -1,5 +1,7 @@
-﻿namespace ViewTo.Objects.Mono
+﻿using ViewObjects;
+
+namespace ViewTo.Objects.Mono
 {
-  public class ContentBlockerMono : ViewContentMono, IBlockerContent
+  public class ContentBlockerMono : ContentMono, IBlockerContent
   { }
 }

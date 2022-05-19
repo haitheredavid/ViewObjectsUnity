@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using ViewTo.ViewObject;
+using ViewObjects;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono
 {
@@ -11,10 +12,10 @@ namespace ViewTo.Objects.Mono
 
     public IViewerLayout GetRef
     {
-      get => objType != null ? (IViewerLayout)Activator.CreateInstance(objType.Type) : null;
+      get => objType != null ? (ViewerLayout)Activator.CreateInstance(objType.Type) : null;
     }
     
-    public void SetRef(IViewerLayout obj)
+    public void SetRef(ViewerLayout obj)
     {
       objType = new ClassTypeReference(obj.GetType());
     }

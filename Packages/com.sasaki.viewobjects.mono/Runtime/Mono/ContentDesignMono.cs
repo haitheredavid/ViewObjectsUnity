@@ -1,6 +1,9 @@
-﻿namespace ViewTo.Objects.Mono
+﻿using ViewObjects;
+
+namespace ViewTo.Objects.Mono
 {
 
-  public class ContentDesignMono : ViewContentMono, IDesignContent
-  { }
+  public class ContentDesignMono : ContentMono, IDesignContent
+  {
+  }
 }

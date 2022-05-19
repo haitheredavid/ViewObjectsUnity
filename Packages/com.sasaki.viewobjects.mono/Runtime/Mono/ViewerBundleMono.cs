@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewObjects;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono
 {
 
   public class ViewerBundleMono : ViewObjMono, IViewerBundle
   {
-
     [SerializeField] private List<ViewerLayoutMono> viewerLayouts = new List<ViewerLayoutMono>();
 
     public List<IViewerLayout> layouts
@@ -25,10 +26,14 @@ namespace ViewTo.Objects.Mono
           {
             mono = casted;
           }
-          else
+          else if(item is ViewerLayout obj)
           {
             mono = new GameObject().AddComponent<ViewerLayoutMono>();
-            mono.SetData(item);
+            mono.SetData(obj);
+          }
+          else
+          {
+            Debug.Log($"{item} is not valid for ref");
           }
 
           mono.transform.SetParent(transform);

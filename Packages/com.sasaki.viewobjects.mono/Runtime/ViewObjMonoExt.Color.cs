@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewObjects;
 using Random = System.Random;
 
 namespace ViewTo.Objects
@@ -18,13 +19,13 @@ namespace ViewTo.Objects
       {
         var b = new byte[3];
         r.NextBytes(b);
-        var tempColor = new ViewColor(b[0], b[1], b[2], 255, colorSet.Count);
+        var tempColor = new ViewColor(b[0], b[1], b[2], 255);
         colorSet.Add(tempColor);
       }
       return colorSet.ToList();
     }
     
-    public static ViewColor ToView(this Color32 value, int index) => new ViewColor(value.r, value.g, value.b, value.a, index);
+    public static ViewColor ToView(this Color32 value, int index) => new ViewColor(value.r, value.g, value.b, value.a);
 
     public static Color32 ToUnity(this ViewColor value) => value != null ? new Color32(value.R, value.G, value.B, value.A) : default;
   }

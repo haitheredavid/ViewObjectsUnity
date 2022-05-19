@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
+using ViewObjects;
+using ViewObjects.Cloud;
 using ViewTo.Objects.Mono;
 using Object = UnityEngine.Object;
 
@@ -10,16 +13,13 @@ namespace ViewTo.Objects
 
     public static int GetCount(this IViewCloud obj) => obj.points.Valid() ? obj.points.Length : 0;
 
-    public static string FullName(this ViewContentMono obj) => obj.GetRef?.TypeName()[0] + "-" + obj.viewName;
-    
     public static AMono TryFetchInScene<AMono>(string idToFind) where AMono : ViewObjMono
     {
       foreach (var monoToCheck in Object.FindObjectsOfType<AMono>())
-        if (monoToCheck.GetType().CheckForInterface<IGenerateID>())
+        if (monoToCheck.GetType().CheckForInterface<IId>())
           try
           {
-
-            if (monoToCheck is IGenerateID valueToCheck
+            if (monoToCheck is IId valueToCheck
                 && valueToCheck.viewID.Valid()
                 && valueToCheck.viewID.Equals(idToFind))
               return monoToCheck;
@@ -33,7 +33,7 @@ namespace ViewTo.Objects
       return null;
     }
 
-    public static AMono TryFetchInScene<AMono>(this IGenerateID idToFind) where AMono : ViewObjMono
+    public static AMono TryFetchInScene<AMono>(this IId idToFind) where AMono : ViewObjMono
     {
       return TryFetchInScene<AMono>(idToFind.viewID);
     }
@@ -46,7 +46,25 @@ namespace ViewTo.Objects
                                                                            && o.viewID.Equals(shell.objId));
     }
 
-    
-    
+    public static void ApplyAll(this GameObject obj, Material mat)
+    {
+      foreach (Transform child in obj.transform)
+      {
+        var cm = child.gameObject.GetComponent<MeshRenderer>();
+        if (cm != null)
+        {
+          if (mat != null)
+          {
+            if (Application.isPlaying)
+              cm.material = mat;
+            else
+              cm.sharedMaterial = mat;
+          }
+        }
+        if (child.childCount > 0)
+          ApplyAll(child.gameObject, mat);
+      }
+    }
+
   }
 }

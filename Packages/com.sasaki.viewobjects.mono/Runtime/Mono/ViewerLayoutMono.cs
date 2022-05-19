@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using ViewTo.ViewObject;
+using ViewObjects;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono
 {
@@ -11,12 +12,30 @@ namespace ViewTo.Objects.Mono
 
     [SerializeField] private SoViewerLayout data;
 
-    public List<IViewer> viewers { get; private set; }
+    public List<IViewer> viewers
+    {
+      get
+      {
+        var res = new List<IViewer>();
+        if (data != null)
+        {
+          var layout = data.GetRef;
+          if (layout != default)
+          {
+            foreach (var viewer in layout.viewers)
+            {
+              res.Add(viewer);
+            }
+          }
+        }
+        return res;
+      }
+    }
 
-    public void SetData(IViewerLayout obj)
+    public void SetData(ViewerLayout obj)
     {
       Clear();
-      
+
       data = ScriptableObject.CreateInstance<SoViewerLayout>();
       data.SetRef(obj);
 
@@ -26,7 +45,7 @@ namespace ViewTo.Objects.Mono
     public void SetData(SoViewerLayout obj)
     {
       Clear();
-      
+
       data = obj;
       gameObject.name = data.GetName;
     }
@@ -41,17 +60,22 @@ namespace ViewTo.Objects.Mono
 
     public void Build(Action<ViewerMono> onBuildComplete = null)
     {
+      Debug.Log($"Build Process called for {name}");
+      
       if (data == null)
+      {
+        Debug.LogWarning($"{name} does not have valid viewer layout data to build");
         return;
+      }
 
       Clear();
 
       var prefab = new GameObject().AddComponent<ViewerMono>();
-      foreach (var v in sceneViewers)
+      foreach (var v in viewers)
       {
         var mono = Instantiate(prefab, transform);
         mono.Setup(v);
-        viewers.Add(mono);
+        sceneViewers.Add(mono);
 
         onBuildComplete?.Invoke(mono);
       }

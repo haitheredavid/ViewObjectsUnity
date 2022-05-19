@@ -1,4 +1,6 @@
 using UnityEngine;
+using ViewObjects;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono
 {

@@ -4,26 +4,38 @@ namespace ViewTo.Objects.Mono
 {
   public class ContentObj : MonoBehaviour
   {
-    [SerializeField] private Material mat;
+    private static int DiffuseColor => Shader.PropertyToID("_diffuseColor");
 
-    public Color32 MatColor
+    public Color32 SetColor
     {
-      set => mat.color = value;
+      set
+      {
+        var meshRend = gameObject.GetComponent<MeshRenderer>();
+        if (meshRend != null)
+        {
+          if (Application.isPlaying)
+            meshRend.material.SetColor(DiffuseColor, value);
+          else
+            meshRend.sharedMaterial.SetColor(DiffuseColor, value);
+        }
+
+
+      }
     }
 
-    public void SetParent(ViewContentMono parent, Material dataAnalysisMaterial)
+    public Material SetMat
     {
-      mat = dataAnalysisMaterial;
+      set
+      {
+        var meshRend = gameObject.GetComponent<MeshRenderer>();
+        if (meshRend == null)
+          meshRend = gameObject.AddComponent<MeshRenderer>();
 
-      var meshRend = gameObject.GetComponent<MeshRenderer>();
-      if (meshRend == null)
-        meshRend = gameObject.AddComponent<MeshRenderer>();
-
-      mat.color = parent.viewColor.ToUnity();
-      if (Application.isPlaying)
-        meshRend.material = mat;
-      else
-        meshRend.sharedMaterial = mat;
+        if (Application.isPlaying)
+          meshRend.material = value;
+        else
+          meshRend.sharedMaterial = value;
+      }
 
     }
   }

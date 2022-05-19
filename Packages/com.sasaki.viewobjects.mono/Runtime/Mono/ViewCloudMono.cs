@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using ViewObjects;
 
 namespace ViewTo.Objects.Mono
 {
@@ -19,6 +20,7 @@ namespace ViewTo.Objects.Mono
     public string viewID
     {
       get => id;
+      set => id = value;
     }
 
     public CloudPoint[] points

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using ViewTo.ViewObject;
+using ViewObjects;
+using ViewObjects.Viewer;
 
 namespace ViewTo.Objects.Mono.Tests
 {

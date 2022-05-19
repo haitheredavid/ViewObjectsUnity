@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
+using ViewObjects;
+using ViewObjects.Cloud;
 
 namespace ViewTo.Objects
 {
@@ -6,7 +9,7 @@ namespace ViewTo.Objects
   {
     public static CloudShell GetShell(this IViewCloud obj) => new CloudShell(obj, obj.viewID, obj.count);
 
-    public static Vector3[] GetPointsAsVectors(this IViewCloud obj) => obj.points.Valid() ? null : obj.points.ToUnity();
+    public static Vector3[] GetPointsAsVectors(this IViewCloud obj) => obj.points.Valid() ? obj.points.ToUnity() : null;
 
     public static CloudPoint[] ToView(Vector3[] value, string[] meta)
     {
@@ -35,6 +38,7 @@ namespace ViewTo.Objects
 
       return points;
     }
+
     public static Vector3[] ToUnity(this CloudPoint[] value)
     {
       var points = new Vector3[value.Length];
@@ -42,6 +46,54 @@ namespace ViewTo.Objects
         points[i] = value[i].ToUnity();
 
       return points;
+    }
+
+    public static Vector3 GetCenter(this Vector3[] points)
+    {
+      if (!points.Valid())
+        return Vector3.zero;
+
+      return new Vector3(
+        points.Average(x => x.x),
+        points.Average(x => x.y),
+        points.Average(x => x.z)
+      );
+    }
+
+    public static Bounds GetBounds(this IViewCloud cloud)
+    {
+      // rest center 
+      Bounds bounds = default;
+      var v3 = cloud.points.ToUnity();
+
+      if (v3.Valid())
+      {
+        bounds = new Bounds(v3.GetCenter(), Vector3.zero);
+
+        foreach (var point in v3)
+          bounds.Encapsulate(point);
+      }
+
+      return bounds;
+    }
+
+    public static Bounds GetBounds(this IViewCloud cloud, Vector3 center)
+    {
+      // rest center 
+      Bounds bounds = default;
+      var v3 = cloud.points.ToUnity();
+
+      if (v3.Valid())
+      {
+        bounds = new Bounds(center, Vector3.zero);
+
+        foreach (var point in v3)
+          bounds.Encapsulate(point);
+
+      }
+
+      return bounds;
+
     }
 
     /// <summary>
