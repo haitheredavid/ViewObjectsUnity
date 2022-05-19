@@ -1,3 +1,10 @@
+## [1.1.33](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.32...v1.1.33) (2022-05-19)
+
+
+### Bug Fixes
+
+* refactored for updated view object lib ([848bb37](https://github.com/haitheredavid/viewobjects-mono/commit/848bb3724c2ea8d9c9ec2bdad6a2f9c278aa0bd3))
+
 ## [1.1.32](https://github.com/haitheredavid/viewobjects-mono/compare/v1.1.31...v1.1.32) (2021-12-17)
 
 
