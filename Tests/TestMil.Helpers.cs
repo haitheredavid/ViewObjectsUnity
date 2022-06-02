@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ViewTo.Objects.Mono.Tests
-{
+
   public static partial class TestMil
   {
 
@@ -40,4 +39,3 @@ namespace ViewTo.Objects.Mono.Tests
       return values;
     }
   }
-}

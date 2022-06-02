@@ -3,11 +3,10 @@ using System.Linq;
 using NUnit.Framework;
 using ViewObjects;
 using ViewObjects.Viewer;
+using ViewTo.Objects;
+using ViewTo.Objects.Mono;
 
-namespace ViewTo.Objects.Mono.Tests
-{
-
-  [TestFixture]
+[TestFixture]
   public class ViewObjMonoTest
   {
 
@@ -121,5 +120,4 @@ namespace ViewTo.Objects.Mono.Tests
 
     }
   }
-
-}
+  

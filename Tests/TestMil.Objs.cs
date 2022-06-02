@@ -5,10 +5,9 @@ using ViewObjects;
 using ViewObjects.Cloud;
 using ViewObjects.Content;
 using ViewObjects.Viewer;
+using ViewTo.Objects.Mono;
 
-namespace ViewTo.Objects.Mono.Tests
-{
-  public static partial class TestMil
+public static partial class TestMil
   {
     public static TObj Init<TObj>() where TObj : ViewObjMono => new GameObject().AddComponent<TObj>();
 
@@ -119,4 +118,3 @@ namespace ViewTo.Objects.Mono.Tests
       return obj;
     }
   }
-}
