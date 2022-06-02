@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/haitheredavid/ViewObjectsUnity/compare/v1.2.0...v1.2.1) (2022-06-02)
+
+
+### Bug Fixes
+
+* pushing version ([769c3e2](https://github.com/haitheredavid/ViewObjectsUnity/commit/769c3e20a2b63f39fa02578b3985beb7a4b768f7))
+
 # [1.2.0](https://github.com/haitheredavid/ViewObjectsUnity/compare/v1.1.34...v1.2.0) (2022-06-02)
 
 
