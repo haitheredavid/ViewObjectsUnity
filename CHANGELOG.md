@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/haitheredavid/ViewObjectsUnity/compare/v1.1.34...v1.2.0) (2022-06-02)
+
+
+### Features
+
+* bumped version ([5a71e82](https://github.com/haitheredavid/ViewObjectsUnity/commit/5a71e824edc21340d1b8aaafcf0ab262485c925a))
+
 ## [1.1.34](https://github.com/haitheredavid/ViewObjectsUnity/compare/v1.1.33...v1.1.34) (2022-06-02)
 
 
