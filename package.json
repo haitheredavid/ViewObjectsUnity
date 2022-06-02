@@ -1,9 +1,9 @@
 {
   "name": "com.sasaki.viewobjects.mono",
   "version": "1.2.0",
-  "displayName": "viewobj-mono",
+  "displayName": "ViewObjects",
   "description": "ViewObjects for Unity",
-  "unity": "2021.1",
+  "unity": "2020.1",
   "keywords": [
     "Analysis",
     "Design",
