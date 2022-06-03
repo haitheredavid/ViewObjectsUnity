@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ViewTo.Objects.Mono
+namespace ViewObjects.Unity
 {
 	public abstract class ViewObjMono : MonoBehaviour
 	{ }

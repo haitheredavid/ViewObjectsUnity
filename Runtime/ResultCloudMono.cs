@@ -1,34 +1,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using ViewObjects;
 using ViewObjects.Content;
 
-namespace ViewTo.Objects.Mono
+namespace ViewObjects.Unity
 {
 
 	[ExecuteAlways]
 	public class ResultCloudMono : ViewObjMono, IResultCloud
 	{
 
-		[SerializeField] private CloudPoint[] cloudPoints;
+		[SerializeField] CloudPoint[] cloudPoints;
 
-		[SerializeField] private string id;
+		[SerializeField] string id;
 
-		[SerializeField, HideInInspector]
-		private List<string> targetOptions;
+		[SerializeField] [HideInInspector]
+		List<string> targetOptions;
 
-		[SerializeField, HideInInspector]
-		private Vector3[] pointsV3;
+		[SerializeField] [HideInInspector]
+		Vector3[] pointsV3;
 
-		[SerializeField, HideInInspector]
-		private List<ContentResultData> cloudData;
+		[SerializeField] [HideInInspector]
+		List<ContentResultData> cloudData;
 
-		[SerializeField, HideInInspector]
-		private int point;
+		[SerializeField] [HideInInspector]
+		int point;
 
 		/// <summary>
-		/// returns the current game object position
+		///   returns the current game object position
 		/// </summary>
 		public Vector3 center
 		{
@@ -62,6 +61,16 @@ namespace ViewTo.Objects.Mono
 				return null;
 			}
 		}
+
+		public List<string> targets
+		{
+			get => targetOptions.Valid() ? targetOptions : new List<string>();
+		}
+
+		void Awake()
+		{
+			gameObject.SetLayerRecursively(ViewMonoExt.CloudLayer);
+		}
 		public CloudPoint[] points
 		{
 			get => cloudPoints;
@@ -82,11 +91,6 @@ namespace ViewTo.Objects.Mono
 		{
 			get => id;
 			set => id = value;
-		}
-
-		public List<string> targets
-		{
-			get => targetOptions.Valid() ? targetOptions : new List<string>();
 		}
 
 		public List<IResultData> data
@@ -114,12 +118,6 @@ namespace ViewTo.Objects.Mono
 			cloudData ??= new List<ContentResultData>();
 			cloudData.Add(new ContentResultData(value.values, value.stage, value.content, value.color, value.meta, value.layout));
 		}
-
-		private void Awake()
-		{
-			gameObject.SetLayerRecursively(ViewMonoExt.CloudLayer);
-		}
-
 	}
 
 }

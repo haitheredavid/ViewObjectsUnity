@@ -1,28 +1,27 @@
 {
-    "name": "Sasaki.ViewTo.Objects.Test",
-    "rootNamespace": "ViewTo.Connector.Unity",
-    "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "Sasaki.ViewTo.Objects"
-    ],
-    "includePlatforms": [
-        "Editor",
-        "WindowsStandalone32",
-        "WindowsStandalone64"
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "nunit.framework.dll",
-        "ViewObjects.dll",
-        "ViewObjects.Structure.dll"
-    ],
-    "autoReferenced": false,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Sasaki.ViewTo.Objects.Test",
+  "rootNamespace": "ViewTo.Connector.Unity",
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "Sasaki.ViewTo.Objects"
+  ],
+  "includePlatforms": [
+    "Editor",
+    "WindowsStandalone32",
+    "WindowsStandalone64"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "ViewObjects.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
